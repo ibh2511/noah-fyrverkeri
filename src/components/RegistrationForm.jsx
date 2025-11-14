@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 // Tilpass denne til der du har lagt CSS-en fra juletreff:
-import "../App.css"
+// import "../App.css"
 
 // Lokale utility funksjoner
 function setupFloatingLabels() {
