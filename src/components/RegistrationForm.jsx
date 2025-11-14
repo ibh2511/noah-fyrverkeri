@@ -2,10 +2,66 @@ import { useEffect, useRef, useState } from "react"
 // Tilpass denne til der du har lagt CSS-en fra juletreff:
 import "../App.css"
 
-// Tilpass stiene til hvor du har lagt disse filene i noah-fyrverkeri/src
-import { setupFloatingLabels } from "../labelFloat"
-import { setupFaqAccordion } from "../faqAccordion"
-import { setupVisitorTracking } from "../visitorTracking"
+// Lokale utility funksjoner
+function setupFloatingLabels() {
+  const FIELDS = ".form-group input, .form-group textarea"
+
+  function toggleHasContent(field) {
+    if (field.value.trim()) field.classList.add("has-content")
+    else field.classList.remove("has-content")
+  }
+
+  const fields = Array.from(document.querySelectorAll(FIELDS))
+  const cleanups = fields.map((field) => {
+    const handler = () => toggleHasContent(field)
+    handler() // initial sync
+    field.addEventListener("input", handler)
+    field.addEventListener("blur", handler)
+    return () => {
+      field.removeEventListener("input", handler)
+      field.removeEventListener("blur", handler)
+    }
+  })
+  return () => cleanups.forEach((off) => off())
+}
+
+function setupFaqAccordion() {
+  const allDetails = document.querySelectorAll(".faq-section details")
+  const cleanups = []
+
+  allDetails.forEach((details) => {
+    const summary = details.querySelector("summary")
+    if (!summary) return
+
+    const handler = (event) => {
+      event.preventDefault()
+
+      if (details.open) {
+        details.open = false
+        return
+      }
+
+      allDetails.forEach((otherDetails) => {
+        if (otherDetails !== details && otherDetails.open) {
+          otherDetails.open = false
+        }
+      })
+
+      details.open = true
+    }
+
+    summary.addEventListener("click", handler)
+    cleanups.push(() => summary.removeEventListener("click", handler))
+  })
+
+  return () => cleanups.forEach((off) => off())
+}
+
+function setupVisitorTracking() {
+  // Simplified version - no backend tracking for now
+  console.log("📊 Visitor tracking setup (simplified)")
+  return { isFirstVisit: false, visitCount: 1, visitorId: "local-visitor" }
+}
 
 //const GAS_URL =
 const IMAGES = ["images/kumi.jpeg", "images/munch.jpg"]
