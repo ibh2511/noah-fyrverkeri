@@ -1,3 +1,5 @@
+import RegistrationForm from "../components/RegistrationForm"
+
 export default function RegisterPage() {
   return (
     <main>
@@ -5,6 +7,7 @@ export default function RegisterPage() {
       <p>
         Her skal React-skjemaet ditt inn (Google Sheets + Apps Script + mail).
       </p>
+      <RegistrationForm />
     </main>
   )
 }
