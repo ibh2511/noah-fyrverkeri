@@ -121,14 +121,14 @@ button.button:active {
 
 a.button.btn-accent,
 button.button.btn-accent {
-  background: rgba(213, 17, 48, 0.12);
-  border-color: rgba(213, 17, 48, 0.5);
+  background: rgba(213, 17, 48, 0.15);
+  border-color: rgba(213, 17, 48, 0.6);
 }
 
 a.button.btn-accent:hover,
 button.button.btn-accent:hover {
-  background: rgba(213, 17, 48, 0.18);
-  border-color: rgba(213, 17, 48, 0.65);
+  background: rgba(213, 17, 48, 0.22);
+  border-color: rgba(213, 17, 48, 0.75);
 }
 
 .btn-icon {
