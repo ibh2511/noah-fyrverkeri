@@ -296,7 +296,7 @@ h1.brand {
   color: var(--accent);
   font-weight: 800;
   letter-spacing: 0.4px;
-  -webkit-text-stroke: 1px rgba(128, 128, 128, 0.4);
+  -webkit-text-stroke: 1px rgba(128, 128, 128, 0.2);
 }
 
 @media (min-width: 860px) {
@@ -330,7 +330,7 @@ h1.brand {
 }
 
 @media (max-width: 768px) {
-  .hero .brand {
+  .hero > h1 {
     display: none;
   }
 
