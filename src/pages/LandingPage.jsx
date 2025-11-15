@@ -43,7 +43,7 @@ export default function LandingPage() {
     const mailA = document.getElementById("mailLink")
     if (mailA) {
       const subj = encodeURIComponent(
-        "Oppfordring om å slutte med salg av fyrverkeri!"
+        "🎆 Oppfordring om å slutte med salg av fyrverkeri!"
       )
       const bcc = "isabelle.haugan@gmail.com,postkasse2511@gmail.com"
       mailA.setAttribute("href", `mailto:?bcc=${bcc}&subject=${subj}`)
@@ -54,10 +54,11 @@ export default function LandingPage() {
     if (pOrig) pOrig.hidden = true
     if (pIab) pIab.hidden = false
 
-    const MAIL_BODY = `Hei! 🐾
-Jeg tar kontakt fordi dere selger fyrverkeri, og ønsker å oppfordre dere til å slutte med dette.
+    const MAIL_BODY = `Hei!
 
-Hvert år forårsaker fyrverkeri panikk og skader hos både dyr og mennesker, og det har store, negative konsekvenser for natur og miljø. For noen gir det et kort øyeblikk av glede, men for mange andre skaper det frykt, lidelse og skade. Flertallet av nordmenn ønsker å forby privat oppskytning av fyrverkeri. Nå har dere muligheten til å lytte til folket og ta et tydelig, etisk standpunkt for dyrene, menneskene og miljøet ved å slutte med salg av fyrverkeri. 🐕
+🐾 Jeg tar kontakt fordi dere selger fyrverkeri, og ønsker å oppfordre dere til å slutte med dette. 🐶
+
+Hvert år forårsaker fyrverkeri panikk og skader hos både dyr og mennesker, og det har store, negative konsekvenser for natur og miljø. For noen gir det et kort øyeblikk av glede, men for mange andre skaper det frykt, lidelse og skade. Flertallet av nordmenn ønsker å forby privat oppskytning av fyrverkeri. Nå har dere muligheten til å lytte til folket og ta et tydelig, etisk standpunkt for dyrene, menneskene og miljøet ved å slutte med salg av fyrverkeri.
 
 La nyttårsaften bli en tryggere, renere og inkluderende feiring for alle. Dere kan gjøre en viktig forskjell!
 
@@ -155,11 +156,12 @@ Med vennlig hilsen
               className="button"
               id="mailLink"
               href={`mailto:?bcc=isabelle.haugan@gmail.com,postkasse2511@gmail.com&subject=${encodeURIComponent(
-                "Oppfordring om å slutte med salg av fyrverkeri!"
-              )}&body=${encodeURIComponent(`Hei! 🐾
-Jeg tar kontakt fordi dere selger fyrverkeri, og ønsker å oppfordre dere til å slutte med dette.
+                "🎆 Oppfordring om å slutte med salg av fyrverkeri!"
+              )}&body=${encodeURIComponent(`Hei!
 
-Hvert år forårsaker fyrverkeri panikk og skader hos både dyr og mennesker, og det har store, negative konsekvenser for natur og miljø. For noen gir det et kort øyeblikk av glede, men for mange andre skaper det frykt, lidelse og skade. Flertallet av nordmenn ønsker å forby privat oppskytning av fyrverkeri. Nå har dere muligheten til å lytte til folket og ta et tydelig, etisk standpunkt for dyrene, menneskene og miljøet ved å slutte med salg av fyrverkeri. 🐕
+🐾 Jeg tar kontakt fordi dere selger fyrverkeri, og ønsker å oppfordre dere til å slutte med dette. 🐶
+
+Hvert år forårsaker fyrverkeri panikk og skader hos både dyr og mennesker, og det har store, negative konsekvenser for natur og miljø. For noen gir det et kort øyeblikk av glede, men for mange andre skaper det frykt, lidelse og skade. Flertallet av nordmenn ønsker å forby privat oppskytning av fyrverkeri. Nå har dere muligheten til å lytte til folket og ta et tydelig, etisk standpunkt for dyrene, menneskene og miljøet ved å slutte med salg av fyrverkeri.
 
 La nyttårsaften bli en tryggere, renere og inkluderende feiring for alle. Dere kan gjøre en viktig forskjell!
 
