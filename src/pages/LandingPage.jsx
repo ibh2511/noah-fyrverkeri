@@ -130,22 +130,9 @@ export default function LandingPage() {
             >
               QR-koden peker til denne siden.
             </a>
-            <p className="hint">
-              Sett som bakgrunnsbilde og spre kampanjen videre
-            </p>
+            <p className="hint">QR-koden peker til denne siden.</p>
           </div>
         </div>
-
-        <p className="hint inline-email">
-          Kontaktpunkt:{" "}
-          <button
-            type="button"
-            className="copy-inline"
-            onClick={handleCopyEmail}
-          >
-            {copied ? "Kopiert!" : CONTACT_EMAIL}
-          </button>
-        </p>
       </main>
     </>
   )
