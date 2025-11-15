@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap");
 
 :root {
-  --bg: #01a0c6;
+  --bg: #006941;
   --fg: #fff;
-  --accent: #f4d31f;
+  --accent: #d51130;
   --btn-bg: rgba(255, 255, 255, 0.08);
   --btn-bg-hover: rgba(255, 255, 255, 0.14);
   --btn-border: rgba(255, 255, 255, 0.35);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
-  --footer-bg: rgba(255, 255, 255, 0.35);
+  --footer-bg: #006941;
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -112,19 +112,19 @@ button.button:active {
 .email-btn {
   border-color: var(--btn-border-strong);
   position: relative;
-  box-shadow: 0 0 0 0 rgba(244, 211, 31, 0.55);
+  box-shadow: 0 0 0 0 rgba(213, 17, 48, 0.55);
   animation: borderPulse 1.8s ease-in-out infinite;
 }
 
 @keyframes borderPulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(244, 211, 31, 0.55);
+    box-shadow: 0 0 0 0 rgba(213, 17, 48, 0.55);
   }
   60% {
-    box-shadow: 0 0 0 10px rgba(244, 211, 31, 0);
+    box-shadow: 0 0 0 10px rgba(213, 17, 48, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(244, 211, 31, 0);
+    box-shadow: 0 0 0 0 rgba(213, 17, 48, 0);
   }
 }
 
@@ -238,7 +238,8 @@ h1.brand {
 }
 
 .hero .brand {
-  color: #f4d31f;
+  color: var(--accent);
+  display: inline-block;
 }
 
 .hero {
@@ -274,7 +275,7 @@ h1.brand {
 }
 
 .lead .brand {
-  color: #f4d31f;
+  color: var(--accent);
   font-weight: 800;
   letter-spacing: 0.4px;
 }
@@ -362,7 +363,8 @@ h1.brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 8px 10px;
 }
 
