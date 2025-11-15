@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "postbuild": "cp dist/index.html dist/404.html 2>/dev/null || :; touch dist/.nojekyll",
+    "postbuild": "cp public/404.html dist/404.html 2>/dev/null || :; touch dist/.nojekyll",
     "deploy": "npm run build && npx gh-pages -d dist -b gh-pages"
   },
   "dependencies": {

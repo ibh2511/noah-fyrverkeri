@@ -64,7 +64,10 @@ function setupVisitorTracking() {
 const GAS_URL =
   "https://script.google.com/macros/s/AKfycbz_iaoLpREXQjDHt4r0CJnyrzm-i15xU6hfKb1NM8u-v4Gd5tFdWB74rCGl1KuhfzVY/exec"
 
-const IMAGES = ["images/fyrverkeri-noah.jpg"] // bytt til noe du vil
+const IMAGES = [
+  "https://images.unsplash.com/photo-1549068106-b024baf5062d?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80",
+]
 
 // Lokale konstanter for lodd
 const LOTTERY_ACTIONS = [
@@ -264,7 +267,7 @@ export default function RegistrationForm() {
   }
 
   return (
-    <div className="page">
+    <div className="register-page">
       <div className="container">
         {/* Bilde/hero */}
         <div className="booking-image">
@@ -439,6 +442,49 @@ export default function RegistrationForm() {
             </div>
           )}
         </div>
+
+        <div className="map-container" aria-label="Aktive byer kart">
+          <iframe
+            title="NOAH fyrverkerikart"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=4.3%2C58%2C31.5%2C71.5&layer=mapnik"
+            loading="lazy"
+          />
+        </div>
+
+        <section className="faq-section" aria-label="Ofte stilte spørsmål">
+          <details open>
+            <summary>
+              Hvem kan registrere innsats?
+              <span className="icon" aria-hidden="true"></span>
+            </summary>
+            <div className="faq-body">
+              Alle frivillige som kontakter Europris på vegne av NOAH kan logge
+              handlingene sine. Vi bruker innsendingene til å vise hvor trykket
+              er størst og hvor vi trenger flere.
+            </div>
+          </details>
+          <details>
+            <summary>
+              Hvordan teller lodd?
+              <span className="icon" aria-hidden="true"></span>
+            </summary>
+            <div className="faq-body">
+              Hver handling gir mellom ett og tre lodd. Vi trekker ukentlig og
+              kontakter vinnerne på e-post. Du kan levere skjema én gang per uke
+              per frivillig.
+            </div>
+          </details>
+          <details>
+            <summary>
+              Hvor sendes dataen?
+              <span className="icon" aria-hidden="true"></span>
+            </summary>
+            <div className="faq-body">
+              Skjemaet går til Google Sheets via Apps Script. Data deles kun med
+              kampanjeteamet og brukes til statistikk og premiering.
+            </div>
+          </details>
+        </section>
       </div>
 
       <div className="robot-footer" aria-hidden="true">
