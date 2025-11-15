@@ -59,31 +59,33 @@ export default function LandingPage() {
               fyrverkeri – og vi er veldig takknemlige for at du vil være med i
               kampanjen.
             </p>
-            <p>
+            <p className="lead-italic">
               Kampanjen varer ut november. Hver uke trekker vi én vinner som får
               velge en valgfri premie i NOAH-nettbutikken (unntatt hvalgenseren
               og ulvegenseren). Jo mer du gjør, jo flere lodd får du – og jo
               større sjanse har du til å vinne.
             </p>
-            <p>
-              <strong>Slik får du lodd:</strong>
-            </p>
-            <ul>
-              <li>Sender du e-post til alle Europris-butikkene: 1 lodd</li>
-              <li>
-                For meldinger til Europris-butikker på Facebook/Instagram:
+            <details className="lottery-details">
+              <summary>Slik får du lodd:</summary>
+              <div className="lottery-content">
                 <ul>
-                  <li>5 meldinger til 5 forskjellige butikker: 1 lodd</li>
-                  <li>10 meldinger til 10 forskjellige butikker: 2 lodd</li>
-                  <li>15 meldinger til 15 forskjellige butikker: 3 lodd</li>
-                  <li>osv.</li>
+                  <li>Sender du e-post til alle Europris-butikkene: 1 lodd</li>
+                  <li>
+                    For meldinger til Europris-butikker på Facebook/Instagram:
+                    <ul>
+                      <li>5 meldinger til 5 forskjellige butikker: 1 lodd</li>
+                      <li>10 meldinger til 10 forskjellige butikker: 2 lodd</li>
+                      <li>15 meldinger til 15 forskjellige butikker: 3 lodd</li>
+                      <li>osv.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    For hver kommentar du skriver på en fyrverkeri-relatert post
+                    fra Europris: 1 lodd (maks én kommentar per person per post)
+                  </li>
                 </ul>
-              </li>
-              <li>
-                For hver kommentar du skriver på en fyrverkeri-relatert post fra
-                Europris: 1 lodd (maks én kommentar per person per post)
-              </li>
-            </ul>
+              </div>
+            </details>
           </div>
           <img
             src={heroImage.src}

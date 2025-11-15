@@ -299,6 +299,66 @@ h1.brand {
   -webkit-text-stroke: 1px rgba(128, 128, 128, 0.2);
 }
 
+.lead-italic {
+  font-size: clamp(13px, 3.6vw, 15px);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.lottery-details {
+  margin-top: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.lottery-details summary {
+  cursor: pointer;
+  padding: 10px 14px;
+  font-weight: 700;
+  font-size: clamp(14px, 3.8vw, 16px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  list-style: none;
+  user-select: none;
+}
+
+.lottery-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.lottery-details summary::after {
+  content: " ▼";
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.lottery-details[open] summary::after {
+  content: " ▲";
+}
+
+.lottery-content {
+  padding: 12px 14px;
+  font-size: clamp(13px, 3.6vw, 15px);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.lottery-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.lottery-content li {
+  margin-bottom: 6px;
+}
+
+.lottery-content ul ul {
+  margin-top: 4px;
+  padding-left: 18px;
+}
+
 @media (min-width: 860px) {
   .hero {
     display: flex;
