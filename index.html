@@ -60,7 +60,16 @@
     />
 
     <title>NOAH - Nei til fyrverkeri kampanje ✨</title>
-    <script type="module" crossorigin src="/noah-fyrverkeri/assets/index-uXwG6NfY.js"></script>
+    <script>
+      (function restorePathFrom404Redirect() {
+        const redirect = sessionStorage.redirect
+        if (redirect) {
+          delete sessionStorage.redirect
+          window.history.replaceState(null, null, redirect)
+        }
+      })()
+    </script>
+    <script type="module" crossorigin src="/noah-fyrverkeri/assets/index-BxE3wBpU.js"></script>
     <link rel="stylesheet" crossorigin href="/noah-fyrverkeri/assets/index-DQ3P1g1z.css">
   </head>
   <body>
