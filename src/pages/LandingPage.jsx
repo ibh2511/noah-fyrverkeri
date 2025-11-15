@@ -108,6 +108,12 @@ Med vennlig hilsen
       <main className="wrap" aria-labelledby="campaign-title">
         <section className="hero">
           <h1 id="campaign-title">🚫 Stopp Fyrverkerisalget!</h1>
+          <img
+            src={heroImage.src}
+            alt={heroImage.alt}
+            className={`hero-img ${isFading ? "is-fading" : ""}`}
+            loading="lazy"
+          />
           <div className="lead">
             <p>
               Hvert år lider dyr på grunn av fyrverkeri. Derfor ønsker vi i NOAH
@@ -142,12 +148,6 @@ Med vennlig hilsen
               </div>
             </details>
           </div>
-          <img
-            src={heroImage.src}
-            alt={heroImage.alt}
-            className={`hero-img ${isFading ? "is-fading" : ""}`}
-            loading="lazy"
-          />
         </section>
 
         <div className="btns">
