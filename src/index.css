@@ -208,6 +208,41 @@ button.button:active {
   display: none !important;
 }
 
+.wrap {
+  width: min(100% - clamp(24px, 6vw, 96px), 980px);
+  margin: clamp(26px, 5vw, 56px) auto 40px;
+  padding: clamp(28px, 5vw, 56px);
+  background: linear-gradient(
+    140deg,
+    rgba(0, 105, 65, 0.95),
+    rgba(0, 52, 32, 0.96)
+  );
+  border-radius: 32px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.15),
+      transparent 55%
+    ),
+    radial-gradient(circle at 80% 0%, rgba(213, 17, 48, 0.15), transparent 45%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.wrap > * {
+  position: relative;
+  z-index: 1;
+}
+
 @media (max-width: 768px) {
   h1 .brand {
     display: inline;
@@ -219,6 +254,12 @@ button.button:active {
 
   .hero-img {
     margin-bottom: 26px;
+  }
+
+  .wrap {
+    margin: 22px auto 32px;
+    padding: 28px 22px 34px;
+    border-radius: 26px;
   }
 }
 
@@ -719,6 +760,8 @@ button.button:active {
 
 @media (max-width: 450px) {
   .wrap {
-    padding: 18px;
+    margin: 18px auto 26px;
+    padding: 22px 16px 28px;
+    border-radius: 20px;
   }
 }
