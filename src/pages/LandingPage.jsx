@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-
-const CONTACT_EMAIL = "fyrverkeri@noah.no"
+import { CONTACT_EMAIL } from "../components/SiteFooter"
 
 const HERO_IMAGES = [
   {
@@ -233,35 +232,6 @@ export default function LandingPage() {
           </div>
         </section>
       </main>
-
-      <footer>
-        <div className="footer-inner">
-          <div className="footer-badge" role="img" aria-label="fyrverkeri">
-            🎇
-          </div>
-          <div className="footer-stats">
-            Oppdatert 15. november 2025 · Kampanjeleder{" "}
-            <button
-              type="button"
-              className="copy-inline"
-              onClick={handleCopyEmail}
-            >
-              {CONTACT_EMAIL}
-            </button>
-          </div>
-          <a
-            className="fb-share"
-            href="https://www.facebook.com/sharer/sharer.php?u=https://ibh2511.github.io/noah-fyrverkeri/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="fb-icon" role="img" aria-hidden="true">
-              🔗
-            </span>
-            Del kampanjen
-          </a>
-        </div>
-      </footer>
 
       <div className="status">Live oppdateringer hver 6. time</div>
     </>

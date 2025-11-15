@@ -486,10 +486,6 @@ export default function RegistrationForm() {
           </details>
         </section>
       </div>
-
-      <div className="robot-footer" aria-hidden="true">
-        🦾
-      </div>
     </div>
   )
 }

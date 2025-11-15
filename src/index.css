@@ -1,18 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap");
 
 :root {
-  --bg: #01a0c6;
+  --bg: #006941;
   --fg: #fff;
-  --accent: #f4d31f;
+  --accent: #d51130;
   --btn-bg: rgba(255, 255, 255, 0.08);
   --btn-bg-hover: rgba(255, 255, 255, 0.14);
   --btn-border: rgba(255, 255, 255, 0.35);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
-  --footer-bg: rgba(255, 255, 255, 0.35);
+  --footer-bg: rgba(255, 255, 255, 0.25);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
-  --panel: #042238;
+  --panel: #004629;
   --muted: rgba(255, 255, 255, 0.75);
   --ink: var(--fg);
 }
@@ -50,6 +50,19 @@ body {
 }
 
 #root {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-shell {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.app-content {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
@@ -109,7 +122,7 @@ h1 .brand {
 
 .lead .brand {
   color: var(--accent);
-  font-weight: 800;
+  background: #b50f28;
   letter-spacing: 0.4px;
 }
 
@@ -193,19 +206,19 @@ button.button:active {
 .email-btn {
   border-color: var(--btn-border-strong);
   position: relative;
-  box-shadow: 0 0 0 0 rgba(244, 211, 31, 0.55);
+  box-shadow: 0 0 0 0 rgba(213, 17, 48, 0.55);
   animation: borderPulse 1.8s ease-in-out infinite;
 }
 
 @keyframes borderPulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(244, 211, 31, 0.55);
+    box-shadow: 0 0 0 0 rgba(213, 17, 48, 0.55);
   }
   60% {
-    box-shadow: 0 0 0 10px rgba(244, 211, 31, 0);
+    box-shadow: 0 0 0 10px rgba(213, 17, 48, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(244, 211, 31, 0);
+    box-shadow: 0 0 0 0 rgba(213, 17, 48, 0);
   }
 }
 
@@ -216,22 +229,25 @@ button.button:active {
   text-align: center;
 }
 
-.inline-email a,
-.inline-email button.copy-inline {
+.inline-email a {
   color: #fff;
   font-weight: 800;
   text-decoration: underline;
 }
 
-.inline-email button.copy-inline {
+.copy-inline {
   background: transparent;
   border: 0;
   font: inherit;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: underline;
   cursor: pointer;
   padding: 0;
+  opacity: 0.95;
 }
 
-.inline-email button.copy-inline:hover {
+.copy-inline:hover {
   opacity: 1;
 }
 
@@ -365,13 +381,14 @@ button.button:active {
   gap: 6px;
 }
 
-footer {
+.site-footer {
   background: var(--footer-bg);
   margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-.footer-badge {
-  font-size: 20px;
+.footer-robot {
+  font-size: 24px;
   line-height: 1;
 }
 
@@ -876,18 +893,6 @@ footer {
   opacity: 1;
   padding: 15px;
   margin-bottom: 20px;
-}
-
-.register-page .robot-footer {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
-  z-index: 10;
-  font-size: 20px;
-  line-height: 1;
-  user-select: none;
-  margin-top: 12px;
 }
 
 @media (max-width: 768px) {
