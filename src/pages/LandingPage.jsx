@@ -170,16 +170,17 @@ XXX`)}`}
             <p className="hint" id="emailHintOrig">
               Du får en ferdig e-post og liste med 100 kontaktadresser
             </p>
-            <p className="hint" id="emailHintIAB" hidden>
-              Du er i en in-app nettleser.{" "}
-              <button
-                type="button"
-                className="copy-inline"
+            <p className="hint inline-email" id="emailHintIAB" hidden>
+              <span
                 id="copyFullEmail"
+                className="copy-badge"
+                role="button"
                 tabIndex={0}
               >
-                Klikk her for å kopiere e-posttekst
-              </button>
+                📋 Kopier ferdig skrevet e-post
+              </span>
+              &nbsp;og trykk på knappen for å sende e-post til{" "}
+              <strong>Europris-butikkene</strong>
             </p>
           </div>
 
