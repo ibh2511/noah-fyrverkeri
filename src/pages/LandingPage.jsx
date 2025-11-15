@@ -98,9 +98,6 @@ export default function LandingPage() {
         <div className="btns">
           <div className="btn-group">
             <Link className="button" to="/butikker">
-              <span role="img" aria-hidden="true">
-                ✉️
-              </span>
               Send epost til 100 butikker
             </Link>
             <p className="hint">
@@ -110,9 +107,6 @@ export default function LandingPage() {
 
           <div className="btn-group">
             <Link className="button" to="/butikker">
-              <span role="img" aria-hidden="true">
-                💬
-              </span>
               Send melding på Facebook/Instagram
             </Link>
             <p className="hint">
@@ -122,9 +116,6 @@ export default function LandingPage() {
 
           <div className="btn-group">
             <Link className="button" to="/registrer">
-              <span role="img" aria-hidden="true">
-                📝
-              </span>
               Registrer din innsats
             </Link>
             <p className="hint">
@@ -138,9 +129,6 @@ export default function LandingPage() {
               href="/noah-fyrverkeri/images/qr-lockscreen.png"
               download
             >
-              <span role="img" aria-hidden="true">
-                📱
-              </span>
               Last ned låseskjermbilde med QR-kode
             </a>
             <p className="hint">
