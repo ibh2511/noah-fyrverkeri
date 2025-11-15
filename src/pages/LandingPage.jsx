@@ -34,6 +34,61 @@ export default function LandingPage() {
     }
   }, [])
 
+  useEffect(() => {
+    const isIAB = /FBAN|FBAV|FB_IAB|Instagram|Messenger/i.test(
+      navigator.userAgent
+    )
+    if (!isIAB) return
+
+    const mailA = document.getElementById("mailLink")
+    if (mailA) {
+      const subj = encodeURIComponent(
+        "Oppfordring om å slutte med salg av fyrverkeri!"
+      )
+      mailA.setAttribute("href", `mailto:?subject=${subj}`)
+    }
+
+    const pOrig = document.getElementById("emailHintOrig")
+    const pIab = document.getElementById("emailHintIAB")
+    if (pOrig) pOrig.hidden = true
+    if (pIab) pIab.hidden = false
+
+    const MAIL_BODY = `Hei!
+Jeg tar kontakt fordi dere selger fyrverkeri, og ønsker å oppfordre dere til å slutte med dette.
+
+Hvert år forårsaker fyrverkeri panikk og skader hos både dyr og mennesker, og det har store, negative konsekvenser for natur og miljø. For noen gir det et kort øyeblikk av glede, men for mange andre skaper det frykt, lidelse og skade. Flertallet av nordmenn ønsker å forby privat oppskytning av fyrverkeri. Nå har dere muligheten til å lytte til folket og ta et tydelig, etisk standpunkt for dyrene, menneskene og miljøet ved å slutte med salg av fyrverkeri.
+
+La nyttårsaften bli en tryggere, renere og inkluderende feiring for alle. Dere kan gjøre en viktig forskjell!
+
+Med vennlig hilsen
+XXX`
+
+    const copyBtn = document.getElementById("copyFullEmail")
+    copyBtn?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(MAIL_BODY)
+        setCopied(true)
+        window.setTimeout(() => setCopied(false), 1800)
+      } catch {
+        const ta = document.createElement("textarea")
+        ta.value = MAIL_BODY
+        document.body.appendChild(ta)
+        ta.select()
+        document.execCommand("copy")
+        ta.remove()
+        setCopied(true)
+        window.setTimeout(() => setCopied(false), 1800)
+      }
+    })
+
+    copyBtn?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault()
+        copyBtn.click()
+      }
+    })
+  }, [])
+
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText(CONTACT_EMAIL)
@@ -50,7 +105,7 @@ export default function LandingPage() {
     <>
       <main className="wrap" aria-labelledby="campaign-title">
         <section className="hero">
-          <h1 id="campaign-title">🚫 Stopp fyrverkerisalget!</h1>
+          <h1 id="campaign-title">🚫 Stopp Fyrverkerisalget!</h1>
           <div className="lead">
             <p>
               Hvert år lider dyr på grunn av fyrverkeri. Derfor ønsker vi i NOAH
@@ -95,11 +150,36 @@ export default function LandingPage() {
 
         <div className="btns">
           <div className="btn-group">
-            <Link className="button" to="/butikker">
-              Send epost til 100 butikker
-            </Link>
-            <p className="hint">
+            <a
+              className="button"
+              id="mailLink"
+              href={`mailto:?bcc=isabelle.haugan@gmail.com,postkasse2511@gmail.com&subject=${encodeURIComponent(
+                "Oppfordring om å slutte med salg av fyrverkeri!"
+              )}&body=${encodeURIComponent(`Hei!
+Jeg tar kontakt fordi dere selger fyrverkeri, og ønsker å oppfordre dere til å slutte med dette.
+
+Hvert år forårsaker fyrverkeri panikk og skader hos både dyr og mennesker, og det har store, negative konsekvenser for natur og miljø. For noen gir det et kort øyeblikk av glede, men for mange andre skaper det frykt, lidelse og skade. Flertallet av nordmenn ønsker å forby privat oppskytning av fyrverkeri. Nå har dere muligheten til å lytte til folket og ta et tydelig, etisk standpunkt for dyrene, menneskene og miljøet ved å slutte med salg av fyrverkeri.
+
+La nyttårsaften bli en tryggere, renere og inkluderende feiring for alle. Dere kan gjøre en viktig forskjell!
+
+Med vennlig hilsen
+XXX`)}`}
+            >
+              Send e-post til 100 butikker
+            </a>
+            <p className="hint" id="emailHintOrig">
               Du får en ferdig e-post og liste med 100 kontaktadresser
+            </p>
+            <p className="hint" id="emailHintIAB" hidden>
+              Du er i en in-app nettleser.{" "}
+              <button
+                type="button"
+                className="copy-inline"
+                id="copyFullEmail"
+                tabIndex={0}
+              >
+                Klikk her for å kopiere e-posttekst
+              </button>
             </p>
           </div>
 
