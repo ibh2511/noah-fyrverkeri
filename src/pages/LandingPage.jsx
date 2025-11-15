@@ -53,9 +53,8 @@ export default function LandingPage() {
           <h1 id="campaign-title">🚫 Stopp fyrverkerisalget!</h1>
           <div className="lead">
             <p>
-              Hvert år lider dyr på grunn av fyrverkeri. Derfor ønsker vi i{" "}
-              <span className="brand">NOAH</span> å få{" "}
-              <span className="brand">Europris</span> til å slutte å selge
+              Hvert år lider dyr på grunn av fyrverkeri. Derfor ønsker vi i NOAH
+              å få <span className="brand">Europris</span> til å slutte å selge
               fyrverkeri – og vi er veldig takknemlige for at du vil være med i
               kampanjen.
             </p>
