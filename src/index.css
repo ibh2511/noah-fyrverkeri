@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap");
 
 :root {
-  --bg: #038654;
+  --bg: #006941;
   --fg: #fff;
   --accent: #d51130;
-  --btn-bg: #0b8c53;
-  --btn-bg-hover: #10a861;
-  --btn-border: rgba(0, 0, 0, 0.18);
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-bg-hover: rgba(255, 255, 255, 0.14);
+  --btn-border: rgba(255, 255, 255, 0.35);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
-  --chrome-bg: #0a5836;
+  --footer-bg: rgba(255, 255, 255, 0.35);
   --footer-bg: rgba(255, 255, 255, 0.5);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
