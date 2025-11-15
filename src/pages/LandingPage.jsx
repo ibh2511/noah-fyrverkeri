@@ -13,62 +13,6 @@ const HERO_IMAGES = [
   },
 ]
 
-const NAV_LINKS = [
-  {
-    title: "Registrer innsats",
-    copy: "Logg ukens aktiviteter og få lodd.",
-    to: "/registrer",
-    label: "Åpne skjema",
-  },
-  {
-    title: "Butikker",
-    copy: "Finn Europris-butikkene du skal kontakte.",
-    to: "/butikker",
-    label: "Se listen",
-  },
-  {
-    title: "Admin",
-    copy: "Se statistikk og klikkdata i sanntid.",
-    to: "/admin",
-    label: "Gå til admin",
-  },
-]
-
-const CTA_BLOCKS = [
-  {
-    title: "Spre kampanjen",
-    body: "Del NOAH sitt budskap på egne kanaler og tagg Europris for ekstra trykk.",
-    actions: [
-      {
-        label: "Last ned grafikk",
-        href: "https://www.noah.no/aktuelt/fyrverkeri/",
-      },
-      {
-        label: "Ferdig tekst",
-        href: "https://www.noah.no/aktuelt/fyrverkeri/",
-      },
-    ],
-  },
-  {
-    title: "Kontakt lokal presse",
-    body: "Pitch historien om hvorfor Europris må slutte å selge fyrverkeri i din kommune.",
-    actions: [
-      { label: "Last ned fakta", href: "https://www.noah.no/om-noah/presse" },
-    ],
-  },
-  {
-    title: "Planlegg neste uke",
-    body: "Bruk aksjonsplanen så du vet hvilke butikker som får oppfølging.",
-    actions: [{ label: "Åpne planen", href: "https://www.noah.no/stott-oss/" }],
-  },
-]
-
-const CAMPAIGN_STATS = [
-  { label: "Lokallag aktiv", value: "42" },
-  { label: "Butikker kontaktet", value: "318" },
-  { label: "Meldinger sendt", value: "1 540" },
-]
-
 export default function LandingPage() {
   const [imageIndex, setImageIndex] = useState(0)
   const [isFading, setIsFading] = useState(false)
@@ -168,72 +112,7 @@ export default function LandingPage() {
             {copied ? "Kopiert!" : CONTACT_EMAIL}
           </button>
         </p>
-
-        <section className="info-panels" aria-label="Kampanjestatus">
-          <article className="panel">
-            <h2>Ukens fokus</h2>
-            <p>
-              Ta direkte kontakt med Europris-butikkene i region øst. Husk å
-              loggføre alle meldinger, telefoner og e-poster i skjemaet slik at
-              vi kan måle trykket.
-            </p>
-            <div className="progress-row">
-              <span className="progress-chip">🎯 78 % av målet nådd</span>
-              <span className="progress-chip">⏱️ 3 dager igjen</span>
-            </div>
-          </article>
-
-          <article className="panel">
-            <h2>Rask tilgang</h2>
-            <div className="nav-grid">
-              {NAV_LINKS.map((nav) => (
-                <div key={nav.title} className="nav-card">
-                  <div>
-                    <h3>{nav.title}</h3>
-                    <p>{nav.copy}</p>
-                  </div>
-                  <Link to={nav.to}>{nav.label}</Link>
-                </div>
-              ))}
-            </div>
-          </article>
-        </section>
-
-        <section className="cta-grid" aria-label="Handlinger du kan ta nå">
-          {CTA_BLOCKS.map((cta) => (
-            <article key={cta.title} className="cta-card">
-              <h3>{cta.title}</h3>
-              <p>{cta.body}</p>
-              <div className="cta-actions">
-                {cta.actions.map((action) => (
-                  <a
-                    key={action.href}
-                    className="mini-btn"
-                    href={action.href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {action.label}
-                  </a>
-                ))}
-              </div>
-            </article>
-          ))}
-        </section>
-
-        <section aria-label="Kampanjedata">
-          <div className="stats-grid">
-            {CAMPAIGN_STATS.map((stat) => (
-              <div key={stat.label} className="stats-card">
-                <div className="value">{stat.value}</div>
-                <div className="label">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </section>
       </main>
-
-      <div className="status">Live oppdateringer hver 6. time</div>
     </>
   )
 }
