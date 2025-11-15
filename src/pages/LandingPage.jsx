@@ -171,7 +171,7 @@ Med vennlig hilsen
               Send e-post til 100 butikker
             </a>
             <p className="hint" id="emailHintOrig">
-              Du får en ferdig e-post og liste med 100 kontaktadresser
+              Trykk på knappen for å sende e-post til butikkene
             </p>
             <p className="hint inline-email" id="emailHintIAB" hidden>
               <span
