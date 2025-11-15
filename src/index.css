@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap");
 
 :root {
-  --bg: #006941;
+  --bg: #038654;
   --fg: #fff;
   --accent: #d51130;
   --btn-bg: #0b8c53;
@@ -9,11 +9,11 @@
   --btn-border: rgba(0, 0, 0, 0.18);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
   --chrome-bg: #0a5836;
-  --footer-bg: rgba(255, 255, 255, 0.35);
+  --footer-bg: rgba(255, 255, 255, 0.5);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
-  --panel: #004629;
+  --panel: rgba(255, 255, 255, 0.5);
   --muted: rgba(255, 255, 255, 0.75);
   --ink: var(--fg);
 }
@@ -256,9 +256,7 @@ h1.brand {
 .hero .brand {
   color: var(--accent);
   display: inline-block;
-  border: 2px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  padding: 0 8px;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
   letter-spacing: 0.4px;
 }
 
@@ -298,9 +296,7 @@ h1.brand {
   color: var(--accent);
   font-weight: 800;
   letter-spacing: 0.4px;
-  border: 2px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  padding: 0 8px;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
 }
 
 @media (min-width: 860px) {
