@@ -69,7 +69,7 @@ export default function LandingPage() {
               <summary>Slik får du lodd:</summary>
               <div className="lottery-content">
                 <ul>
-                  <li>Sender du e-post til alle Europris-butikkene: 1 lodd</li>
+                  <li>Sender du e-post til 100 Europris-butikker: 1 lodd</li>
                   <li>
                     For meldinger til Europris-butikker på Facebook/Instagram:
                     <ul>
@@ -96,30 +96,57 @@ export default function LandingPage() {
         </section>
 
         <div className="btns">
-          <Link className="button email-btn" to="/registrer">
-            <span role="img" aria-hidden="true">
-              📝
-            </span>
-            Registrer innsats nå
-          </Link>
-          <a className="button" href={`mailto:${CONTACT_EMAIL}`}>
-            <span role="img" aria-hidden="true">
-              ✉️
-            </span>
-            Send oppdatering på e-post
-          </a>
-          <Link className="button" to="/butikker">
-            <span role="img" aria-hidden="true">
-              🗺️
-            </span>
-            Finn din butikk-liste
-          </Link>
-          <Link className="button" to="/admin">
-            <span role="img" aria-hidden="true">
-              📊
-            </span>
-            Se statusdashboard
-          </Link>
+          <div className="btn-group">
+            <Link className="button" to="/butikker">
+              <span role="img" aria-hidden="true">
+                ✉️
+              </span>
+              Send epost til 100 butikker
+            </Link>
+            <p className="hint">
+              Du får en ferdig e-post og liste med 100 kontaktadresser
+            </p>
+          </div>
+
+          <div className="btn-group">
+            <Link className="button" to="/butikker">
+              <span role="img" aria-hidden="true">
+                💬
+              </span>
+              Send melding på Facebook/Instagram
+            </Link>
+            <p className="hint">
+              Vi gir deg liste over butikker og ferdig melding å dele
+            </p>
+          </div>
+
+          <div className="btn-group">
+            <Link className="button" to="/registrer">
+              <span role="img" aria-hidden="true">
+                📝
+              </span>
+              Registrer din innsats
+            </Link>
+            <p className="hint">
+              Tell oss hva du har gjort så får du lodd i trekningen
+            </p>
+          </div>
+
+          <div className="btn-group">
+            <a
+              className="button"
+              href="/noah-fyrverkeri/images/qr-lockscreen.png"
+              download
+            >
+              <span role="img" aria-hidden="true">
+                📱
+              </span>
+              Last ned låseskjermbilde med QR-kode
+            </a>
+            <p className="hint">
+              Sett som bakgrunnsbilde og spre kampanjen videre
+            </p>
+          </div>
         </div>
 
         <p className="hint inline-email">
