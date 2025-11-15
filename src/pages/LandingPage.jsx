@@ -180,7 +180,7 @@ Med vennlig hilsen
                 role="button"
                 tabIndex={0}
               >
-                📋 Kopier ferdig skrevet e-post
+                📋 Kopier ferdig tekst
               </span>
               &nbsp;og trykk på knappen for å sende e-post til{" "}
               <strong>Europris-butikkene</strong>
