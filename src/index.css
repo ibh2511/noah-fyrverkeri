@@ -242,6 +242,10 @@ h1.brand {
 .hero .brand {
   color: var(--accent);
   display: inline-block;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 0 8px;
+  letter-spacing: 0.4px;
 }
 
 .hero {
@@ -280,6 +284,9 @@ h1.brand {
   color: var(--accent);
   font-weight: 800;
   letter-spacing: 0.4px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 0 8px;
 }
 
 @media (min-width: 860px) {
