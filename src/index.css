@@ -8,7 +8,8 @@
   --btn-bg-hover: #10a861;
   --btn-border: rgba(0, 0, 0, 0.18);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
-  --footer-bg: var(--btn-bg);
+  --chrome-bg: #0a5836;
+  --footer-bg: var(--chrome-bg);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -189,11 +190,11 @@ button.button:active {
 .site-footer {
   background: var(--footer-bg);
   margin-top: auto;
-  box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .footer-robot {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1;
 }
 
@@ -329,8 +330,7 @@ h1.brand {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--btn-bg);
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
+  background: var(--chrome-bg);
 }
 
 .top-meta {
@@ -338,8 +338,8 @@ h1.brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--btn-bg);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   padding: 8px 10px;
 }
 
@@ -347,7 +347,7 @@ h1.brand {
   font-weight: 400;
   font-size: clamp(12px, 3.2vw, 13px);
   letter-spacing: 0.2px;
-  opacity: 0.9;
+  opacity: 0.85;
   white-space: nowrap;
   max-width: 100%;
   text-overflow: ellipsis;
