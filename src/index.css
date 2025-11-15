@@ -8,8 +8,8 @@
   --btn-bg-hover: rgba(255, 255, 255, 0.14);
   --btn-border: rgba(255, 255, 255, 0.35);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
-  --footer-bg: rgba(255, 255, 255, 0.35);
   --footer-bg: rgba(255, 255, 255, 0.5);
+  --header-bg: rgba(255, 255, 255, 0.75);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -347,7 +347,7 @@ h1.brand {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--chrome-bg);
+  background: var(--header-bg);
 }
 
 .top-meta {
