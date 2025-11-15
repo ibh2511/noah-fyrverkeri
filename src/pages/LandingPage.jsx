@@ -153,7 +153,7 @@ Med vennlig hilsen
         <div className="btns">
           <div className="btn-group">
             <a
-              className="button"
+              className="button btn-accent"
               id="mailLink"
               href={`mailto:?bcc=isabelle.haugan@gmail.com,postkasse2511@gmail.com&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
@@ -188,7 +188,7 @@ Med vennlig hilsen
           </div>
 
           <div className="btn-group">
-            <Link className="button" to="/butikker">
+            <Link className="button btn-accent" to="/butikker">
               Send melding på Facebook/Instagram
             </Link>
             <p className="hint">
