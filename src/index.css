@@ -9,7 +9,7 @@
   --btn-border: rgba(0, 0, 0, 0.18);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
   --chrome-bg: #0a5836;
-  --footer-bg: var(--chrome-bg);
+  --footer-bg: rgba(255, 255, 255, 0.35);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -58,6 +58,20 @@ body {
 }
 
 #root {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-shell {
+  flex: 1 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.app-content {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
