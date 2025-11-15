@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-// Tilpass denne til der du har lagt CSS-en fra juletreff:
-// import "../App.css"
 
-// Lokale utility funksjoner
+// Lokale utility funksjoner (som du hadde)
 function setupFloatingLabels() {
   const FIELDS = ".form-group input, .form-group textarea"
 
@@ -14,7 +12,7 @@ function setupFloatingLabels() {
   const fields = Array.from(document.querySelectorAll(FIELDS))
   const cleanups = fields.map((field) => {
     const handler = () => toggleHasContent(field)
-    handler() // initial sync
+    handler()
     field.addEventListener("input", handler)
     field.addEventListener("blur", handler)
     return () => {
@@ -58,19 +56,63 @@ function setupFaqAccordion() {
 }
 
 function setupVisitorTracking() {
-  // Simplified version - no backend tracking for now
   console.log("📊 Visitor tracking setup (simplified)")
   return { isFirstVisit: false, visitCount: 1, visitorId: "local-visitor" }
 }
 
-//const GAS_URL =
-const IMAGES = ["images/kumi.jpeg", "images/munch.jpg"]
+// TODO: sett inn din ekte Apps Script URL her
+const GAS_URL =
+  "https://script.google.com/macros/s/AKfycbz_iaoLpREXQjDHt4r0CJnyrzm-i15xU6hfKb1NM8u-v4Gd5tFdWB74rCGl1KuhfzVY/exec"
+
+const IMAGES = ["images/fyrverkeri-noah.jpg"] // bytt til noe du vil
+
+// Lokale konstanter for lodd
+const LOTTERY_ACTIONS = [
+  {
+    id: "MailAlle",
+    label: "Sendt mail til alle Europris-butikkene",
+    tickets: 1,
+  },
+  {
+    id: "Meldinger5",
+    label:
+      "Sendt 5 meldinger til 10 Europris-butikker på Facebook eller Instagram",
+    tickets: 1,
+  },
+  {
+    id: "Meldinger10",
+    label:
+      "Sendt 10 meldinger til 10 Europris-butikker på Facebook eller Instagram",
+    tickets: 2,
+  },
+  {
+    id: "Meldinger15",
+    label:
+      "Sendt 15 meldinger til 15 Europris-butikker på Facebook eller Instagram",
+    tickets: 3,
+  },
+  {
+    id: "KommentarPost",
+    label:
+      "Kommentert på en fyrverkeri-relatert post til Europris på Facebook eller Instagram",
+    tickets: 1,
+  },
+]
 
 export default function RegistrationForm() {
-  const [status, setStatus] = useState(null) // null | "ok" | "waitlist" | "duplicate" | "error"
+  const [status, setStatus] = useState(null) // null | "ok" | "duplicate" | "error"
   const [sending, setSending] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [visitorInfo, setVisitorInfo] = useState(null)
+  const [ukevalg, setUkevalg] = useState("")
+  const [actions, setActions] = useState(() =>
+    LOTTERY_ACTIONS.reduce(
+      (acc, action) => ({ ...acc, [action.id]: false }),
+      {}
+    )
+  )
+  const [frontendLodd, setFrontendLodd] = useState(0)
+
   const iframeRef = useRef(null)
 
   // Bilde-slideshow
@@ -82,7 +124,7 @@ export default function RegistrationForm() {
     return () => clearInterval(interval)
   }, [])
 
-  // Floating labels, FAQ-accordion, visitor tracking
+  // Floating labels + visitor tracking (FAQ kan du bruke senere hvis du vil)
   useEffect(() => {
     const teardownLabels = setupFloatingLabels()
     const teardownFaq = setupFaqAccordion()
@@ -95,6 +137,14 @@ export default function RegistrationForm() {
     }
   }, [])
 
+  // Reberegn lodd lokalt når checkbokser endres
+  useEffect(() => {
+    const total = LOTTERY_ACTIONS.reduce((sum, action) => {
+      return actions[action.id] ? sum + action.tickets : sum
+    }, 0)
+    setFrontendLodd(total)
+  }, [actions])
+
   // Lytte på Apps Script-respons (postMessage + iframe fallback)
   useEffect(() => {
     function onMessage(evt) {
@@ -104,7 +154,6 @@ export default function RegistrationForm() {
       setSending(false)
 
       if (data.duplicate) setStatus("duplicate")
-      else if (data.ok && data.waitlist) setStatus("waitlist")
       else if (data.ok) setStatus("ok")
       else setStatus("error")
     }
@@ -120,28 +169,13 @@ export default function RegistrationForm() {
         if (iframeDoc) {
           const bodyText = iframeDoc.body?.innerText || ""
 
-          if (
-            bodyText.includes('"duplicate"') ||
-            bodyText.includes("duplicate")
-          ) {
+          if (bodyText.includes("duplicate")) {
             setSending(false)
             setStatus("duplicate")
-          } else if (
-            bodyText.includes('"waitlist"') &&
-            bodyText.includes('"ok"')
-          ) {
-            setSending(false)
-            setStatus("waitlist")
-          } else if (
-            bodyText.includes('"ok"') ||
-            bodyText.includes("success")
-          ) {
+          } else if (bodyText.includes("ok") || bodyText.includes("success")) {
             setSending(false)
             setStatus("ok")
-          } else if (
-            bodyText.includes('"error"') ||
-            bodyText.includes("error")
-          ) {
+          } else if (bodyText.includes("error")) {
             setSending(false)
             setStatus("error")
           }
@@ -171,7 +205,19 @@ export default function RegistrationForm() {
     }
   }, [sending])
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (e) => {
+    // Frontend-validering: minst én handling + uke valgt
+    if (!ukevalg) {
+      e.preventDefault()
+      alert("Velg hvilken uke innsatsen din gjelder.")
+      return
+    }
+    if (frontendLodd === 0) {
+      e.preventDefault()
+      alert("Kryss av minst én handling for å få lodd.")
+      return
+    }
+
     setSending(true)
 
     if (iframeRef.current) {
@@ -187,12 +233,6 @@ export default function RegistrationForm() {
               if (bodyText.includes("duplicate")) {
                 setSending(false)
                 setStatus("duplicate")
-              } else if (
-                bodyText.includes("waitlist") &&
-                bodyText.includes("ok")
-              ) {
-                setSending(false)
-                setStatus("waitlist")
               } else if (
                 bodyText.includes("ok") ||
                 bodyText.includes("success")
@@ -219,88 +259,69 @@ export default function RegistrationForm() {
     }
   }
 
+  const handleActionChange = (id) => {
+    setActions((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
   return (
-    <>
-      <div className="page">
-        <div className="container">
-          {/* Bilde med fade */}
-          <div className="booking-image">
-            {IMAGES.map((src, index) => (
-              <img
-                key={src}
-                className={`booking-img ${
-                  index === currentImageIndex ? "active" : ""
-                }`}
-                src={src}
-                alt="Juletreff 2025"
-                loading="lazy"
-              />
-            ))}
+    <div className="page">
+      <div className="container">
+        {/* Bilde/hero */}
+        <div className="booking-image">
+          {IMAGES.map((src, index) => (
+            <img
+              key={src}
+              className={`booking-img ${
+                index === currentImageIndex ? "active" : ""
+              }`}
+              src={src}
+              alt="NOAH fyrverkerikampanje"
+              loading="lazy"
+            />
+          ))}
+        </div>
+
+        {/* Skjema */}
+        <div className="booking-form">
+          <h2>🚫 Fyrverkeri – flere lodd, mer press</h2>
+          <div className="subheader">
+            Registrer innsatsen din mot Europris denne uka og få lodd i
+            trekningen.
           </div>
 
-          {/* Skjema */}
-          <div className="booking-form">
-            <h2>✨Juletreff på KUMI🥂</h2>
-            <div className="subheader">19. desember kl 19.00</div>
+          {status === "duplicate" && (
+            <div className="msg error">
+              <h3>⚠️ Allerede registrert denne uka</h3>
+              <p>
+                Denne e-posten er allerede registrert for valgt uke. Du kan
+                delta på flere uker, men bare én gang per uke.
+              </p>
+            </div>
+          )}
 
-            {status === "duplicate" && (
-              <div className="msg error">
-                <h3>⚠️ E-post allerede påmeldt!</h3>
-                <p>Det ser ut til at denne e-posten er registrert.</p>
-                <p>
-                  Har du trykket{" "}
-                  <a
-                    href="https://www.facebook.com/events/664624256515915"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    «Skal»
-                  </a>{" "}
-                  på Facebook-eventet? 📅
-                </p>
-              </div>
-            )}
+          {status === "ok" && (
+            <div className="msg thanks">
+              <h3>🎉 Takk – innsatsen din er registrert!</h3>
+              <p>Du får en bekreftelse på e-post med antall lodd du har.</p>
+            </div>
+          )}
 
-            {status === "waitlist" && (
-              <div className="msg wait">
-                <h3>⚠️ Juletreffet er fullt</h3>
-                <p>Du kan sette deg på venteliste ved å sende oss en e-post.</p>
-                <p>
-                  <a
-                    href={`mailto:isabelle.haugan@gmail.com?subject=Venteliste%20juletreff%20KUMI%20🥂`}
-                  >
-                    Sett meg på venteliste 🥳
-                  </a>
-                </p>
-              </div>
-            )}
+          {status === "error" && (
+            <div className="msg error">
+              <h3>⚠️ Noe gikk galt</h3>
+              <p>Prøv igjen senere eller kontakt oss.</p>
+            </div>
+          )}
 
-            {status === "ok" && (
-              <div className="msg thanks">
-                <h3>🎉 Takk for påmeldingen! 🎉</h3>
-                <p>Bekreftelse sendt på e-post 📬</p>
-                <p>
-                  <small>Sjekk søppelpost/spam</small>
-                </p>
-              </div>
-            )}
+          {/* Skjult iframe: mottar Apps Script-responsen */}
+          <iframe
+            name="hidden_iframe"
+            title="hidden_iframe"
+            ref={iframeRef}
+            style={{ display: "none", width: 0, height: 0, border: 0 }}
+          />
 
-            {status === "error" && (
-              <div className="msg error">
-                <h3>⚠️ Noe gikk galt</h3>
-                <p>Prøv igjen senere eller kontakt oss.</p>
-              </div>
-            )}
-
-            {/* Skjult iframe: mottar Apps Script-responsen */}
-            <iframe
-              name="hidden_iframe"
-              title="hidden_iframe"
-              ref={iframeRef}
-              style={{ display: "none", width: 0, height: 0, border: 0 }}
-            />
-
-            {/* Selve skjemaet */}
+          {GAS_URL ? (
             <form
               action={GAS_URL}
               method="POST"
@@ -308,11 +329,12 @@ export default function RegistrationForm() {
               onSubmit={handleFormSubmit}
               style={{ display: status ? "none" : "block" }}
             >
+              {/* Navn / etternavn / e-post */}
               <div className="form-group-row">
                 <div className="form-group">
                   <input type="text" name="Fornavn" id="firstName" required />
                   <label htmlFor="firstName" className="form-label">
-                    Navn
+                    Fornavn
                   </label>
                 </div>
                 <div className="form-group">
@@ -323,58 +345,105 @@ export default function RegistrationForm() {
                 </div>
               </div>
 
-              <div className="form-group-row">
-                <div className="form-group">
-                  <input type="tel" name="Telefon" id="phone" required />
-                  <label htmlFor="phone" className="form-label">
-                    Telefon
-                  </label>
+              <div className="form-group">
+                <input type="email" name="Email" id="email" required />
+                <label htmlFor="email" className="form-label">
+                  E-post
+                </label>
+              </div>
+
+              {/* Ukevalg (radio) */}
+              <div className="form-group">
+                <div className="form-label-static">
+                  Hvilken uke gjelder innsatsen?
                 </div>
-                <div className="form-group">
-                  <input type="email" name="Email" id="email" required />
-                  <label htmlFor="email" className="form-label">
-                    E-post
+                <div className="radio-group">
+                  <label className="radio-option">
+                    <input
+                      type="radio"
+                      name="Ukevalg"
+                      value="UKE 1 (10–16. november)"
+                      checked={ukevalg === "UKE 1 (10–16. november)"}
+                      onChange={(e) => setUkevalg(e.target.value)}
+                      required
+                    />
+                    <span>UKE 1 (10–16. november)</span>
+                  </label>
+                  <label className="radio-option">
+                    <input
+                      type="radio"
+                      name="Ukevalg"
+                      value="UKE 2 (17–23. november)"
+                      checked={ukevalg === "UKE 2 (17–23. november)"}
+                      onChange={(e) => setUkevalg(e.target.value)}
+                    />
+                    <span>UKE 2 (17–23. november)</span>
+                  </label>
+                  <label className="radio-option">
+                    <input
+                      type="radio"
+                      name="Ukevalg"
+                      value="UKE 3 (24–30. november)"
+                      checked={ukevalg === "UKE 3 (24–30. november)"}
+                      onChange={(e) => setUkevalg(e.target.value)}
+                    />
+                    <span>UKE 3 (24–30. november)</span>
                   </label>
                 </div>
               </div>
 
+              {/* Lodd-handlinger (checkbokser) */}
               <div className="form-group">
-                <textarea name="Message" id="comment" rows="4"></textarea>
-                <label htmlFor="comment" className="form-label">
-                  Kommentar
-                </label>
+                <div className="form-label-static">
+                  Hva har du gjort mot Europris? <br />
+                  <small>
+                    (kryss av alt som gjelder, lodd per handling står til høyre)
+                  </small>
+                </div>
+                <div className="checkbox-group">
+                  {LOTTERY_ACTIONS.map((action) => (
+                    <label key={action.id} className="checkbox-option">
+                      <input
+                        type="checkbox"
+                        name={action.id}
+                        id={action.id}
+                        checked={actions[action.id]}
+                        onChange={() => handleActionChange(action.id)}
+                      />
+                      <span>
+                        {action.label} <b>– {action.tickets} lodd</b>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Oppsummering av lodd */}
+              <div className="lottery-summary">
+                <p>
+                  Du har foreløpig <b>{frontendLodd}</b>{" "}
+                  {frontendLodd === 1 ? "lodd" : "lodd"} for valgt uke.
+                </p>
               </div>
 
               <div className="form-submit">
                 <button type="submit" disabled={sending}>
-                  {sending ? "Sender …" : "Send"}
+                  {sending ? "Sender…" : "Registrer lodd"}
                 </button>
               </div>
             </form>
-          </div>
-
-          {/* Kart */}
-          <div className="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7990.0!2d10.689846816215897!3d59.90700408187198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46416e62c48b6a31%3A0xdbadeeb694f9f437!2sOperagata%2071B%2C%200194%20Oslo!5e0!3m2!1sen!2sno!4v1600000000000!5m2!1sen!2sno"
-              allowFullScreen=""
-              loading="lazy"
-              title="KUMI kart"
-            />
-          </div>
-
-          {/* FAQ (du kan beholde resten her som i originalen) */}
-          <div className="faq-section">
-            <h3 style={{ textAlign: "center" }}>❓ FAQ</h3>
-
-            {/* ... alle <details>-blokkene dine her ... */}
-          </div>
+          ) : (
+            <div className="msg error">
+              <h3>⚠️ Skjema ikke konfigurert</h3>
+              <p>Google Apps Script URL (GAS_URL) mangler i koden.</p>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="robot-footer" aria-hidden="true">
         🦾
       </div>
-    </>
+    </div>
   )
 }
