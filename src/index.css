@@ -131,14 +131,7 @@ button.button:active {
 }
 
 .btn-group .hint {
-  margin: 8px 2px 0;
-}
-
-.hint {
-  opacity: 0.95;
-  font-size: clamp(12px, 3.8vw, 14px);
-  margin: 6px 2px 18px;
-  text-align: center;
+  margin: 8px 2px 20px;
 }
 
 .inline-email a {

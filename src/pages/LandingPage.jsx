@@ -128,9 +128,11 @@ export default function LandingPage() {
               href="/noah-fyrverkeri/images/qr-lockscreen.png"
               download
             >
-              QR-koden peker til denne siden.
+              Last ned låseskjermbilde med QR-kode
             </a>
-            <p className="hint">QR-koden peker til denne siden.</p>
+            <p className="hint">
+              Sett som bakgrunnsbilde og spre kampanjen videre
+            </p>
           </div>
         </div>
       </main>
