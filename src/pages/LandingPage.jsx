@@ -2,6 +2,8 @@ import { Link } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { CONTACT_EMAIL } from "../components/SiteFooter"
 
+const BCC_RECIPIENTS = "isabelle.haugan@gmail.com,postkasse2511@gmail.com"
+
 const HERO_IMAGES = [
   {
     src: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=900&q=80",
@@ -45,8 +47,10 @@ export default function LandingPage() {
       const subj = encodeURIComponent(
         "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
       )
-      const bcc = "isabelle.haugan@gmail.com,postkasse2511@gmail.com"
-      mailA.setAttribute("href", `mailto:?bcc=${bcc}&subject=${subj}`)
+      mailA.setAttribute(
+        "href",
+        `mailto:?bcc=${BCC_RECIPIENTS}&subject=${subj}`
+      )
     }
 
     const pOrig = document.getElementById("emailHintOrig")
@@ -155,7 +159,7 @@ Med vennlig hilsen
             <a
               className="button btn-accent"
               id="mailLink"
-              href={`mailto:?bcc=isabelle.haugan@gmail.com,postkasse2511@gmail.com&subject=${encodeURIComponent(
+              href={`mailto:?bcc=${BCC_RECIPIENTS}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
               )}&body=${encodeURIComponent(`Hei! 🐾
 
