@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap");
 
 :root {
-  --bg: #006941;
+  --bg: #01a0c6;
   --fg: #fff;
-  --accent: #d51130;
+  --accent: #f4d31f;
   --btn-bg: rgba(255, 255, 255, 0.08);
   --btn-bg-hover: rgba(255, 255, 255, 0.14);
   --btn-border: rgba(255, 255, 255, 0.35);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
-  --footer-bg: rgba(255, 255, 255, 0.25);
+  --footer-bg: rgba(255, 255, 255, 0.35);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -35,19 +35,25 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg);
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
 }
 
 body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background: var(--footer-bg);
+  background: var(--bg);
   color: var(--fg);
   font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto,
     sans-serif;
   overflow-x: clip;
   overflow-y: auto;
   padding-bottom: 0;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
 }
 
 #root {
@@ -106,19 +112,19 @@ button.button:active {
 .email-btn {
   border-color: var(--btn-border-strong);
   position: relative;
-  box-shadow: 0 0 0 0 rgba(213, 17, 48, 0.55);
+  box-shadow: 0 0 0 0 rgba(244, 211, 31, 0.55);
   animation: borderPulse 1.8s ease-in-out infinite;
 }
 
 @keyframes borderPulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(213, 17, 48, 0.55);
+    box-shadow: 0 0 0 0 rgba(244, 211, 31, 0.55);
   }
   60% {
-    box-shadow: 0 0 0 10px rgba(213, 17, 48, 0);
+    box-shadow: 0 0 0 10px rgba(244, 211, 31, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(213, 17, 48, 0);
+    box-shadow: 0 0 0 0 rgba(244, 211, 31, 0);
   }
 }
 
@@ -181,7 +187,7 @@ button.button:active {
 }
 
 .site-footer {
-  background: var(--bg);
+  background: var(--footer-bg);
   margin-top: auto;
 }
 
@@ -332,7 +338,7 @@ h1.brand {
 }
 
 @media (max-width: 768px) {
-  h1.brand {
+  .hero .brand {
     display: none;
   }
 
