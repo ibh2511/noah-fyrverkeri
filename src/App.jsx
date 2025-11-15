@@ -4,11 +4,13 @@ import AdminPage from "./pages/AdminPage"
 import RegisterPage from "./pages/RegisterPage"
 import StoresPage from "./pages/StoresPage"
 import SiteFooter from "./components/SiteFooter"
+import CampaignBanner from "./components/CampaignBanner"
 
 function App() {
   return (
     <BrowserRouter basename="/noah-fyrverkeri">
       <div className="app-shell">
+        <CampaignBanner />
         <div className="app-content">
           <Routes>
             <Route path="/" element={<LandingPage />} />

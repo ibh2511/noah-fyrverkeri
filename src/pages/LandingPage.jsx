@@ -48,24 +48,18 @@ export default function LandingPage() {
 
   return (
     <>
-      <div className="top-meta-outer">
-        <div className="top-meta">
-          <div className="meta-line">
-            🇳🇴 Trykkbølge: 150+ kommuner har fått NOAH-brev denne uka
-          </div>
-        </div>
-      </div>
-
       <main className="wrap" aria-labelledby="campaign-title">
         <section className="hero">
           <h1 id="campaign-title">
             Stopp fyrverkerisalget <span className="brand">NOAH</span>
           </h1>
           <p className="lead">
-            Vi legger press på <span className="brand">Europris</span> og andre
-            kjeder for å få dem til å avslutte salget av fyrverkeri. Koordiner
-            innsatsen, registrer aksjonene dine og få lodd i ukentlige
-            trekninger for frivillige.
+            Vi presser <span className="brand">Europris</span> og andre kjeder
+            til å droppe fyrverkeri, og vi trenger raske oppdateringer fra alle
+            som tar kontakt med butikkene. Registrer e-poster, meldinger og
+            kommentarer du sender, så får du lodd i de ukentlige
+            premietrekningene for frivillige og hjelper dyr som ellers rammes av
+            fyrverkeri.
           </p>
           <img
             src={heroImage.src}
@@ -73,41 +67,6 @@ export default function LandingPage() {
             className={`hero-img ${isFading ? "is-fading" : ""}`}
             loading="lazy"
           />
-        </section>
-
-        <section className="campaign-copy">
-          <h2>Fyrverkerikampanje mot Europris 2025</h2>
-          <p>
-            Hvert år lider dyr på grunn av oppskytning av fyrverkeri, og derfor
-            ønsker vi i NOAH å få Europris til å stoppe å selge fyrverkeri.
-            Tusen takk for at du ønsker å være med i kampanjen.
-          </p>
-          <p>
-            Kampanjen varer i første omgang ut november. Hver uke trekker vi en
-            vinner som får velge en valgfri premie i NOAH-nettbutikken (unntatt
-            hvalgenseren og ulvegenseren). Jo mer aktivisme du gjør, jo større
-            er sjansen for å vinne!
-          </p>
-          <p>
-            Loddsystemet fungerer slik at du samler poeng for hver handling:
-          </p>
-          <ul>
-            <li>Sende e-post til alle Europris-butikkene: 1 lodd.</li>
-            <li>
-              For hver femte melding du sender på Facebook eller Instagram til
-              fem ulike Europris-butikker får du ett lodd. Altså:
-              <ul>
-                <li>Sende fem meldinger til fem butikker: 1 lodd.</li>
-                <li>Sende ti meldinger til ti butikker: 2 lodd.</li>
-                <li>Sende femten meldinger til femten butikker: 3 lodd.</li>
-              </ul>
-            </li>
-            <li>
-              For hver kommentar du legger igjen på fyrverkeri-poster til
-              Europris: 1 lodd (kun én kommentar per person per post, og kun på
-              fyrverkeri-relaterte poster).
-            </li>
-          </ul>
         </section>
 
         <div className="btns">
