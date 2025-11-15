@@ -9,7 +9,7 @@
   --btn-border: rgba(255, 255, 255, 0.35);
   --btn-border-strong: rgba(255, 255, 255, 0.85);
   --footer-bg: rgba(255, 255, 255, 0.25);
-  --header-bg: rgba(255, 255, 255, 0.15);
+  --header-bg: rgba(255, 255, 255, 0.1);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -296,7 +296,7 @@ h1.brand {
   color: var(--accent);
   font-weight: 800;
   letter-spacing: 0.4px;
-  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
+  -webkit-text-stroke: 1px rgba(128, 128, 128, 0.4);
 }
 
 @media (min-width: 860px) {
