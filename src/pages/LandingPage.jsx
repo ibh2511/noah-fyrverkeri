@@ -76,7 +76,6 @@ export default function LandingPage() {
                       <li>5 meldinger til 5 forskjellige butikker: 1 lodd</li>
                       <li>10 meldinger til 10 forskjellige butikker: 2 lodd</li>
                       <li>15 meldinger til 15 forskjellige butikker: 3 lodd</li>
-                      <li>osv.</li>
                     </ul>
                   </li>
                   <li>
@@ -119,7 +118,7 @@ export default function LandingPage() {
               Registrer din innsats
             </Link>
             <p className="hint">
-              Tell oss hva du har gjort så får du lodd i trekningen
+              Fortell oss hva du har gjort så får du lodd i trekningen
             </p>
           </div>
 
@@ -129,7 +128,7 @@ export default function LandingPage() {
               href="/noah-fyrverkeri/images/qr-lockscreen.png"
               download
             >
-              Last ned låseskjermbilde med QR-kode
+              QR-koden peker til denne siden.
             </a>
             <p className="hint">
               Sett som bakgrunnsbilde og spre kampanjen videre
