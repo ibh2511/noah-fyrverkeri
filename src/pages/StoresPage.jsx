@@ -22,7 +22,7 @@ const POINTS_LIST = [
   "5 meldinger til forskjellige butikker = 1 lodd",
   "10 meldinger = 2 lodd",
   "15 meldinger = 3 lodd",
-  "Kommenter på Europris hovedkontor sine fyrverkeri-poster for 1 ekstra lodd",
+  "Kommenter på Europris hovedkontor sine fyrverkeri-poster = 1 lodd",
 ]
 
 const HERO_PARAGRAPHS = [
@@ -85,31 +85,42 @@ function shuffle(list) {
   return copy
 }
 
-function normalizeUrl(url) {
-  if (!url || typeof url !== "string") return ""
-  if (/^https?:\/\//i.test(url)) return url
-  return `https://${url}`
+function slugifyStoreHandle(store) {
+  const value =
+    store?.frontend_name || store?.name || store?.source_code || "butikk"
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase()
 }
 
-function buildSocialUrl(candidates, platform) {
-  for (const raw of candidates) {
-    if (!raw || typeof raw !== "string") continue
-    const trimmed = raw.trim()
-    if (!trimmed) continue
-    if (/^https?:\/\//i.test(trimmed)) return trimmed
-    if (trimmed.includes(".") || trimmed.includes("/")) {
-      return normalizeUrl(trimmed)
-    }
-    const handle = trimmed.replace(/^@/, "")
-    if (!handle) continue
-    if (platform === "instagram") {
-      return `https://www.instagram.com/${handle}`
-    }
-    if (platform === "facebook") {
-      return `https://www.facebook.com/${handle}`
-    }
+function ensureHttps(url) {
+  if (!url || typeof url !== "string") return ""
+  const trimmed = url.trim()
+  if (!trimmed) return ""
+  if (/^https?:\/\//i.test(trimmed)) return trimmed
+  return `https://${trimmed}`
+}
+
+function getMessengerLink(store, stats) {
+  if (stats?.messenger_url) {
+    const resolved = ensureHttps(stats.messenger_url)
+    if (resolved) return resolved
   }
-  return ""
+  const handle = slugifyStoreHandle(store)
+  return `https://m.me/Europris-${handle || "butikk"}`
+}
+
+function getInstagramDmLink(store, stats) {
+  if (stats?.insta_dm) {
+    const resolved = ensureHttps(stats.insta_dm)
+    if (resolved) return resolved
+  }
+  const handle = slugifyStoreHandle(store)
+  return `https://www.instagram.com/direct/t/Europris-${handle}`
 }
 
 function formatAddress(store) {
@@ -356,17 +367,6 @@ export default function StoresPage() {
             </a>
             <a
               className="button"
-              href={HQ_CONTACT.messenger}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() =>
-                trackEvent("click_facebook", HQ_STORE_CODE, "hq_messenger")
-              }
-            >
-              Send melding på Messenger
-            </a>
-            <a
-              className="button"
               href={HQ_CONTACT.facebook}
               target="_blank"
               rel="noreferrer"
@@ -430,31 +430,10 @@ export default function StoresPage() {
           {!loading && !error && stores.length > 0 && (
             <div className="stores-grid">
               {stores.map((store) => {
-                const ext = store.extension_attributes || {}
                 const stats = store.stats || {}
                 const storeId = store.id ?? stats.store_id ?? null
-                const facebookUrl = buildSocialUrl(
-                  [
-                    ext.facebook_url,
-                    ext.facebook,
-                    ext.facebook_page,
-                    stats.facebook_url,
-                    stats.facebook_page,
-                    stats.facebook_handle,
-                  ],
-                  "facebook"
-                )
-                const instagramUrl = buildSocialUrl(
-                  [
-                    ext.instagram_url,
-                    ext.instagram,
-                    stats.instagram_url,
-                    stats.instagram_handle,
-                  ],
-                  "instagram"
-                )
-                const hasFacebook = facebookUrl.length > 8
-                const hasInstagram = instagramUrl.length > 8
+                const messengerUrl = getMessengerLink(store, stats)
+                const instagramDmUrl = getInstagramDmLink(store, stats)
                 const emailHref = store.email
                   ? `mailto:${store.email}?subject=${encodeURIComponent(
                       SUBJECT_LINE
@@ -518,42 +497,38 @@ export default function StoresPage() {
                     </dl>
 
                     <div className="store-actions">
-                      {hasFacebook && (
-                        <a
-                          className="store-btn store-btn--facebook"
-                          href={facebookUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={() =>
-                            trackEvent(
-                              "click_facebook",
-                              store.source_code,
-                              facebookUrl,
-                              storeId
-                            )
-                          }
-                        >
-                          Facebook
-                        </a>
-                      )}
-                      {hasInstagram && (
-                        <a
-                          className="store-btn store-btn--instagram"
-                          href={instagramUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={() =>
-                            trackEvent(
-                              "click_instagram",
-                              store.source_code,
-                              instagramUrl,
-                              storeId
-                            )
-                          }
-                        >
-                          Instagram
-                        </a>
-                      )}
+                      <a
+                        className="store-btn store-btn--messenger"
+                        href={messengerUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() =>
+                          trackEvent(
+                            "click_facebook",
+                            store.source_code,
+                            messengerUrl,
+                            storeId
+                          )
+                        }
+                      >
+                        Send på Messenger
+                      </a>
+                      <a
+                        className="store-btn store-btn--instagram"
+                        href={instagramDmUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() =>
+                          trackEvent(
+                            "click_instagram",
+                            store.source_code,
+                            instagramDmUrl,
+                            storeId
+                          )
+                        }
+                      >
+                        Send Insta-DM
+                      </a>
                     </div>
                     <button
                       type="button"
