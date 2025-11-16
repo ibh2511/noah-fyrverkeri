@@ -94,7 +94,7 @@ export default function LandingPage() {
     setVisitorId(v)
   }, [])
 
-  // Fetch up to 100 store emails, prioritizing fewest antall_mail_bcc and excluding already sent for this visitor
+  // Fetch up to 100 store emails, prioritizing fewest bcc_mail_count and excluding already sent for this visitor
   useEffect(() => {
     let isMounted = true
     const loadLocalSentCodes = () => {
@@ -135,7 +135,7 @@ export default function LandingPage() {
         const { data: stats, error: statsErr } = await fetchAllRows(() =>
           supabase
             .from("campaign_store_stats")
-            .select("store_code, antall_mail_bcc")
+            .select("store_code, bcc_mail_count")
             .eq("campaign_id", campaign.id)
             .eq("sell_fireworks", true)
         )
@@ -146,7 +146,7 @@ export default function LandingPage() {
           .filter((s) => s.store_code && !sentCodes.has(s.store_code))
           .map((s) => ({
             code: s.store_code,
-            cnt: typeof s.antall_mail_bcc === "number" ? s.antall_mail_bcc : 0,
+            cnt: typeof s.bcc_mail_count === "number" ? s.bcc_mail_count : 0,
           }))
 
         // Sort by fewest sends first
