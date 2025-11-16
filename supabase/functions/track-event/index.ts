@@ -27,6 +27,7 @@ type EventPayload = {
     | "copy_email_text"
   campaignSlug: string // f.eks. "noah-fyrverkeri-2024"
   storeCode?: string | null // "ep629" osv. (kan være null for pageview)
+  storeId?: number | null
   visitorId?: string | null
   sessionId?: string | null
   path?: string | null
@@ -137,7 +138,7 @@ serve(async (req: Request) => {
 
       const { data: stores, error: storesErr } = await supabase
         .from("europris_stores")
-        .select("source_code,email")
+        .select("id,source_code,email")
         .in("email", unique)
 
       if (storesErr) {
@@ -158,6 +159,7 @@ serve(async (req: Request) => {
         event_type: "bcc_mail_send",
         campaign_id: campaignId,
         store_code: s.source_code,
+        store_id: s.id ?? null,
         visitor_id: body.visitorId ?? null,
         session_id: body.sessionId ?? null,
         path: body.path ?? null,
@@ -203,6 +205,7 @@ serve(async (req: Request) => {
       event_type: body.eventType,
       campaign_id: campaignId,
       store_code: body.storeCode ?? null,
+      store_id: body.storeId ?? null,
       visitor_id: body.visitorId ?? null,
       session_id: body.sessionId ?? null,
       path: body.path ?? null,

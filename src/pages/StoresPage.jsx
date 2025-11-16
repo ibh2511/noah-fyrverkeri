@@ -100,7 +100,6 @@ export default function StoresPage() {
   const [error, setError] = useState("")
   const [visitorId, setVisitorId] = useState("")
   const [copiedStoreCode, setCopiedStoreCode] = useState("")
-  const [copiedTemplate, setCopiedTemplate] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
 
   const isDebugSb = useMemo(() => {
@@ -156,14 +155,15 @@ export default function StoresPage() {
   }, [])
 
   const trackEvent = useCallback(
-    async (eventType, storeCode = null, linkTarget = null) => {
+    async (eventType, storeCode = null, linkTarget = null, storeId = null) => {
       if (isDebugSb) {
         if (import.meta.env.DEV) {
           console.info(
             "[debug=sb] tracking disabled",
             eventType,
             storeCode,
-            linkTarget
+            linkTarget,
+            storeId
           )
         }
         return
@@ -174,6 +174,7 @@ export default function StoresPage() {
         campaignSlug: CAMPAIGN_SLUG,
         visitorId,
         storeCode,
+        storeId,
         path: window.location.pathname,
         linkTarget,
         referrer: document.referrer || null,
@@ -222,7 +223,7 @@ export default function StoresPage() {
         const { data: storeRows, error: storesErr } = await supabase
           .from("europris_stores")
           .select(
-            "source_code,name,frontend_name,city,street,region,postcode,email,phone,extension_attributes"
+            "id,source_code,name,frontend_name,city,street,region,postcode,email,phone,extension_attributes"
           )
           .in("source_code", storeCodes)
 
@@ -263,25 +264,6 @@ export default function StoresPage() {
     }
   }, [refreshKey])
 
-  const handleCopyTemplate = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(MESSAGE_TEMPLATE)
-    } catch {
-      const textarea = document.createElement("textarea")
-      textarea.value = MESSAGE_TEMPLATE
-      textarea.style.position = "fixed"
-      textarea.style.opacity = "0"
-      document.body.appendChild(textarea)
-      textarea.focus()
-      textarea.select()
-      document.execCommand("copy")
-      textarea.remove()
-    }
-    setCopiedTemplate(true)
-    window.setTimeout(() => setCopiedTemplate(false), 1600)
-    trackEvent("copy_email_text", null, "stores_template")
-  }, [trackEvent])
-
   const handleCopyForStore = useCallback(
     async (store) => {
       const storeName = store?.frontend_name || store?.name || "butikken"
@@ -301,7 +283,12 @@ export default function StoresPage() {
       }
       setCopiedStoreCode(store.source_code)
       window.setTimeout(() => setCopiedStoreCode(""), 1600)
-      trackEvent("copy_email_text", store.source_code, "store_message")
+      trackEvent(
+        "copy_email_text",
+        store.source_code,
+        "store_message",
+        store.id ?? store.stats?.store_id ?? null
+      )
     },
     [trackEvent]
   )
@@ -324,23 +311,6 @@ export default function StoresPage() {
               <li key={item}>{item}</li>
             ))}
           </ul>
-        </section>
-
-        <section className="message-card">
-          <div>
-            <p className="eyebrow">Ferdig tekst</p>
-            <h2>Kopier meldingen vår</h2>
-            <p className="message-helper">
-              Bytt ut [[BUTIKKNAVN]] før du sender – og legg gjerne til en lokal
-              vinkel.
-            </p>
-          </div>
-          <pre className="message-body">{MESSAGE_TEMPLATE}</pre>
-          <div className="message-actions">
-            <button className="button btn-accent" onClick={handleCopyTemplate}>
-              {copiedTemplate ? "Kopiert!" : "Kopier teksten"}
-            </button>
-          </div>
         </section>
 
         <section className="hq-card">
@@ -435,6 +405,7 @@ export default function StoresPage() {
               {stores.map((store) => {
                 const ext = store.extension_attributes || {}
                 const stats = store.stats || {}
+                const storeId = store.id ?? stats.store_id ?? null
                 const facebookUrl = buildSocialUrl(
                   [
                     ext.facebook_url,
@@ -488,7 +459,8 @@ export default function StoresPage() {
                                 trackEvent(
                                   "click_mail",
                                   store.source_code,
-                                  store.email
+                                  store.email,
+                                  storeId
                                 )
                               }
                             >
@@ -508,7 +480,8 @@ export default function StoresPage() {
                                 trackEvent(
                                   "click_social_cta",
                                   store.source_code,
-                                  store.phone
+                                  store.phone,
+                                  storeId
                                 )
                               }
                             >
@@ -530,7 +503,8 @@ export default function StoresPage() {
                             trackEvent(
                               "click_facebook",
                               store.source_code,
-                              facebookUrl
+                              facebookUrl,
+                              storeId
                             )
                           }
                         >
@@ -547,7 +521,8 @@ export default function StoresPage() {
                             trackEvent(
                               "click_instagram",
                               store.source_code,
-                              instagramUrl
+                              instagramUrl,
+                              storeId
                             )
                           }
                         >
