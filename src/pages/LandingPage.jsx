@@ -155,30 +155,24 @@ export default function LandingPage() {
   }, [visitorId])
 
   // Generic tracker helper; no-ops when debug flag is on
-  const trackEvent = (eventType, linkTarget = null) => {
-    if (isDebugSb) return
+  const trackEvent = async (eventType, linkTarget = null) => {
+    if (isDebugSb) {
+      if (import.meta.env.DEV) {
+        console.info("[debug=sb] tracking disabled:", eventType, linkTarget)
+      }
+      return
+    }
     try {
-      const functionsUrl = `${
-        import.meta.env.VITE_SUPABASE_URL
-      }/functions/v1/track-event`
-      const anon = import.meta.env.VITE_SUPABASE_ANON_KEY
-      fetch(functionsUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: anon,
-          Authorization: `Bearer ${anon}`,
-        },
-        body: JSON.stringify({
+      await supabase.functions.invoke("track-event", {
+        body: {
           eventType,
           campaignSlug: CAMPAIGN_SLUG,
           visitorId,
           path: window.location.pathname,
           linkTarget,
           referrer: document.referrer || null,
-        }),
-        keepalive: true,
-      }).catch(() => {})
+        },
+      })
     } catch {
       // ignore
     }
@@ -270,7 +264,7 @@ Med vennlig hilsen
 
   const heroImage = HERO_IMAGES[imageIndex]
 
-  const trackBccSend = () => {
+  const trackBccSend = async () => {
     if (isDebugSb) return
     try {
       const emails = (bccRecipients || "")
@@ -278,27 +272,14 @@ Med vennlig hilsen
         .map((e) => e.trim())
         .filter(Boolean)
         .slice(0, 200)
-
-      // Use fetch with keepalive to avoid being canceled by navigation
-      const functionsUrl = `${
-        import.meta.env.VITE_SUPABASE_URL
-      }/functions/v1/track-event`
-      const anon = import.meta.env.VITE_SUPABASE_ANON_KEY
-      fetch(functionsUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: anon,
-          Authorization: `Bearer ${anon}`,
-        },
-        body: JSON.stringify({
+      await supabase.functions.invoke("track-event", {
+        body: {
           eventType: "bcc_mail_send",
           campaignSlug: CAMPAIGN_SLUG,
           emails,
           visitorId,
-        }),
-        keepalive: true,
-      }).catch(() => {})
+        },
+      })
     } catch {
       // swallow
     }
