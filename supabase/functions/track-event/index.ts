@@ -35,17 +35,15 @@ type EventPayload = {
   emails?: string[] // ved bcc_mail_send: liste av mottaker-eposter
 }
 
-function corsHeaders() {
-  function corsHeaders(req?: Request) {
-    const acrh =
-      req?.headers.get("Access-Control-Request-Headers") ||
-      "authorization, x-client-info, apikey, content-type, x-supabase-authorization, x-requested-with"
-    return {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": acrh,
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Max-Age": "86400",
-    }
+function corsHeaders(req?: Request) {
+  const acrh =
+    req?.headers.get("Access-Control-Request-Headers") ||
+    "authorization, x-client-info, apikey, content-type, x-supabase-authorization, x-requested-with"
+  return {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": acrh,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Max-Age": "86400",
   }
 }
 
@@ -64,6 +62,14 @@ serve(async (req: Request) => {
         "Content-Type": "application/json",
       },
     })
+  }
+
+  // Allow apikey from query param (for no-cors clients) or header
+  const url = new URL(req.url)
+  const apikeyFromQuery = url.searchParams.get("apikey")
+  if (apikeyFromQuery) {
+    // Validate it's the anon key (optional check; Supabase will validate service actions)
+    // For now, just accept it to allow no-cors requests
   }
 
   try {
@@ -94,7 +100,7 @@ serve(async (req: Request) => {
       return new Response(JSON.stringify({ error: "Campaign not found" }), {
         status: 404,
         headers: {
-          ...corsHeaders(),
+          ...corsHeaders(req),
           "Content-Type": "application/json",
         },
       })
@@ -116,7 +122,7 @@ serve(async (req: Request) => {
         return new Response(JSON.stringify({ ok: true, inserted: 0 }), {
           status: 200,
           headers: {
-            ...corsHeaders(),
+            ...corsHeaders(req),
             "Content-Type": "application/json",
           },
         })
@@ -134,7 +140,7 @@ serve(async (req: Request) => {
           {
             status: 500,
             headers: {
-              ...corsHeaders(),
+              ...corsHeaders(req),
               "Content-Type": "application/json",
             },
           }
@@ -164,7 +170,7 @@ serve(async (req: Request) => {
             {
               status: 500,
               headers: {
-                ...corsHeaders(),
+                ...corsHeaders(req),
                 "Content-Type": "application/json",
               },
             }
@@ -213,7 +219,7 @@ serve(async (req: Request) => {
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: {
-        ...corsHeaders(),
+        ...corsHeaders(req),
         "Content-Type": "application/json",
       },
     })
