@@ -162,11 +162,27 @@ export default function LandingPage() {
           return
         }
 
-        // Fetch emails for these stores
-        const { data: stores, error: storesErr } = await supabase
-          .from("europris_stores")
-          .select("source_code, email")
-          .in("source_code", pickCodes)
+        // Fetch emails for these stores (chunked to avoid long GET URLs)
+        async function fetchStoresByCodes(codes, chunkSize = 80) {
+          const uniqueCodes = Array.from(new Set(codes)).filter(Boolean)
+          const collected = []
+          for (let i = 0; i < uniqueCodes.length; i += chunkSize) {
+            const chunk = uniqueCodes.slice(i, i + chunkSize)
+            const { data, error } = await supabase
+              .from("europris_stores")
+              .select("source_code, email")
+              .in("source_code", chunk)
+            if (error) {
+              return { data: null, error }
+            }
+            if (data && data.length > 0) collected.push(...data)
+          }
+          return { data: collected, error: null }
+        }
+
+        const { data: stores, error: storesErr } = await fetchStoresByCodes(
+          pickCodes
+        )
         if (storesErr || !stores) return
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/

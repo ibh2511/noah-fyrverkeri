@@ -18,6 +18,8 @@ const STATS_COLUMN_MAP: Record<string, keyof CampaignStoreStatsColumns> = {
   click_facebook: "facebook_click",
   click_instagram: "insta_click",
   click_social_cta: "phone_click",
+  messenger_click: "messenger_click",
+  instagram_dm_click: "insta_dm_click",
 }
 
 type CampaignStoreStatsColumns = {
@@ -26,6 +28,8 @@ type CampaignStoreStatsColumns = {
   insta_click: number | null
   phone_click: number | null
   bcc_mail_count: number | null
+  messenger_click: number | null
+  insta_dm_click: number | null
 }
 
 type EventPayload = {
@@ -35,6 +39,8 @@ type EventPayload = {
     | "click_btn_mail"
     | "click_facebook"
     | "click_instagram"
+    | "messenger_click"
+    | "instagram_dm_click"
     | "bcc_mail_send"
     | "click_register"
     | "click_qr_download"

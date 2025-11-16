@@ -504,7 +504,7 @@ export default function StoresPage() {
                         rel="noreferrer"
                         onClick={() =>
                           trackEvent(
-                            "click_facebook",
+                            "messenger_click",
                             store.source_code,
                             messengerUrl,
                             storeId
@@ -520,7 +520,7 @@ export default function StoresPage() {
                         rel="noreferrer"
                         onClick={() =>
                           trackEvent(
-                            "click_instagram",
+                            "instagram_dm_click",
                             store.source_code,
                             instagramDmUrl,
                             storeId
