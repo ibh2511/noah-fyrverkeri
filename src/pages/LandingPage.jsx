@@ -377,7 +377,7 @@ Med vennlig hilsen
                   window.alert("Du har allerede sendt til alle e-postene.")
                   return
                 }
-                if (eligibleCount < 100) {
+                if (eligibleCount < 10) {
                   const ok = window.confirm(
                     `Det er kun ${eligibleCount} butikker du ikke allerede har sendt til. Vil du sende til disse nå?`
                   )
