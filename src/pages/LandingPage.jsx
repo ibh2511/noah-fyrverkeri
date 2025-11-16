@@ -125,18 +125,18 @@ export default function LandingPage() {
         // Fetch emails for these stores
         const { data: stores, error: storesErr } = await supabase
           .from("europris_stores")
-          .select("email")
+          .select("source_code, email")
           .in("source_code", pickCodes)
         if (storesErr || !stores) return
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        const emails = Array.from(
-          new Set(
-            stores
-              .map((s) => s.email)
-              .filter((e) => typeof e === "string" && emailRegex.test(e))
-          )
-        ).slice(0, 100)
+        // Map store codes to emails and build the BCC list in the same order as pickCodes
+        const codeToEmail = new Map(
+          (stores || []).map((s) => [s.source_code, s.email])
+        )
+        const emails = pickCodes
+          .map((code) => codeToEmail.get(code))
+          .filter((e) => typeof e === "string" && emailRegex.test(e))
 
         if (isMounted && emails.length > 0) {
           setBccRecipients(emails.join(","))
