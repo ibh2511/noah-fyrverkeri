@@ -27,6 +27,19 @@ export default function LandingPage() {
   const [visitorId, setVisitorId] = useState("")
   const fadeTimeout = useRef(null)
 
+  // Debug flag: disable tracking when ?debug=sb (also used for SB probe)
+  const isDebugSb = (() => {
+    try {
+      const sp = new URLSearchParams(window.location.search)
+      if (sp.get("debug") === "sb") return true
+      const hp = new URLSearchParams(
+        (window.location.hash || "").replace(/^#/, "")
+      )
+      if (hp.get("debug") === "sb") return true
+    } catch {}
+    return false
+  })()
+
   useEffect(() => {
     const intervalId = window.setInterval(() => {
       setIsFading(true)
@@ -141,6 +154,36 @@ export default function LandingPage() {
     }
   }, [visitorId])
 
+  // Generic tracker helper; no-ops when debug flag is on
+  const trackEvent = (eventType, linkTarget = null) => {
+    if (isDebugSb) return
+    try {
+      const functionsUrl = `${
+        import.meta.env.VITE_SUPABASE_URL
+      }/functions/v1/track-event`
+      const anon = import.meta.env.VITE_SUPABASE_ANON_KEY
+      fetch(functionsUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: anon,
+          Authorization: `Bearer ${anon}`,
+        },
+        body: JSON.stringify({
+          eventType,
+          campaignSlug: CAMPAIGN_SLUG,
+          visitorId,
+          path: window.location.pathname,
+          linkTarget,
+          referrer: document.referrer || null,
+        }),
+        keepalive: true,
+      }).catch(() => {})
+    } catch {
+      // ignore
+    }
+  }
+
   // IAB: adjust link (strip body) and toggle hints; run on mount only
   useEffect(() => {
     const isIAB = /FBAN|FBAV|FB_IAB|Instagram|Messenger/i.test(
@@ -178,6 +221,7 @@ Med vennlig hilsen
         await navigator.clipboard.writeText(MAIL_BODY)
         setCopied(true)
         window.setTimeout(() => setCopied(false), 1800)
+        trackEvent("copy_email_text", "iab_copy")
       } catch {
         const ta = document.createElement("textarea")
         ta.value = MAIL_BODY
@@ -187,6 +231,7 @@ Med vennlig hilsen
         ta.remove()
         setCopied(true)
         window.setTimeout(() => setCopied(false), 1800)
+        trackEvent("copy_email_text", "iab_copy_fallback")
       }
     })
 
@@ -226,6 +271,7 @@ Med vennlig hilsen
   const heroImage = HERO_IMAGES[imageIndex]
 
   const trackBccSend = () => {
+    if (isDebugSb) return
     try {
       const emails = (bccRecipients || "")
         .split(",")
@@ -330,6 +376,7 @@ Med vennlig hilsen
                   }
                 }
                 setSendingNow(true)
+                trackEvent("click_btn_mail", "mailto_cta")
                 trackBccSend()
                 // re-enable after a short delay to guard double-clicks
                 window.setTimeout(() => setSendingNow(false), 3000)
@@ -367,7 +414,11 @@ Med vennlig hilsen
           </div>
 
           <div className="btn-group">
-            <Link className="button btn-accent" to="/butikker">
+            <Link
+              className="button btn-accent"
+              to="/butikker"
+              onClick={() => trackEvent("click_social_cta", "/butikker")}
+            >
               Send melding på Facebook/Instagram
             </Link>
             <p className="hint">
@@ -376,7 +427,11 @@ Med vennlig hilsen
           </div>
 
           <div className="btn-group">
-            <Link className="button" to="/registrer">
+            <Link
+              className="button"
+              to="/registrer"
+              onClick={() => trackEvent("click_register", "/registrer")}
+            >
               Registrer din innsats
             </Link>
             <p className="hint">
@@ -388,6 +443,9 @@ Med vennlig hilsen
             <a
               className="button"
               href="/noah-fyrverkeri/images/qr-lockscreen.png"
+              onClick={() =>
+                trackEvent("click_qr_download", "/images/qr-lockscreen.png")
+              }
               download
             >
               Last ned låseskjermbilde med QR-kode

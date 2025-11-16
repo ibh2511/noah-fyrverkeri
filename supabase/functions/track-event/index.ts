@@ -21,6 +21,10 @@ type EventPayload = {
     | "click_facebook"
     | "click_instagram"
     | "bcc_mail_send"
+    | "click_register"
+    | "click_qr_download"
+    | "click_social_cta"
+    | "copy_email_text"
   campaignSlug: string // f.eks. "noah-fyrverkeri-2024"
   storeCode?: string | null // "ep629" osv. (kan være null for pageview)
   visitorId?: string | null
