@@ -1,0 +1,12 @@
+{
+  "name": "import-fireworks-stats",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "import": "node import-campaign-store-stats.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "dotenv": "^16.0.0"
+  }
+}
