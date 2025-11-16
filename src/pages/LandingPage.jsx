@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { CONTACT_EMAIL } from "../components/SiteFooter"
+import { supabase } from "../supabaseClient"
 
-const BCC_RECIPIENTS = "isabelle.haugan@gmail.com,postkasse2511@gmail.com"
+const DEFAULT_BCC_RECIPIENTS =
+  "isabelle.haugan@gmail.com,postkasse2511@gmail.com"
+const CAMPAIGN_SLUG = "noah-fyrverkeri-2025"
 
 const HERO_IMAGES = [
   {
@@ -19,6 +22,7 @@ export default function LandingPage() {
   const [imageIndex, setImageIndex] = useState(0)
   const [isFading, setIsFading] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [bccRecipients, setBccRecipients] = useState(DEFAULT_BCC_RECIPIENTS)
   const fadeTimeout = useRef(null)
 
   useEffect(() => {
@@ -36,6 +40,60 @@ export default function LandingPage() {
     }
   }, [])
 
+  // Fetch up to 100 store emails that sell fireworks for the campaign
+  useEffect(() => {
+    let isMounted = true
+    async function loadBcc() {
+      try {
+        const { data: campaign, error: campErr } = await supabase
+          .from("campaigns")
+          .select("id")
+          .eq("slug", CAMPAIGN_SLUG)
+          .single()
+        if (campErr || !campaign) return
+
+        const { data: stats, error: statsErr } = await supabase
+          .from("campaign_store_stats")
+          .select("store_code")
+          .eq("campaign_id", campaign.id)
+          .eq("sell_fireworks", true)
+        if (statsErr || !stats || stats.length === 0) return
+
+        const storeCodes = Array.from(
+          new Set(stats.map((s) => s.store_code).filter(Boolean))
+        )
+        if (storeCodes.length === 0) return
+
+        // Fetch emails for these stores
+        const { data: stores, error: storesErr } = await supabase
+          .from("europris_stores")
+          .select("email")
+          .in("source_code", storeCodes)
+        if (storesErr || !stores) return
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        const emails = Array.from(
+          new Set(
+            stores
+              .map((s) => s.email)
+              .filter((e) => typeof e === "string" && emailRegex.test(e))
+          )
+        ).slice(0, 100)
+
+        if (isMounted && emails.length > 0) {
+          setBccRecipients(emails.join(","))
+        }
+      } catch {
+        // Ignore and keep fallback
+      }
+    }
+    loadBcc()
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  // IAB: adjust link (strip body) and toggle hints; run on mount only
   useEffect(() => {
     const isIAB = /FBAN|FBAV|FB_IAB|Instagram|Messenger/i.test(
       navigator.userAgent
@@ -47,10 +105,7 @@ export default function LandingPage() {
       const subj = encodeURIComponent(
         "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
       )
-      mailA.setAttribute(
-        "href",
-        `mailto:?bcc=${BCC_RECIPIENTS}&subject=${subj}`
-      )
+      mailA.setAttribute("href", `mailto:?bcc=${bccRecipients}&subject=${subj}`)
     }
 
     const pOrig = document.getElementById("emailHintOrig")
@@ -94,6 +149,21 @@ Med vennlig hilsen
       }
     })
   }, [])
+
+  // When BCC list changes and we're in IAB, update the link
+  useEffect(() => {
+    const isIAB = /FBAN|FBAV|FB_IAB|Instagram|Messenger/i.test(
+      navigator.userAgent
+    )
+    if (!isIAB) return
+    const mailA = document.getElementById("mailLink")
+    if (mailA) {
+      const subj = encodeURIComponent(
+        "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
+      )
+      mailA.setAttribute("href", `mailto:?bcc=${bccRecipients}&subject=${subj}`)
+    }
+  }, [bccRecipients])
 
   const handleCopyEmail = async () => {
     try {
@@ -159,7 +229,7 @@ Med vennlig hilsen
             <a
               className="button btn-accent"
               id="mailLink"
-              href={`mailto:?bcc=${BCC_RECIPIENTS}&subject=${encodeURIComponent(
+              href={`mailto:?bcc=${bccRecipients}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
               )}&body=${encodeURIComponent(`Hei! 🐾
 
