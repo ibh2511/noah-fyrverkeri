@@ -75,6 +75,13 @@ serve(async (req: Request) => {
   try {
     const body = (await req.json()) as EventPayload
 
+    console.log(
+      "Received event:",
+      body.eventType,
+      "emails:",
+      body.emails?.length
+    )
+
     if (!body.eventType || !body.campaignSlug) {
       return new Response(
         JSON.stringify({ error: "Missing eventType or campaignSlug" }),

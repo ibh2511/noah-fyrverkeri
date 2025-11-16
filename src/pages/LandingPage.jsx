@@ -302,6 +302,8 @@ Med vennlig hilsen
         .filter(Boolean)
         .slice(0, 200)
 
+      console.log("📧 Tracking BCC send for", emails.length, "emails")
+
       await postFunction({
         eventType: "bcc_mail_send",
         campaignSlug: CAMPAIGN_SLUG,
@@ -387,8 +389,14 @@ Med vennlig hilsen
                 setSendingNow(true)
                 trackEvent("click_btn_mail", "mailto_cta")
                 trackBccSend()
-                // re-enable after a short delay to guard double-clicks
-                window.setTimeout(() => setSendingNow(false), 3000)
+
+                // Mark as sent; block future clicks until page reload or BCC list updates
+                localStorage.setItem("lastBccSendTime", Date.now().toString())
+                setEligibleCount(0)
+                setBccRecipients("")
+
+                // Guard stays active until backend reflects the send
+                window.setTimeout(() => setSendingNow(false), 5000)
               }}
               href={`mailto:?bcc=${bccRecipients}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
