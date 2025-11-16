@@ -9,17 +9,19 @@ const HQ_CONTACT = {
   body: [
     "Send dem gjerne en ekstra melding når du har skrevet til noen butikker.",
     "Jo flere ganger de hører fra oss, jo vanskeligere blir det å ignorere kampanjen.",
+    "Kommenter også på fyrverkeri-postene deres for 1 ekstra lodd hver gang.",
   ],
   email: "kundeservice@europris.no",
   messenger: "https://m.me/Europris",
   facebook: "https://www.facebook.com/Europris",
+  instagram: "https://www.instagram.com/europris/",
 }
 
 const POINTS_LIST = [
   "5 meldinger til forskjellige butikker = 1 lodd",
   "10 meldinger = 2 lodd",
   "15 meldinger = 3 lodd",
-  "Kommenter på Europris sine fyrverkeri-poster for ekstra lodd",
+  "Kommenter på Europris hovedkontor sine fyrverkeri-poster for 1 ekstra lodd",
 ]
 
 const HERO_PARAGRAPHS = [
@@ -66,13 +68,30 @@ function normalizeUrl(url) {
   return `https://${url}`
 }
 
+function buildSocialUrl(candidates, platform) {
+  for (const raw of candidates) {
+    if (!raw || typeof raw !== "string") continue
+    const trimmed = raw.trim()
+    if (!trimmed) continue
+    if (/^https?:\/\//i.test(trimmed)) return trimmed
+    if (trimmed.includes(".") || trimmed.includes("/")) {
+      return normalizeUrl(trimmed)
+    }
+    const handle = trimmed.replace(/^@/, "")
+    if (!handle) continue
+    if (platform === "instagram") {
+      return `https://www.instagram.com/${handle}`
+    }
+    if (platform === "facebook") {
+      return `https://www.facebook.com/${handle}`
+    }
+  }
+  return ""
+}
+
 function formatAddress(store) {
   const parts = [store?.street, store?.postcode, store?.city]
   return parts.filter(Boolean).join(", ") || "Adresse ikke oppgitt"
-}
-
-function numberOrZero(value) {
-  return typeof value === "number" && Number.isFinite(value) ? value : 0
 }
 
 export default function StoresPage() {
@@ -182,9 +201,7 @@ export default function StoresPage() {
         const { data: statsRows, error: statsErr } = await fetchAllRows(() =>
           supabase
             .from("campaign_store_stats")
-            .select(
-              "store_code,bcc_mail_count,facebook_click,insta_click,mail_click"
-            )
+            .select("*")
             .eq("campaign_id", campaign.id)
             .eq("sell_fireworks", true)
         )
@@ -296,7 +313,7 @@ export default function StoresPage() {
       <div className="wrap stores-wrap">
         <section className="stores-hero">
           <p className="eyebrow">Slik bruker du sosiale medier</p>
-          <h1>Snakk med Europris-butikkene der du bor</h1>
+          <h1>Send melding til Europris-butikkene</h1>
           {HERO_PARAGRAPHS.map((text) => (
             <p key={text} className="stores-lead">
               {text}
@@ -323,15 +340,6 @@ export default function StoresPage() {
             <button className="button btn-accent" onClick={handleCopyTemplate}>
               {copiedTemplate ? "Kopiert!" : "Kopier teksten"}
             </button>
-            <a
-              className="button"
-              href={`mailto:?subject=${encodeURIComponent(
-                SUBJECT_LINE
-              )}&body=${encodeURIComponent(MESSAGE_TEMPLATE)}`}
-              onClick={() => trackEvent("click_mail", null, "template_mailto")}
-            >
-              Lim den inn i e-post
-            </a>
           </div>
         </section>
 
@@ -370,6 +378,17 @@ export default function StoresPage() {
               onClick={() => trackEvent("click_facebook", null, "hq_facebook")}
             >
               Besøk Europris på Facebook
+            </a>
+            <a
+              className="button"
+              href={HQ_CONTACT.instagram}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() =>
+                trackEvent("click_instagram", null, "hq_instagram")
+              }
+            >
+              Følg Europris på Instagram
             </a>
           </div>
         </section>
@@ -415,8 +434,27 @@ export default function StoresPage() {
             <div className="stores-grid">
               {stores.map((store) => {
                 const ext = store.extension_attributes || {}
-                const facebookUrl = normalizeUrl(ext.facebook_url || "")
-                const instagramUrl = normalizeUrl(ext.instagram_url || "")
+                const stats = store.stats || {}
+                const facebookUrl = buildSocialUrl(
+                  [
+                    ext.facebook_url,
+                    ext.facebook,
+                    ext.facebook_page,
+                    stats.facebook_url,
+                    stats.facebook_page,
+                    stats.facebook_handle,
+                  ],
+                  "facebook"
+                )
+                const instagramUrl = buildSocialUrl(
+                  [
+                    ext.instagram_url,
+                    ext.instagram,
+                    stats.instagram_url,
+                    stats.instagram_handle,
+                  ],
+                  "instagram"
+                )
                 const hasFacebook = facebookUrl.length > 8
                 const hasInstagram = instagramUrl.length > 8
                 const emailHref = store.email
@@ -424,13 +462,9 @@ export default function StoresPage() {
                       SUBJECT_LINE
                     )}`
                   : null
-                const stats = store.stats || {}
-                const totalSocial =
-                  numberOrZero(stats.facebook_click) +
-                  numberOrZero(stats.insta_click)
-                const totalMail =
-                  numberOrZero(stats.bcc_mail_count) +
-                  numberOrZero(stats.mail_click)
+                const phoneHref = store.phone
+                  ? `tel:${store.phone.replace(/\s+/g, "")}`
+                  : null
 
                 return (
                   <article key={store.source_code} className="store-card">
@@ -446,27 +480,44 @@ export default function StoresPage() {
                       {store.email && (
                         <div>
                           <dt>E-post</dt>
-                          <dd>{store.email}</dd>
+                          <dd>
+                            <a
+                              href={emailHref}
+                              className="store-contact-link"
+                              onClick={() =>
+                                trackEvent(
+                                  "click_mail",
+                                  store.source_code,
+                                  store.email
+                                )
+                              }
+                            >
+                              {store.email}
+                            </a>
+                          </dd>
                         </div>
                       )}
                       {store.phone && (
                         <div>
                           <dt>Telefon</dt>
-                          <dd>{store.phone}</dd>
+                          <dd>
+                            <a
+                              href={phoneHref}
+                              className="store-contact-link"
+                              onClick={() =>
+                                trackEvent(
+                                  "click_social_cta",
+                                  store.source_code,
+                                  store.phone
+                                )
+                              }
+                            >
+                              {store.phone}
+                            </a>
+                          </dd>
                         </div>
                       )}
                     </dl>
-
-                    <div className="store-stats">
-                      <div>
-                        <span>Rapporterte meldinger</span>
-                        <strong>{totalSocial}</strong>
-                      </div>
-                      <div>
-                        <span>Sendte e-poster</span>
-                        <strong>{totalMail}</strong>
-                      </div>
-                    </div>
 
                     <div className="store-actions">
                       {hasFacebook && (
@@ -501,36 +552,6 @@ export default function StoresPage() {
                           }
                         >
                           Instagram
-                        </a>
-                      )}
-                      {emailHref && (
-                        <a
-                          className="store-btn"
-                          href={emailHref}
-                          onClick={() =>
-                            trackEvent(
-                              "click_mail",
-                              store.source_code,
-                              store.email
-                            )
-                          }
-                        >
-                          Send e-post
-                        </a>
-                      )}
-                      {store.phone && (
-                        <a
-                          className="store-btn"
-                          href={`tel:${store.phone}`}
-                          onClick={() =>
-                            trackEvent(
-                              "click_social_cta",
-                              store.source_code,
-                              store.phone
-                            )
-                          }
-                        >
-                          Ring
                         </a>
                       )}
                     </div>

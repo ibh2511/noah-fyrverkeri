@@ -152,7 +152,7 @@ export default function LandingPage() {
         // Sort by fewest sends first
         eligible.sort((a, b) => a.cnt - b.cnt)
 
-        const pick = eligible.slice(0, 50)
+        const pick = eligible.slice(0, 100)
         const pickCodes = pick.map((x) => x.code)
         if (pickCodes.length === 0) {
           if (isMounted) {
@@ -443,7 +443,7 @@ Med vennlig hilsen
                   )
                   return
                 }
-                if (eligibleCount < 50) {
+                if (eligibleCount < 100) {
                   const ok = window.confirm(
                     `Det er kun ${eligibleCount} butikker du ikke allerede har sendt til. Vil du sende til disse nå?`
                   )

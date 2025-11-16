@@ -1011,25 +1011,13 @@ h1.brand {
   color: rgba(0, 0, 0, 0.75);
 }
 
-.store-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 8px;
-  background: rgba(19, 75, 42, 0.08);
-  border-radius: 12px;
-  padding: 10px;
+.store-contact-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
 }
-
-.store-stats span {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.store-stats strong {
-  display: block;
-  font-size: 20px;
+.store-contact-link:hover {
   color: #134b2a;
 }
 
