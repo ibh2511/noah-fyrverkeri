@@ -26,6 +26,8 @@ export default function LandingPage() {
   const [sendingNow, setSendingNow] = useState(false)
   const [visitorId, setVisitorId] = useState("")
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const [campaignId, setCampaignId] = useState(null)
+  const [currentStoreCodes, setCurrentStoreCodes] = useState([])
   const fadeTimeout = useRef(null)
 
   // Debug flag: disable tracking when ?debug=sb (also used for SB probe)
@@ -81,6 +83,7 @@ export default function LandingPage() {
           .eq("slug", CAMPAIGN_SLUG)
           .single()
         if (campErr || !campaign) return
+        setCampaignId(campaign.id)
 
         // Previously sent by this visitor
         const { data: sentRows, error: sentErr } = await supabase
@@ -134,16 +137,20 @@ export default function LandingPage() {
         const codeToEmail = new Map(
           (stores || []).map((s) => [s.source_code, s.email])
         )
-        const emails = pickCodes
-          .map((code) => codeToEmail.get(code))
-          .filter((e) => typeof e === "string" && emailRegex.test(e))
+        const validCodes = pickCodes.filter((code) => {
+          const e = codeToEmail.get(code)
+          return typeof e === "string" && emailRegex.test(e)
+        })
+        const emails = validCodes.map((code) => codeToEmail.get(code))
 
         if (isMounted && emails.length > 0) {
           setBccRecipients(emails.join(","))
           setEligibleCount(emails.length)
+          setCurrentStoreCodes(validCodes)
         } else if (isMounted) {
           setBccRecipients("")
           setEligibleCount(0)
+          setCurrentStoreCodes([])
         }
       } catch {
         // Ignore and keep fallback
@@ -294,6 +301,36 @@ Med vennlig hilsen
 
   const heroImage = HERO_IMAGES[imageIndex]
 
+  // Verify that at least one event for this batch was recorded before refreshing
+  const verifyBccRecorded = async (storeCodes, timeoutMs = 6000) => {
+    if (isDebugSb) return false
+    if (
+      !campaignId ||
+      !visitorId ||
+      !Array.isArray(storeCodes) ||
+      storeCodes.length === 0
+    )
+      return false
+    const started = Date.now()
+    while (Date.now() - started < timeoutMs) {
+      try {
+        const { data, error } = await supabase
+          .from("events")
+          .select("store_code")
+          .eq("campaign_id", campaignId)
+          .eq("event_type", "bcc_mail_send")
+          .eq("visitor_id", visitorId)
+          .in("store_code", storeCodes)
+
+        if (!error && Array.isArray(data) && data.length > 0) {
+          return true
+        }
+      } catch {}
+      await new Promise((r) => setTimeout(r, 1000))
+    }
+    return false
+  }
+
   const trackBccSend = async (emailString) => {
     if (isDebugSb) return
     try {
@@ -405,14 +442,20 @@ Med vennlig hilsen
                 // Mark as sent
                 localStorage.setItem("lastBccSendTime", Date.now().toString())
 
-                // Refresh the BCC list after a short delay to fetch next batch
-                window.setTimeout(() => {
+                // After sending, verify that events were recorded before refreshing
+                ;(async () => {
+                  const ok = await verifyBccRecorded(currentStoreCodes)
                   setSendingNow(false)
-                  // Now it's safe to clear local state; UI will refresh anyway
-                  setBccRecipients("")
-                  setEligibleCount(0)
-                  setRefreshTrigger((prev) => prev + 1)
-                }, 2000)
+                  if (ok) {
+                    setBccRecipients("")
+                    setEligibleCount(0)
+                    setRefreshTrigger((prev) => prev + 1)
+                  } else {
+                    window.alert(
+                      "Kunne ikke bekrefte at batchen ble registrert. Vent litt og prøv igjen."
+                    )
+                  }
+                })()
               }}
               href={`mailto:?bcc=${bccRecipients}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
