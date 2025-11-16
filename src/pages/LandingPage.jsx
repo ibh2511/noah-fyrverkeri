@@ -294,10 +294,10 @@ Med vennlig hilsen
 
   const heroImage = HERO_IMAGES[imageIndex]
 
-  const trackBccSend = async () => {
+  const trackBccSend = async (emailString) => {
     if (isDebugSb) return
     try {
-      const emails = (bccRecipients || "")
+      const emails = (emailString || "")
         .split(",")
         .map((e) => e.trim())
         .filter(Boolean)
@@ -378,6 +378,13 @@ Med vennlig hilsen
                   window.alert("Du har allerede sendt til alle e-postene.")
                   return
                 }
+                if (!bccRecipients || bccRecipients.trim() === "") {
+                  e.preventDefault()
+                  window.alert(
+                    "Ingen e-postadresser er lastet inn ennå. Vent litt og prøv igjen."
+                  )
+                  return
+                }
                 if (eligibleCount < 50) {
                   const ok = window.confirm(
                     `Det er kun ${eligibleCount} butikker du ikke allerede har sendt til. Vil du sende til disse nå?`
@@ -387,14 +394,18 @@ Med vennlig hilsen
                     return
                   }
                 }
-                setSendingNow(true)
-                trackEvent("click_btn_mail", "mailto_cta")
-                trackBccSend()
 
-                // Mark as sent; block future clicks until page reload or BCC list updates
-                localStorage.setItem("lastBccSendTime", Date.now().toString())
+                // Immediately block further clicks and clear the list
+                setSendingNow(true)
+                const emailsToSend = bccRecipients
                 setEligibleCount(0)
                 setBccRecipients("")
+
+                trackEvent("click_btn_mail", "mailto_cta")
+                trackBccSend(emailsToSend)
+
+                // Mark as sent
+                localStorage.setItem("lastBccSendTime", Date.now().toString())
 
                 // Refresh the BCC list after a short delay to fetch next batch
                 window.setTimeout(() => {
