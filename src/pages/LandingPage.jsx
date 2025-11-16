@@ -156,19 +156,36 @@ export default function LandingPage() {
 
   // Generic tracker helper; no-ops when debug flag is on
   const postFunction = async (payload) => {
+    const functionsUrl = `${
+      import.meta.env.VITE_SUPABASE_URL
+    }/functions/v1/track-event`
+
+    // On GitHub Pages, always use no-cors to avoid preflight blocking
+    const isGitHubPages = window.location.hostname.endsWith("github.io")
+
+    if (isGitHubPages) {
+      try {
+        await fetch(functionsUrl, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(payload),
+          keepalive: true,
+        })
+        return true
+      } catch {
+        return false
+      }
+    }
+
+    // Elsewhere, try invoke first, fallback to no-cors
     try {
       await supabase.functions.invoke("track-event", { body: payload })
       return true
     } catch {
       try {
-        const functionsUrl = `${
-          import.meta.env.VITE_SUPABASE_URL
-        }/functions/v1/track-event`
-        // Fallback: no-cors opaque POST with simple headers (avoids preflight)
         await fetch(functionsUrl, {
           method: "POST",
           mode: "no-cors",
-          headers: { "Content-Type": "text/plain" },
           body: JSON.stringify(payload),
           keepalive: true,
         })
