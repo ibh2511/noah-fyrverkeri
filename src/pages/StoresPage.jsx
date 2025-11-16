@@ -55,6 +55,27 @@ async function fetchAllRows(createQuery, chunkSize = 1000) {
   return { data: rows, error: null }
 }
 
+async function fetchStoresByCodes(codes, chunkSize = 80) {
+  const uniqueCodes = Array.from(new Set(codes)).filter(Boolean)
+  const collected = []
+  for (let i = 0; i < uniqueCodes.length; i += chunkSize) {
+    const chunk = uniqueCodes.slice(i, i + chunkSize)
+    const { data, error } = await supabase
+      .from("europris_stores")
+      .select(
+        "id,source_code,name,frontend_name,city,street,region,postcode,email,phone,extension_attributes"
+      )
+      .in("source_code", chunk)
+    if (error) {
+      return { data: null, error }
+    }
+    if (data && data.length > 0) {
+      collected.push(...data)
+    }
+  }
+  return { data: collected, error: null }
+}
+
 function shuffle(list) {
   const copy = [...list]
   for (let i = copy.length - 1; i > 0; i -= 1) {
@@ -222,12 +243,9 @@ export default function StoresPage() {
           return
         }
 
-        const { data: storeRows, error: storesErr } = await supabase
-          .from("europris_stores")
-          .select(
-            "id,source_code,name,frontend_name,city,street,region,postcode,email,phone,extension_attributes"
-          )
-          .in("source_code", storeCodes)
+        const { data: storeRows, error: storesErr } = await fetchStoresByCodes(
+          storeCodes
+        )
 
         if (storesErr) {
           throw new Error("Butikklisten kunne ikke lastes.")
