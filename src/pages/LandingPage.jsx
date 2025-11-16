@@ -111,7 +111,7 @@ export default function LandingPage() {
         // Sort by fewest sends first
         eligible.sort((a, b) => a.cnt - b.cnt)
 
-        const pick = eligible.slice(0, 100)
+        const pick = eligible.slice(0, 50)
         const pickCodes = pick.map((x) => x.code)
         if (pickCodes.length === 0) {
           if (isMounted) {
