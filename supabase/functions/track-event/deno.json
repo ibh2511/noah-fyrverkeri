@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "start": "deno run -A --watch=./,../_shared index.ts"
+  },
+  "compilerOptions": {
+    "strict": true
+  }
+}

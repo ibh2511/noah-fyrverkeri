@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage"
 import StoresPage from "./pages/StoresPage"
 import SiteFooter from "./components/SiteFooter"
 import CampaignBanner from "./components/CampaignBanner"
+import SupabaseProbe from "./components/SupabaseProbe"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           </Routes>
         </div>
         <SiteFooter />
+        {import.meta.env.DEV && <SupabaseProbe />}
       </div>
     </BrowserRouter>
   )

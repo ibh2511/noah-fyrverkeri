@@ -135,7 +135,7 @@ Med vennlig hilsen
               <summary>Slik får du lodd:</summary>
               <div className="lottery-content">
                 <ul>
-                  <li>Sender du e-post til 100 Europris-butikker: 1 lodd</li>
+                  <li>Send e-post til 100 Europris-butikker: 1 lodd</li>
                   <li>
                     For meldinger til Europris-butikker på Facebook/Instagram:
                     <ul>
