@@ -164,18 +164,15 @@ export default function LandingPage() {
     const isGitHubPages = window.location.hostname.endsWith("github.io")
 
     if (isGitHubPages) {
-      try {
-        // No-cors: can't read response, but request is sent and processed
-        await fetch(functionsUrl, {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(payload),
-          keepalive: true,
-        })
-        return true
-      } catch {
-        return false
-      }
+      // No-cors: can't read response, but request is sent and processed
+      // Suppress console errors since opaque responses always show as "failed"
+      fetch(functionsUrl, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {})
+      return true
     }
 
     // Elsewhere, try invoke first, fallback to no-cors
@@ -183,17 +180,13 @@ export default function LandingPage() {
       await supabase.functions.invoke("track-event", { body: payload })
       return true
     } catch {
-      try {
-        await fetch(functionsUrl, {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(payload),
-          keepalive: true,
-        })
-        return true
-      } catch {
-        return false
-      }
+      fetch(functionsUrl, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {})
+      return true
     }
   }
 
