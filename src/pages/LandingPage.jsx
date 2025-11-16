@@ -395,11 +395,9 @@ Med vennlig hilsen
                   }
                 }
 
-                // Immediately block further clicks and clear the list
+                // Immediately block further clicks
                 setSendingNow(true)
                 const emailsToSend = bccRecipients
-                setEligibleCount(0)
-                setBccRecipients("")
 
                 trackEvent("click_btn_mail", "mailto_cta")
                 trackBccSend(emailsToSend)
@@ -410,6 +408,9 @@ Med vennlig hilsen
                 // Refresh the BCC list after a short delay to fetch next batch
                 window.setTimeout(() => {
                   setSendingNow(false)
+                  // Now it's safe to clear local state; UI will refresh anyway
+                  setBccRecipients("")
+                  setEligibleCount(0)
                   setRefreshTrigger((prev) => prev + 1)
                 }, 2000)
               }}
