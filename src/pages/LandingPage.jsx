@@ -5,6 +5,7 @@ import { supabase } from "../supabaseClient"
 
 const DEFAULT_BCC_RECIPIENTS = "kundeservice@europris.no"
 const CAMPAIGN_SLUG = "noah-fyrverkeri-2025"
+const SENT_CODES_PREFIX = "bccSentStoreCodes:"
 
 const HERO_IMAGES = [
   {
@@ -26,7 +27,6 @@ export default function LandingPage() {
   const [sendingNow, setSendingNow] = useState(false)
   const [visitorId, setVisitorId] = useState("")
   const [refreshTrigger, setRefreshTrigger] = useState(0)
-  const [campaignId, setCampaignId] = useState(null)
   const [currentStoreCodes, setCurrentStoreCodes] = useState([])
   const fadeTimeout = useRef(null)
 
@@ -74,6 +74,16 @@ export default function LandingPage() {
   // Fetch up to 100 store emails, prioritizing fewest antall_mail_bcc and excluding already sent for this visitor
   useEffect(() => {
     let isMounted = true
+    const loadLocalSentCodes = () => {
+      if (!visitorId) return []
+      const key = `${SENT_CODES_PREFIX}${visitorId}`
+      try {
+        const parsed = JSON.parse(localStorage.getItem(key) || "[]")
+        return Array.isArray(parsed) ? parsed.filter(Boolean) : []
+      } catch {
+        return []
+      }
+    }
     async function loadBcc() {
       try {
         if (!visitorId) return
@@ -83,7 +93,6 @@ export default function LandingPage() {
           .eq("slug", CAMPAIGN_SLUG)
           .single()
         if (campErr || !campaign) return
-        setCampaignId(campaign.id)
 
         // Previously sent by this visitor
         const { data: sentRows, error: sentErr } = await supabase
@@ -96,6 +105,7 @@ export default function LandingPage() {
         const sentCodes = new Set(
           (sentRows || []).map((r) => r.store_code).filter(Boolean)
         )
+        loadLocalSentCodes().forEach((code) => sentCodes.add(code))
 
         const { data: stats, error: statsErr } = await supabase
           .from("campaign_store_stats")
@@ -301,34 +311,18 @@ Med vennlig hilsen
 
   const heroImage = HERO_IMAGES[imageIndex]
 
-  // Verify that at least one event for this batch was recorded before refreshing
-  const verifyBccRecorded = async (storeCodes, timeoutMs = 6000) => {
-    if (isDebugSb) return false
-    if (
-      !campaignId ||
-      !visitorId ||
-      !Array.isArray(storeCodes) ||
-      storeCodes.length === 0
-    )
-      return false
-    const started = Date.now()
-    while (Date.now() - started < timeoutMs) {
-      try {
-        const { data, error } = await supabase
-          .from("events")
-          .select("store_code")
-          .eq("campaign_id", campaignId)
-          .eq("event_type", "bcc_mail_send")
-          .eq("visitor_id", visitorId)
-          .in("store_code", storeCodes)
-
-        if (!error && Array.isArray(data) && data.length > 0) {
-          return true
-        }
-      } catch {}
-      await new Promise((r) => setTimeout(r, 1000))
-    }
-    return false
+  const appendLocalSentCodes = (codes) => {
+    if (!visitorId || !Array.isArray(codes) || codes.length === 0) return
+    const key = `${SENT_CODES_PREFIX}${visitorId}`
+    let existing = []
+    try {
+      const parsed = JSON.parse(localStorage.getItem(key) || "[]")
+      if (Array.isArray(parsed)) existing = parsed.filter(Boolean)
+    } catch {}
+    const next = Array.from(new Set([...existing, ...codes.filter(Boolean)]))
+    try {
+      localStorage.setItem(key, JSON.stringify(next))
+    } catch {}
   }
 
   const trackBccSend = async (emailString) => {
@@ -442,20 +436,15 @@ Med vennlig hilsen
                 // Mark as sent
                 localStorage.setItem("lastBccSendTime", Date.now().toString())
 
-                // After sending, verify that events were recorded before refreshing
-                ;(async () => {
-                  const ok = await verifyBccRecorded(currentStoreCodes)
+                appendLocalSentCodes(currentStoreCodes)
+
+                // Refresh the BCC list after a short delay to fetch next batch
+                window.setTimeout(() => {
                   setSendingNow(false)
-                  if (ok) {
-                    setBccRecipients("")
-                    setEligibleCount(0)
-                    setRefreshTrigger((prev) => prev + 1)
-                  } else {
-                    window.alert(
-                      "Kunne ikke bekrefte at batchen ble registrert. Vent litt og prøv igjen."
-                    )
-                  }
-                })()
+                  setBccRecipients("")
+                  setEligibleCount(0)
+                  setRefreshTrigger((prev) => prev + 1)
+                }, 2000)
               }}
               href={`mailto:?bcc=${bccRecipients}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
