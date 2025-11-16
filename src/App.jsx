@@ -6,6 +6,7 @@ import StoresPage from "./pages/StoresPage"
 import SiteFooter from "./components/SiteFooter"
 import CampaignBanner from "./components/CampaignBanner"
 import SupabaseProbe from "./components/SupabaseProbe"
+import { useMemo } from "react"
 
 function App() {
   return (
@@ -21,7 +22,20 @@ function App() {
           </Routes>
         </div>
         <SiteFooter />
-        {import.meta.env.DEV && <SupabaseProbe />}
+        {(() => {
+          const showProbe = (() => {
+            if (import.meta.env.DEV) return true
+            try {
+              const sp = new URLSearchParams(window.location.search)
+              if (sp.get("debug") === "sb") return true
+              // Also support hash query e.g. #/?debug=sb
+              const hash = window.location.hash || ""
+              if (hash.includes("debug=sb")) return true
+            } catch {}
+            return false
+          })()
+          return showProbe ? <SupabaseProbe /> : null
+        })()}
       </div>
     </BrowserRouter>
   )
