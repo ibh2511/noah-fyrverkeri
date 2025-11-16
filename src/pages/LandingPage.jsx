@@ -156,6 +156,7 @@ export default function LandingPage() {
 
   // Generic tracker helper; no-ops when debug flag is on
   const postFunction = async (payload) => {
+    const anon = import.meta.env.VITE_SUPABASE_ANON_KEY
     const functionsUrl = `${
       import.meta.env.VITE_SUPABASE_URL
     }/functions/v1/track-event`
@@ -165,7 +166,9 @@ export default function LandingPage() {
 
     if (isGitHubPages) {
       try {
-        await fetch(functionsUrl, {
+        // Include apikey as query param since no-cors can't use custom headers
+        const url = `${functionsUrl}?apikey=${encodeURIComponent(anon)}`
+        await fetch(url, {
           method: "POST",
           mode: "no-cors",
           body: JSON.stringify(payload),
@@ -183,7 +186,8 @@ export default function LandingPage() {
       return true
     } catch {
       try {
-        await fetch(functionsUrl, {
+        const url = `${functionsUrl}?apikey=${encodeURIComponent(anon)}`
+        await fetch(url, {
           method: "POST",
           mode: "no-cors",
           body: JSON.stringify(payload),
