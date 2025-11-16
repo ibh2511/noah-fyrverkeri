@@ -36,18 +36,23 @@ type EventPayload = {
 }
 
 function corsHeaders() {
-  return {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers":
-      "authorization, x-client-info, apikey, content-type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+  function corsHeaders(req?: Request) {
+    const acrh =
+      req?.headers.get("Access-Control-Request-Headers") ||
+      "authorization, x-client-info, apikey, content-type, x-supabase-authorization, x-requested-with"
+    return {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": acrh,
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Max-Age": "86400",
+    }
   }
 }
 
 serve(async (req: Request) => {
   // CORS preflight
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders() })
+    return new Response("ok", { headers: corsHeaders(req) })
   }
 
   // Vi tillater kun POST
@@ -55,7 +60,7 @@ serve(async (req: Request) => {
     return new Response(JSON.stringify({ error: "Only POST is allowed" }), {
       status: 405,
       headers: {
-        ...corsHeaders(),
+        ...corsHeaders(req),
         "Content-Type": "application/json",
       },
     })
@@ -70,7 +75,7 @@ serve(async (req: Request) => {
         {
           status: 400,
           headers: {
-            ...corsHeaders(),
+            ...corsHeaders(req),
             "Content-Type": "application/json",
           },
         }
@@ -173,7 +178,7 @@ serve(async (req: Request) => {
         {
           status: 200,
           headers: {
-            ...corsHeaders(),
+            ...corsHeaders(req),
             "Content-Type": "application/json",
           },
         }
@@ -198,7 +203,7 @@ serve(async (req: Request) => {
       return new Response(JSON.stringify({ error: "Failed to insert event" }), {
         status: 500,
         headers: {
-          ...corsHeaders(),
+          ...corsHeaders(req),
           "Content-Type": "application/json",
         },
       })
@@ -217,7 +222,7 @@ serve(async (req: Request) => {
     return new Response(JSON.stringify({ error: "Unexpected error" }), {
       status: 500,
       headers: {
-        ...corsHeaders(),
+        ...corsHeaders(req),
         "Content-Type": "application/json",
       },
     })

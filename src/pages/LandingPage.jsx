@@ -155,6 +155,30 @@ export default function LandingPage() {
   }, [visitorId])
 
   // Generic tracker helper; no-ops when debug flag is on
+  const postFunction = async (payload) => {
+    try {
+      await supabase.functions.invoke("track-event", { body: payload })
+      return true
+    } catch {
+      try {
+        const functionsUrl = `${
+          import.meta.env.VITE_SUPABASE_URL
+        }/functions/v1/track-event`
+        // Fallback: no-cors opaque POST with simple headers (avoids preflight)
+        await fetch(functionsUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        })
+        return true
+      } catch {
+        return false
+      }
+    }
+  }
+
   const trackEvent = async (eventType, linkTarget = null) => {
     if (isDebugSb) {
       if (import.meta.env.DEV) {
@@ -162,20 +186,14 @@ export default function LandingPage() {
       }
       return
     }
-    try {
-      await supabase.functions.invoke("track-event", {
-        body: {
-          eventType,
-          campaignSlug: CAMPAIGN_SLUG,
-          visitorId,
-          path: window.location.pathname,
-          linkTarget,
-          referrer: document.referrer || null,
-        },
-      })
-    } catch {
-      // ignore
-    }
+    await postFunction({
+      eventType,
+      campaignSlug: CAMPAIGN_SLUG,
+      visitorId,
+      path: window.location.pathname,
+      linkTarget,
+      referrer: document.referrer || null,
+    })
   }
 
   // IAB: adjust link (strip body) and toggle hints; run on mount only
@@ -272,13 +290,12 @@ Med vennlig hilsen
         .map((e) => e.trim())
         .filter(Boolean)
         .slice(0, 200)
-      await supabase.functions.invoke("track-event", {
-        body: {
-          eventType: "bcc_mail_send",
-          campaignSlug: CAMPAIGN_SLUG,
-          emails,
-          visitorId,
-        },
+
+      await postFunction({
+        eventType: "bcc_mail_send",
+        campaignSlug: CAMPAIGN_SLUG,
+        emails,
+        visitorId,
       })
     } catch {
       // swallow
