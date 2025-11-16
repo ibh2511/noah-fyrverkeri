@@ -25,6 +25,7 @@ export default function LandingPage() {
   const [eligibleCount, setEligibleCount] = useState(0)
   const [sendingNow, setSendingNow] = useState(false)
   const [visitorId, setVisitorId] = useState("")
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
   const fadeTimeout = useRef(null)
 
   // Debug flag: disable tracking when ?debug=sb (also used for SB probe)
@@ -152,7 +153,7 @@ export default function LandingPage() {
     return () => {
       isMounted = false
     }
-  }, [visitorId])
+  }, [visitorId, refreshTrigger])
 
   // Generic tracker helper; no-ops when debug flag is on
   const postFunction = async (payload) => {
@@ -395,8 +396,11 @@ Med vennlig hilsen
                 setEligibleCount(0)
                 setBccRecipients("")
 
-                // Guard stays active until backend reflects the send
-                window.setTimeout(() => setSendingNow(false), 5000)
+                // Refresh the BCC list after a short delay to fetch next batch
+                window.setTimeout(() => {
+                  setSendingNow(false)
+                  setRefreshTrigger((prev) => prev + 1)
+                }, 2000)
               }}
               href={`mailto:?bcc=${bccRecipients}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
