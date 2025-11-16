@@ -22,6 +22,9 @@ export default function LandingPage() {
   const [isFading, setIsFading] = useState(false)
   const [copied, setCopied] = useState(false)
   const [bccRecipients, setBccRecipients] = useState(DEFAULT_BCC_RECIPIENTS)
+  const [eligibleCount, setEligibleCount] = useState(0)
+  const [sendingNow, setSendingNow] = useState(false)
+  const [visitorId, setVisitorId] = useState("")
   const fadeTimeout = useRef(null)
 
   useEffect(() => {
@@ -39,11 +42,25 @@ export default function LandingPage() {
     }
   }, [])
 
-  // Fetch up to 100 store emails that sell fireworks for the campaign
+  // Ensure we have a stable visitor id (used for per-user idempotency)
+  useEffect(() => {
+    const key = "visitorId"
+    let v = localStorage.getItem(key) || ""
+    if (!v) {
+      v = crypto.randomUUID
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random()}`
+      localStorage.setItem(key, v)
+    }
+    setVisitorId(v)
+  }, [])
+
+  // Fetch up to 100 store emails, prioritizing fewest antall_mail_bcc and excluding already sent for this visitor
   useEffect(() => {
     let isMounted = true
     async function loadBcc() {
       try {
+        if (!visitorId) return
         const { data: campaign, error: campErr } = await supabase
           .from("campaigns")
           .select("id")
@@ -51,23 +68,51 @@ export default function LandingPage() {
           .single()
         if (campErr || !campaign) return
 
+        // Previously sent by this visitor
+        const { data: sentRows, error: sentErr } = await supabase
+          .from("events")
+          .select("store_code")
+          .eq("campaign_id", campaign.id)
+          .eq("event_type", "bcc_mail_send")
+          .eq("visitor_id", visitorId)
+        if (sentErr) return
+        const sentCodes = new Set(
+          (sentRows || []).map((r) => r.store_code).filter(Boolean)
+        )
+
         const { data: stats, error: statsErr } = await supabase
           .from("campaign_store_stats")
-          .select("store_code")
+          .select("store_code, antall_mail_bcc")
           .eq("campaign_id", campaign.id)
           .eq("sell_fireworks", true)
         if (statsErr || !stats || stats.length === 0) return
 
-        const storeCodes = Array.from(
-          new Set(stats.map((s) => s.store_code).filter(Boolean))
-        )
-        if (storeCodes.length === 0) return
+        // Filter out already sent for this visitor
+        const eligible = stats
+          .filter((s) => s.store_code && !sentCodes.has(s.store_code))
+          .map((s) => ({
+            code: s.store_code,
+            cnt: typeof s.antall_mail_bcc === "number" ? s.antall_mail_bcc : 0,
+          }))
+
+        // Sort by fewest sends first
+        eligible.sort((a, b) => a.cnt - b.cnt)
+
+        const pick = eligible.slice(0, 100)
+        const pickCodes = pick.map((x) => x.code)
+        if (pickCodes.length === 0) {
+          if (isMounted) {
+            setEligibleCount(0)
+            setBccRecipients("")
+          }
+          return
+        }
 
         // Fetch emails for these stores
         const { data: stores, error: storesErr } = await supabase
           .from("europris_stores")
           .select("email")
-          .in("source_code", storeCodes)
+          .in("source_code", pickCodes)
         if (storesErr || !stores) return
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -81,6 +126,10 @@ export default function LandingPage() {
 
         if (isMounted && emails.length > 0) {
           setBccRecipients(emails.join(","))
+          setEligibleCount(emails.length)
+        } else if (isMounted) {
+          setBccRecipients("")
+          setEligibleCount(0)
         }
       } catch {
         // Ignore and keep fallback
@@ -90,7 +139,7 @@ export default function LandingPage() {
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [visitorId])
 
   // IAB: adjust link (strip body) and toggle hints; run on mount only
   useEffect(() => {
@@ -200,6 +249,7 @@ Med vennlig hilsen
           eventType: "bcc_mail_send",
           campaignSlug: CAMPAIGN_SLUG,
           emails,
+          visitorId,
         }),
         keepalive: true,
       }).catch(() => {})
@@ -260,7 +310,30 @@ Med vennlig hilsen
             <a
               className="button btn-accent"
               id="mailLink"
-              onMouseDown={trackBccSend}
+              onClick={(e) => {
+                if (sendingNow) {
+                  e.preventDefault()
+                  return
+                }
+                if (eligibleCount === 0) {
+                  e.preventDefault()
+                  window.alert("Du har allerede sendt til alle e-postene.")
+                  return
+                }
+                if (eligibleCount < 100) {
+                  const ok = window.confirm(
+                    `Det er kun ${eligibleCount} butikker du ikke allerede har sendt til. Vil du sende til disse nå?`
+                  )
+                  if (!ok) {
+                    e.preventDefault()
+                    return
+                  }
+                }
+                setSendingNow(true)
+                trackBccSend()
+                // re-enable after a short delay to guard double-clicks
+                window.setTimeout(() => setSendingNow(false), 3000)
+              }}
               href={`mailto:?bcc=${bccRecipients}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
               )}&body=${encodeURIComponent(`Hei! 🐾
