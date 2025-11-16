@@ -3,8 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import { CONTACT_EMAIL } from "../components/SiteFooter"
 import { supabase } from "../supabaseClient"
 
-const DEFAULT_BCC_RECIPIENTS =
-  "isabelle.haugan@gmail.com,postkasse2511@gmail.com"
+const DEFAULT_BCC_RECIPIENTS = "kundeservice@europris.no"
 const CAMPAIGN_SLUG = "noah-fyrverkeri-2025"
 
 const HERO_IMAGES = [
@@ -177,6 +176,38 @@ Med vennlig hilsen
 
   const heroImage = HERO_IMAGES[imageIndex]
 
+  const trackBccSend = () => {
+    try {
+      const emails = (bccRecipients || "")
+        .split(",")
+        .map((e) => e.trim())
+        .filter(Boolean)
+        .slice(0, 200)
+
+      // Use fetch with keepalive to avoid being canceled by navigation
+      const functionsUrl = `${
+        import.meta.env.VITE_SUPABASE_URL
+      }/functions/v1/track-event`
+      const anon = import.meta.env.VITE_SUPABASE_ANON_KEY
+      fetch(functionsUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: anon,
+          Authorization: `Bearer ${anon}`,
+        },
+        body: JSON.stringify({
+          eventType: "bcc_mail_send",
+          campaignSlug: CAMPAIGN_SLUG,
+          emails,
+        }),
+        keepalive: true,
+      }).catch(() => {})
+    } catch {
+      // swallow
+    }
+  }
+
   return (
     <>
       <main className="wrap" aria-labelledby="campaign-title">
@@ -229,6 +260,7 @@ Med vennlig hilsen
             <a
               className="button btn-accent"
               id="mailLink"
+              onMouseDown={trackBccSend}
               href={`mailto:?bcc=${bccRecipients}&subject=${encodeURIComponent(
                 "🚫 Oppfordring om å slutte med salg av fyrverkeri!"
               )}&body=${encodeURIComponent(`Hei! 🐾
