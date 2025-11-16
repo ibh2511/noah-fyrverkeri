@@ -851,6 +851,21 @@ h1.brand {
   max-width: 1100px;
 }
 
+.stores-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.stores-back-link:hover {
+  color: #fff;
+}
+
 .stores-hero {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -901,9 +916,21 @@ h1.brand {
 }
 
 .hq-actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+}
+
+.hq-actions .button {
+  flex: 1 1 220px;
+  min-width: 200px;
+}
+
+@media (max-width: 600px) {
+  .hq-actions .button {
+    flex-basis: 100%;
+    min-width: 0;
+  }
 }
 
 .stores-grid-section {

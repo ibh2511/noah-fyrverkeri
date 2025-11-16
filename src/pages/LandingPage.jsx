@@ -509,7 +509,7 @@ Med vennlig hilsen
             <Link
               className="button btn-accent"
               to="/butikker"
-              onClick={() => trackEvent("click_social_cta", "/butikker")}
+              onClick={() => trackEvent("click_social_cta", null, "/butikker")}
             >
               Send melding på Facebook/Instagram
             </Link>
@@ -522,7 +522,7 @@ Med vennlig hilsen
             <Link
               className="button"
               to="/registrer"
-              onClick={() => trackEvent("click_register", "/registrer")}
+              onClick={() => trackEvent("click_register", null, "/registrer")}
             >
               Registrer din innsats
             </Link>
@@ -536,7 +536,11 @@ Med vennlig hilsen
               className="button"
               href="/noah-fyrverkeri/images/qr-lockscreen.png"
               onClick={() =>
-                trackEvent("click_qr_download", "/images/qr-lockscreen.png")
+                trackEvent(
+                  "click_qr_download",
+                  null,
+                  "/images/qr-lockscreen.png"
+                )
               }
               download
             >

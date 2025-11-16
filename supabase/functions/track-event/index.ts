@@ -13,6 +13,21 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   auth: { persistSession: false },
 })
 
+const STATS_COLUMN_MAP: Record<string, keyof CampaignStoreStatsColumns> = {
+  click_mail: "mail_click",
+  click_facebook: "facebook_click",
+  click_instagram: "insta_click",
+  click_social_cta: "phone_click",
+}
+
+type CampaignStoreStatsColumns = {
+  mail_click: number | null
+  facebook_click: number | null
+  insta_click: number | null
+  phone_click: number | null
+  bcc_mail_count: number | null
+}
+
 type EventPayload = {
   eventType:
     | "pageview"
@@ -34,6 +49,59 @@ type EventPayload = {
   linkTarget?: string | null
   referrer?: string | null
   emails?: string[] // ved bcc_mail_send: liste av mottaker-eposter
+}
+
+async function incrementCampaignStoreStat(options: {
+  campaignId: number
+  storeCode?: string | null
+  storeId?: number | null
+  column: keyof CampaignStoreStatsColumns | null
+}) {
+  const { campaignId, storeCode, storeId, column } = options
+  if (!column) return
+
+  const normalizedCode = (storeCode || "").trim().toLowerCase()
+  const shouldSkipStoreCode =
+    normalizedCode.length > 0 && !/^ep\d+$/i.test(normalizedCode)
+  if (!storeId && (!storeCode || shouldSkipStoreCode)) {
+    return
+  }
+
+  const selectColumns = `id,store_code,store_id,${column}`
+  let query = supabase
+    .from("campaign_store_stats")
+    .select(selectColumns)
+    .eq("campaign_id", campaignId)
+    .limit(1)
+
+  if (storeId) {
+    query = query.eq("store_id", storeId)
+  } else if (storeCode) {
+    query = query.eq("store_code", storeCode)
+  }
+
+  const { data, error } = await query.maybeSingle()
+  if (error || !data) {
+    if (error && error.code !== "PGRST116" && error.code !== "PGRST204") {
+      console.error("incrementCampaignStoreStat select error", error)
+    }
+    return
+  }
+
+  const currentValue =
+    typeof data[column] === "number" && Number.isFinite(data[column])
+      ? (data[column] as number)
+      : 0
+  const nextValue = currentValue + 1
+
+  const { error: updateErr } = await supabase
+    .from("campaign_store_stats")
+    .update({ [column]: nextValue })
+    .eq("id", data.id)
+
+  if (updateErr) {
+    console.error("incrementCampaignStoreStat update error", updateErr)
+  }
 }
 
 function corsHeaders(req?: Request) {
@@ -222,6 +290,16 @@ serve(async (req: Request) => {
           ...corsHeaders(req),
           "Content-Type": "application/json",
         },
+      })
+    }
+
+    const statsColumn = STATS_COLUMN_MAP[body.eventType]
+    if (statsColumn) {
+      await incrementCampaignStoreStat({
+        campaignId,
+        storeCode: body.storeCode ?? null,
+        storeId: body.storeId ?? null,
+        column: statsColumn,
       })
     }
 

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
+import { Link } from "react-router-dom"
 import { supabase } from "../supabaseClient"
 
 const CAMPAIGN_SLUG = "noah-fyrverkeri-2025"
@@ -30,6 +31,7 @@ const HERO_PARAGRAPHS = [
 ]
 
 const SUBJECT_LINE = "🚫 Slutt å selge fyrverkeri"
+const HQ_STORE_CODE = "hovedkontor"
 
 async function fetchAllRows(createQuery, chunkSize = 1000) {
   const rows = []
@@ -298,6 +300,9 @@ export default function StoresPage() {
   return (
     <div className="stores-page">
       <div className="wrap stores-wrap">
+        <Link to="/" className="stores-back-link">
+          ← Tilbake til forsiden
+        </Link>
         <section className="stores-hero">
           <p className="eyebrow">Slik bruker du sosiale medier</p>
           <h1>Send melding til Europris-butikkene</h1>
@@ -327,7 +332,7 @@ export default function StoresPage() {
               href={`mailto:${HQ_CONTACT.email}?subject=${encodeURIComponent(
                 SUBJECT_LINE
               )}`}
-              onClick={() => trackEvent("click_mail", null, "hq_mail")}
+              onClick={() => trackEvent("click_mail", HQ_STORE_CODE, "hq_mail")}
             >
               Send e-post til hovedkontoret
             </a>
@@ -336,7 +341,9 @@ export default function StoresPage() {
               href={HQ_CONTACT.messenger}
               target="_blank"
               rel="noreferrer"
-              onClick={() => trackEvent("click_facebook", null, "hq_messenger")}
+              onClick={() =>
+                trackEvent("click_facebook", HQ_STORE_CODE, "hq_messenger")
+              }
             >
               Send melding på Messenger
             </a>
@@ -345,7 +352,9 @@ export default function StoresPage() {
               href={HQ_CONTACT.facebook}
               target="_blank"
               rel="noreferrer"
-              onClick={() => trackEvent("click_facebook", null, "hq_facebook")}
+              onClick={() =>
+                trackEvent("click_facebook", HQ_STORE_CODE, "hq_facebook")
+              }
             >
               Besøk Europris på Facebook
             </a>
@@ -355,7 +364,7 @@ export default function StoresPage() {
               target="_blank"
               rel="noreferrer"
               onClick={() =>
-                trackEvent("click_instagram", null, "hq_instagram")
+                trackEvent("click_instagram", HQ_STORE_CODE, "hq_instagram")
               }
             >
               Følg Europris på Instagram
@@ -440,9 +449,7 @@ export default function StoresPage() {
                 return (
                   <article key={store.source_code} className="store-card">
                     <header>
-                      <p className="store-tag">
-                        {store.region || store.city || "Europris"}
-                      </p>
+                      {store.city && <p className="store-tag">{store.city}</p>}
                       <h3>{store.frontend_name || store.name}</h3>
                     </header>
                     <p className="store-address">{formatAddress(store)}</p>
