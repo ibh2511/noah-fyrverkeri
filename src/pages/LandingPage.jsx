@@ -30,6 +30,29 @@ export default function LandingPage() {
   const [currentStoreCodes, setCurrentStoreCodes] = useState([])
   const fadeTimeout = useRef(null)
 
+  // Fetch helper that pages through Supabase's 1k row window
+  const fetchAllRows = async (createQuery, chunkSize = 1000) => {
+    const rows = []
+    let from = 0
+    while (true) {
+      const { data, error } = await createQuery().range(
+        from,
+        from + chunkSize - 1
+      )
+      if (error) {
+        return { data: null, error }
+      }
+      if (data && data.length > 0) {
+        rows.push(...data)
+      }
+      if (!data || data.length < chunkSize) {
+        break
+      }
+      from += chunkSize
+    }
+    return { data: rows, error: null }
+  }
+
   // Debug flag: disable tracking when ?debug=sb (also used for SB probe)
   const isDebugSb = (() => {
     try {
@@ -95,23 +118,27 @@ export default function LandingPage() {
         if (campErr || !campaign) return
 
         // Previously sent by this visitor
-        const { data: sentRows, error: sentErr } = await supabase
-          .from("events")
-          .select("store_code")
-          .eq("campaign_id", campaign.id)
-          .eq("event_type", "bcc_mail_send")
-          .eq("visitor_id", visitorId)
+        const { data: sentRows, error: sentErr } = await fetchAllRows(() =>
+          supabase
+            .from("events")
+            .select("store_code")
+            .eq("campaign_id", campaign.id)
+            .eq("event_type", "bcc_mail_send")
+            .eq("visitor_id", visitorId)
+        )
         if (sentErr) return
         const sentCodes = new Set(
           (sentRows || []).map((r) => r.store_code).filter(Boolean)
         )
         loadLocalSentCodes().forEach((code) => sentCodes.add(code))
 
-        const { data: stats, error: statsErr } = await supabase
-          .from("campaign_store_stats")
-          .select("store_code, antall_mail_bcc")
-          .eq("campaign_id", campaign.id)
-          .eq("sell_fireworks", true)
+        const { data: stats, error: statsErr } = await fetchAllRows(() =>
+          supabase
+            .from("campaign_store_stats")
+            .select("store_code, antall_mail_bcc")
+            .eq("campaign_id", campaign.id)
+            .eq("sell_fireworks", true)
+        )
         if (statsErr || !stats || stats.length === 0) return
 
         // Filter out already sent for this visitor
