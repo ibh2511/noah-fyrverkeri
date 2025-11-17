@@ -63,8 +63,7 @@ function setupVisitorTracking() {
 
 // TODO: sett inn din ekte Apps Script URL her
 const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbybo8i1sRgh1hBQiVoc2ZXDS-UeI7-7ZN-YjNNyNrnCEAPT46orrf02uvyBKBwskomusQ/exec"
-// Lokale konstanter for lodd
+  "https://script.google.com/macros/s/AKfycbwAlE6c1IepopAI152oeW4-fRWKBUHfrLS9mTruiERfcab-ii5UrTWpNT4aF728086zqA/exec" // Lokale konstanter for lodd
 const LOTTERY_ACTIONS = [
   {
     id: "MailAlle",
