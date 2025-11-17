@@ -63,7 +63,7 @@ function setupVisitorTracking() {
 
 // TODO: sett inn din ekte Apps Script URL her
 const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbwx70ojJ3cwqV5Pdp2afEctHsMSIGdbPaDMyYQbXuWBy4gUv8Db_HSGLh1RRsyt_qGN/exec"
+  "https://script.google.com/macros/s/AKfycbzi9PovdqmMmo_t2gLGmko2uB4RE0t0jLgb-vAOQ4uggmfLp7LNyRlRsUoe6XDQgC75bA/exec"
 // Removed hero images: registration page no longer displays slideshow
 
 // Lokale konstanter for lodd
@@ -375,8 +375,10 @@ export default function RegistrationForm() {
               onSubmit={handleFormSubmit}
               className={status ? "form-hidden" : ""}
             >
-              {/* send runtime flag to Apps Script; GAS can read e.parameter.SEND_EMAILS */}
-              <input type="hidden" name="SEND_EMAILS" value={SEND_EMAILS} />
+              {/* send runtime flag to Apps Script only when explicitly enabled in the build env */}
+              {SEND_EMAILS === "true" && (
+                <input type="hidden" name="SEND_EMAILS" value={SEND_EMAILS} />
+              )}
               {/* Navn / etternavn / e-post */}
               <div className="form-group-row">
                 <div className="form-group">
