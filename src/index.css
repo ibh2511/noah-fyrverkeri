@@ -499,6 +499,34 @@ h1.brand {
   margin-top: 0;
 }
 
+/* On landing page, make the small register link match the stores styling
+   (green color + dotted underline) so both pages look consistent. */
+.landing-page .lottery-content .register-link,
+.landing-page .lottery-content .btn-sm.btn-outline {
+  display: inline-block;
+  padding: 0;
+  margin-top: 6px;
+  border: none;
+  background: transparent;
+  color: #134b2a;
+  font-weight: 800;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+  text-underline-offset: 2px;
+}
+.landing-page .lottery-content .register-link:hover,
+.landing-page .lottery-content .btn-sm.btn-outline:hover {
+  color: #0f3e24;
+}
+
+/* When the IAB hint (copy helper) is visible on landing, pull that
+   hint up slightly to harmonize spacing with the following social CTA. */
+.landing-page .btn-group .inline-email #emailHintIAB:not([hidden]) {
+  margin-bottom: -15px;
+}
+
 /* Ensure the register form's submit uses the same accent button styling */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
