@@ -393,7 +393,8 @@ h1.brand {
   color: #123123;
 }
 .lottery-content .lottery-register .btn-sm.btn-outline,
-.lottery-content .lottery-register .register-link {
+.lottery-content .lottery-register .register-link,
+.lottery-content .lottery-register .btn-sm.btn-outline {
   display: inline-block;
   padding: 0;
   margin-top: 6px;
@@ -401,7 +402,10 @@ h1.brand {
   background: transparent;
   color: #134b2a;
   font-weight: 800;
-  text-decoration: underline;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
   text-underline-offset: 2px;
 }
 .lottery-content .lottery-register .btn-sm.btn-outline:hover,
@@ -436,7 +440,7 @@ h1.brand {
 
 /* Slightly larger vertical spacing between CTA button groups on landing page */
 .landing-page .btns {
-  gap: 14px;
+  gap: 30px;
 }
 
 /* Muted small outline button: render as a toned-down inline link */
@@ -448,8 +452,10 @@ h1.brand {
   background: transparent;
   color: rgba(255, 255, 255, 0.9);
   font-weight: 700;
-  text-decoration: underline;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
   text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
   text-underline-offset: 2px;
 }
 .button.btn-sm.btn-outline:hover {
