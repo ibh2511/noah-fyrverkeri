@@ -496,7 +496,11 @@ export default function StoresPage() {
 
           {!loading && !error && stores.length > 0 && (
             <>
-              <div className="stores-grid">
+              <div
+                className={`stores-grid ${
+                  filteredStores.length <= 3 ? "stores-grid--compact" : ""
+                }`}
+              >
                 {visibleStores.map((store) => {
                   const stats = store.stats || {}
                   const storeId = store.id ?? stats.store_id ?? null

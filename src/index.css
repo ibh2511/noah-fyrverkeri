@@ -1409,10 +1409,19 @@ h1.brand {
 
 .stores-grid {
   display: grid;
-  /* Keep cards from expanding to full width on wide screens by capping column size */
-  grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
+  /* Default: responsive columns that grow to fill available space */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
-  justify-content: center;
+}
+
+/* When there are only a few results (≤3), use a compact layout on large screens:
+   cap the column max-width and left-align items so cards don't center or expand.
+ */
+@media (min-width: 860px) {
+  .stores-grid--compact {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
+    justify-content: start;
+  }
 }
 
 .store-card {
