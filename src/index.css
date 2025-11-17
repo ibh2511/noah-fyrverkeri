@@ -440,7 +440,7 @@ h1.brand {
 
 /* Slightly larger vertical spacing between CTA button groups on landing page */
 .landing-page .btns {
-  gap: 30px;
+  gap: 24px;
 }
 
 /* Muted small outline button: render as a toned-down inline link */
@@ -521,10 +521,21 @@ h1.brand {
   color: #0f3e24;
 }
 
+/* Center the paragraph inside the landing page lottery register area too */
+.landing-page .lottery-content .lottery-register {
+  text-align: center;
+}
+.landing-page .lottery-content .lottery-register p {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: #123123;
+  text-align: center;
+}
+
 /* When the IAB hint (copy helper) is visible on landing, pull that
    hint up slightly to harmonize spacing with the following social CTA. */
 .landing-page .btn-group .inline-email #emailHintIAB:not([hidden]) {
-  margin-bottom: -15px;
+  margin-bottom: 0;
 }
 
 /* Ensure the register form's submit uses the same accent button styling */
