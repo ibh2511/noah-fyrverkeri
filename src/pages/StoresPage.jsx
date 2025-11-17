@@ -63,7 +63,7 @@ async function fetchStoresByCodes(codes, chunkSize = 80) {
     const { data, error } = await supabase
       .from("europris_stores")
       .select(
-        "id,source_code,name,frontend_name,city,street,region,postcode,email,phone,extension_attributes"
+        "source_code,name,frontend_name,city,street,region,postcode,email,phone,extension_attributes"
       )
       .in("source_code", chunk)
     if (error) {
