@@ -63,8 +63,7 @@ function setupVisitorTracking() {
 
 // TODO: sett inn din ekte Apps Script URL her
 const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbz_iaoLpREXQjDHt4r0CJnyrzm-i15xU6hfKb1NM8u-v4Gd5tFdWB74rCGl1KuhfzVY/exec"
-
+  "https://script.google.com/macros/s/AKfycbwx70ojJ3cwqV5Pdp2afEctHsMSIGdbPaDMyYQbXuWBy4gUv8Db_HSGLh1RRsyt_qGN/exec"
 // Removed hero images: registration page no longer displays slideshow
 
 // Lokale konstanter for lodd
