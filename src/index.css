@@ -585,7 +585,7 @@ h1.brand {
 @media (min-width: 860px) {
   .lottery-content .lottery-register,
   .lottery-content p {
-    text-align: center;
+    text-align: left;
   }
 }
 

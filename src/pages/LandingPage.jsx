@@ -9,11 +9,12 @@ const SENT_CODES_PREFIX = "bccSentStoreCodes:"
 
 const HERO_IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=900&q=80",
-    alt: "Himmel fylt med fyrverkeri",
+    src: "/images/dog.jpg",
+    alt: "Søt hund som ser skeptisk ut",
   },
   {
-    src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    // file in public/images is named `firework.jpg` (singular)
+    src: "/images/firework.jpg",
     alt: "Frivillige som deler ut kampanjemateriell",
   },
 ]
