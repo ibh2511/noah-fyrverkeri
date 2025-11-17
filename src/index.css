@@ -1171,6 +1171,19 @@ h1.brand {
   margin: 10px 0;
 }
 
+/* Animation helper: start hidden, then reveal with fade+slide */
+.stores-state.hidden {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.stores-state.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
 .stores-state.error {
   border: 1px solid rgba(213, 17, 48, 0.45);
 }

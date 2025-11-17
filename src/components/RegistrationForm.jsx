@@ -119,6 +119,8 @@ export default function RegistrationForm() {
 
   const iframeRef = useRef(null)
   const resolvedRef = useRef(false)
+  const [showStatus, setShowStatus] = useState(false)
+  const statusTimerRef = useRef(null)
 
   // Scroll to top on mount
   useEffect(() => {
@@ -223,6 +225,33 @@ export default function RegistrationForm() {
     }
   }, [sending])
 
+  // Animate status block: delay a short moment then reveal the message
+  useEffect(() => {
+    if (!status) {
+      if (statusTimerRef.current) {
+        clearTimeout(statusTimerRef.current)
+        statusTimerRef.current = null
+      }
+      setShowStatus(false)
+      return
+    }
+
+    // hide first, then show after a short delay for a smooth reveal
+    setShowStatus(false)
+    if (statusTimerRef.current) clearTimeout(statusTimerRef.current)
+    statusTimerRef.current = setTimeout(() => {
+      setShowStatus(true)
+      statusTimerRef.current = null
+    }, 150)
+
+    return () => {
+      if (statusTimerRef.current) {
+        clearTimeout(statusTimerRef.current)
+        statusTimerRef.current = null
+      }
+    }
+  }, [status])
+
   const handleFormSubmit = (e) => {
     // Frontend-validering: minst én handling + uke valgt
     if (!ukevalg) {
@@ -250,16 +279,21 @@ export default function RegistrationForm() {
             if (iframeDoc) {
               const bodyText = iframeDoc.body?.innerText || ""
 
+              if (resolvedRef.current) return
+
               if (bodyText.includes("duplicate")) {
+                resolvedRef.current = true
                 setSending(false)
                 setStatus("duplicate")
               } else if (
                 bodyText.includes("ok") ||
                 bodyText.includes("success")
               ) {
+                resolvedRef.current = true
                 setSending(false)
                 setStatus("ok")
               } else if (bodyText.includes("error")) {
+                resolvedRef.current = true
                 setSending(false)
                 setStatus("error")
               }
@@ -301,7 +335,9 @@ export default function RegistrationForm() {
 
         <section className="register-form-section">
           {status === "duplicate" && (
-            <div className="stores-state">
+            <div
+              className={`stores-state ${showStatus ? "visible" : "hidden"}`}
+            >
               <h3>🎉 Takk – innsatsen din er registrert!</h3>
               <p>
                 Vi ser at denne e-posten allerede er registrert for valgt uke.
@@ -311,14 +347,20 @@ export default function RegistrationForm() {
           )}
 
           {status === "ok" && (
-            <div className="stores-state">
+            <div
+              className={`stores-state ${showStatus ? "visible" : "hidden"}`}
+            >
               <h3>🎉 Takk – innsatsen din er registrert!</h3>
               <p>Du får en bekreftelse på e-post med antall lodd du har.</p>
             </div>
           )}
 
           {status === "error" && (
-            <div className="stores-state error">
+            <div
+              className={`stores-state error ${
+                showStatus ? "visible" : "hidden"
+              }`}
+            >
               <h3>⚠️ Noe gikk galt</h3>
               <p>Prøv igjen senere eller kontakt oss.</p>
             </div>
