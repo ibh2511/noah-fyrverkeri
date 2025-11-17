@@ -332,19 +332,24 @@ h1.brand {
 .lottery-details {
   margin-top: 12px;
   margin-bottom: 24px;
-  border-radius: 8px;
+  border-radius: 18px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
+  /* match store-card look: pale/white card with green text */
+  background: rgba(255, 255, 255, 0.95);
+  color: #123123;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .lottery-details summary {
   cursor: pointer;
-  padding: 10px 14px;
+  padding: 12px 14px;
   font-weight: 700;
   font-size: clamp(14px, 3.8vw, 16px);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
+  /* summary sits on top of the card, keep it visually aligned */
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px 18px 0 0;
+  color: #134b2a;
   list-style: none;
   user-select: none;
 }
@@ -366,9 +371,10 @@ h1.brand {
 .lottery-content {
   padding: 12px 14px;
   font-size: clamp(13px, 3.6vw, 15px);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.5;
   text-align: left;
+  color: #123123;
 }
 
 .lottery-content ul {
@@ -1239,5 +1245,16 @@ h1.brand {
   .stores-hero .lottery-details,
   .stores-wrap .lottery-details {
     margin-bottom: 0;
+  }
+}
+
+/* Stronger override: ensure stores page never gets bottom margin for lottery details */
+.stores-page .lottery-details {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .stores-page .lottery-details {
+    margin-bottom: 0 !important;
   }
 }
