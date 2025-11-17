@@ -432,6 +432,10 @@ Med vennlig hilsen
                     fra Europris: 1 lodd (maks én kommentar per person per post)
                   </li>
                 </ul>
+                <p>Husk å registrere din innsats for å få lodd i trekningen!</p>
+                <a href="/registrer" className="button btn-sm btn-outline">
+                  Registrer din innsats
+                </a>
               </div>
             </details>
           </div>

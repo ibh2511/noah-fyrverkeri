@@ -405,6 +405,29 @@ h1.brand {
   box-shadow: none;
 }
 
+/* Slightly larger vertical spacing between CTA button groups on landing page */
+.landing-page .btns {
+  gap: 14px;
+}
+
+/* Muted small outline button: render as a toned-down inline link */
+.button.btn-sm.btn-outline {
+  display: inline-block;
+  padding: 0;
+  margin-top: 6px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.button.btn-sm.btn-outline:hover {
+  color: #fff;
+  filter: brightness(0.98);
+}
+
 .landing-page .lottery-details summary {
   /* Full-width summary like the dropdown header; background matches btn-border */
   display: flex;

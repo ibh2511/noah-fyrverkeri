@@ -369,6 +369,12 @@ export default function StoresPage() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+              <div style={{ marginTop: "12px" }}>
+                <p>Husk å registrere din innsats for å få lodd i trekningen!</p>
+                <a href="/registrer" className="button btn-sm btn-outline">
+                  Registrer din innsats
+                </a>
+              </div>
             </div>
           </details>
         </section>
