@@ -1228,3 +1228,16 @@ h1.brand {
     flex: 1 1 100%;
   }
 }
+
+/* Stores page: do not add extra bottom spacing for lottery details */
+.stores-hero .lottery-details,
+.stores-wrap .lottery-details {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .stores-hero .lottery-details,
+  .stores-wrap .lottery-details {
+    margin-bottom: 0;
+  }
+}
