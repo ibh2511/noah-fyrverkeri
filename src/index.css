@@ -662,11 +662,32 @@ h1.brand {
   max-width: 100%;
 }
 
+/* Make the register form visually match the store cards: pale/white panel with green text */
 .register-form-section {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 0 0 16px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #123123;
+  border-radius: 18px;
   padding: clamp(14px, 3.6vw, 24px);
+  margin-bottom: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border: none;
+}
+
+/* Harmonize form labels inside the register panel to use the brand green and keep existing float/focus behaviour */
+.register-form-section .form-label,
+.register-form-section .form-label-static {
+  color: #134b2a;
+}
+
+.register-form-section .form-group input:focus + .form-label,
+.register-form-section .form-group input.has-content + .form-label,
+.register-form-section .form-group textarea:focus + .form-label,
+.register-form-section .form-group textarea.has-content + .form-label {
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0 5px;
+  color: var(--accent);
+  font-size: 13px;
 }
 
 .hidden-iframe {
