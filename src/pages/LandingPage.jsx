@@ -392,7 +392,7 @@ Med vennlig hilsen
 
   return (
     <>
-      <main className="wrap" aria-labelledby="campaign-title">
+      <main className="wrap landing-page" aria-labelledby="campaign-title">
         <section className="hero">
           <h1 id="campaign-title">🚫 Stopp Fyrverkerisalget!</h1>
           <img

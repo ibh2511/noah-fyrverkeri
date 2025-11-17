@@ -393,6 +393,14 @@ h1.brand {
   padding-left: 18px;
 }
 
+/* Landing page: keep the summary on a green background with light text
+   while leaving the stores page summary styling unchanged. */
+.landing-page .lottery-details summary {
+  background: var(--bg);
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 @media (min-width: 860px) {
   .hero {
     display: flex;
