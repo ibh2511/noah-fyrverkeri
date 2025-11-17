@@ -581,6 +581,14 @@ h1.brand {
   }
 }
 
+/* Large-screen: center lottery paragraph and small register area for better balance */
+@media (min-width: 860px) {
+  .lottery-content .lottery-register,
+  .lottery-content p {
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
   .hero > h1 {
     display: none;

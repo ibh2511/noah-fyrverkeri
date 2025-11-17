@@ -326,7 +326,7 @@ export default function RegistrationForm() {
 
         <section className="register-hero">
           <p className="eyebrow">Loddtrekning</p>
-          <h1>✒️ Registrer innsatsen</h1>
+          <h1>✒️ Send inn</h1>
           <p className="stores-lead">
             Registrer innsatsen din mot Europris denne uka og få lodd i
             trekningen.
