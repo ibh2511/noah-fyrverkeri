@@ -112,7 +112,7 @@ function getMessengerLink(store, stats) {
     if (resolved) return resolved
   }
   const handle = slugifyStoreHandle(store)
-  return `https://m.me/Europris-${handle || "butikk"}`
+  return `https://m.me/${handle || "Europris"}`
 }
 
 function getInstagramDmLink(store, stats) {
@@ -121,12 +121,13 @@ function getInstagramDmLink(store, stats) {
     if (resolved) return resolved
   }
   const handle = slugifyStoreHandle(store)
-  return `https://www.instagram.com/direct/t/Europris-${handle}`
+  return `https://www.instagram.com/direct/t/${handle || "Europris"}`
 }
 
 function formatAddress(store) {
-  const parts = [store?.street, store?.postcode, store?.city]
-  return parts.filter(Boolean).join(", ") || "Adresse ikke oppgitt"
+  const line1 = store?.street || ""
+  const line2 = [store?.postcode, store?.city].filter(Boolean).join(" ")
+  return { line1, line2 }
 }
 
 export default function StoresPage() {
@@ -435,14 +436,7 @@ export default function StoresPage() {
                 const storeId = store.id ?? stats.store_id ?? null
                 const messengerUrl = getMessengerLink(store, stats)
                 const instagramDmUrl = getInstagramDmLink(store, stats)
-                const emailHref = store.email
-                  ? `mailto:${store.email}?subject=${encodeURIComponent(
-                      SUBJECT_LINE
-                    )}`
-                  : null
-                const phoneHref = store.phone
-                  ? `tel:${store.phone.replace(/\s+/g, "")}`
-                  : null
+                const address = formatAddress(store)
 
                 return (
                   <article key={store.source_code} className="store-card">
@@ -450,52 +444,10 @@ export default function StoresPage() {
                       {store.city && <p className="store-tag">{store.city}</p>}
                       <h3>{store.frontend_name || store.name}</h3>
                     </header>
-                    <p className="store-address">{formatAddress(store)}</p>
-
-                    <dl className="store-contact">
-                      {store.email && (
-                        <div>
-                          <dt>E-post</dt>
-                          <dd>
-                            <a
-                              href={emailHref}
-                              className="store-contact-link"
-                              onClick={() =>
-                                trackEvent(
-                                  "click_mail",
-                                  store.source_code,
-                                  store.email,
-                                  storeId
-                                )
-                              }
-                            >
-                              {store.email}
-                            </a>
-                          </dd>
-                        </div>
-                      )}
-                      {store.phone && (
-                        <div>
-                          <dt>Telefon</dt>
-                          <dd>
-                            <a
-                              href={phoneHref}
-                              className="store-contact-link"
-                              onClick={() =>
-                                trackEvent(
-                                  "click_social_cta",
-                                  store.source_code,
-                                  store.phone,
-                                  storeId
-                                )
-                              }
-                            >
-                              {store.phone}
-                            </a>
-                          </dd>
-                        </div>
-                      )}
-                    </dl>
+                    <div className="store-address">
+                      {address.line1 && <div>{address.line1}</div>}
+                      {address.line2 && <div>{address.line2}</div>}
+                    </div>
 
                     <div className="store-actions">
                       <a
