@@ -425,7 +425,11 @@ export default function RegistrationForm() {
               </div>
 
               <div className="form-submit">
-                <button type="submit" disabled={sending}>
+                <button
+                  type="submit"
+                  className="button btn-accent"
+                  disabled={sending}
+                >
                   {sending ? "Sender…" : "Registrer lodd"}
                 </button>
               </div>

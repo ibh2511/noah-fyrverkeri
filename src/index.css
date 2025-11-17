@@ -483,9 +483,9 @@ h1.brand {
 .register-hero {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
+  border-radius: 16px 16px 0 0;
   padding: clamp(18px, 4vw, 32px);
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .register-hero h1 {
@@ -496,8 +496,8 @@ h1.brand {
 .register-form-section {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: clamp(18px, 4vw, 32px);
+  border-radius: 0 0 16px 16px;
+  padding: clamp(14px, 3.6vw, 24px);
 }
 
 .hidden-iframe {
@@ -768,17 +768,34 @@ h1.brand {
 .checkbox-option {
   display: flex;
   gap: 10px;
-  align-items: flex-start;
-  padding: 10px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
 }
 
 .radio-option span,
 .checkbox-option span {
   font-size: 14px;
   line-height: 1.4;
+}
+
+/* Make the native controls smaller and more delicate; use accent color where supported */
+.radio-option input[type="radio"],
+.checkbox-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0 8px 0 0;
+  accent-color: #134b2a;
+}
+
+/* Compact separators for options to reduce 'air' */
+.radio-group .radio-option + .radio-option,
+.checkbox-group .checkbox-option + .checkbox-option {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .lottery-summary {
