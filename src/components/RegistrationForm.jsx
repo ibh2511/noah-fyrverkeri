@@ -118,6 +118,7 @@ export default function RegistrationForm() {
   const [frontendLodd, setFrontendLodd] = useState(0)
 
   const iframeRef = useRef(null)
+  const resolvedRef = useRef(false)
 
   // Scroll to top on mount
   useEffect(() => {
@@ -160,6 +161,8 @@ export default function RegistrationForm() {
       if (!/script\.google\.com|googleusercontent\.com/.test(evt.origin)) return
 
       const data = evt.data || {}
+      if (resolvedRef.current) return
+      resolvedRef.current = true
       setSending(false)
 
       if (data.duplicate) setStatus("duplicate")
@@ -175,16 +178,19 @@ export default function RegistrationForm() {
           iframeRef.current.contentDocument ||
           iframeRef.current.contentWindow?.document
 
-        if (iframeDoc) {
+        if (iframeDoc && !resolvedRef.current) {
           const bodyText = iframeDoc.body?.innerText || ""
 
           if (bodyText.includes("duplicate")) {
+            resolvedRef.current = true
             setSending(false)
             setStatus("duplicate")
           } else if (bodyText.includes("ok") || bodyText.includes("success")) {
+            resolvedRef.current = true
             setSending(false)
             setStatus("ok")
           } else if (bodyText.includes("error")) {
+            resolvedRef.current = true
             setSending(false)
             setStatus("error")
           }
@@ -198,10 +204,13 @@ export default function RegistrationForm() {
 
     let pollInterval
     if (sending) {
+      // poll the iframe for content
       pollInterval = setInterval(checkIframeContent, 500)
 
+      // final timeout: if nothing arrived, mark as ok only if not already resolved
       setTimeout(() => {
-        if (sending) {
+        if (sending && !resolvedRef.current) {
+          resolvedRef.current = true
           setSending(false)
           setStatus("ok")
         }
@@ -227,6 +236,8 @@ export default function RegistrationForm() {
       return
     }
 
+    // start a new submission; clear resolved flag so the first response wins
+    resolvedRef.current = false
     setSending(true)
 
     if (iframeRef.current) {
