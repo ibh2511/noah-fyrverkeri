@@ -118,6 +118,11 @@ export default function RegistrationForm() {
 
   const iframeRef = useRef(null)
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   // Bilde-slideshow
   useEffect(() => {
     const interval = setInterval(() => {
@@ -267,33 +272,25 @@ export default function RegistrationForm() {
   }
 
   return (
-    <div className="register-page">
-      <div className="container">
-        {/* Bilde/hero */}
-        <div className="booking-image">
-          {IMAGES.map((src, index) => (
-            <img
-              key={src}
-              className={`booking-img ${
-                index === currentImageIndex ? "active" : ""
-              }`}
-              src={src}
-              alt="NOAH fyrverkerikampanje"
-              loading="lazy"
-            />
-          ))}
-        </div>
-
-        {/* Skjema */}
-        <div className="booking-form">
-          <h2>🚫 Fyrverkeri – flere lodd, mer press</h2>
-          <div className="subheader">
+    <div className="register-page-new">
+      <div className="wrap register-wrap">
+        <a href="/" className="stores-back-link">
+          ← Tilbake til forsiden
+        </a>
+        
+        <section className="register-hero">
+          <p className="eyebrow">Loddtrekning</p>
+          <h1>🚫 Registrer innsatsen din</h1>
+          <p className="stores-lead">
             Registrer innsatsen din mot Europris denne uka og få lodd i
             trekningen.
-          </div>
+          </p>
+        </section>
+
+        <section className="register-form-section">
 
           {status === "duplicate" && (
-            <div className="msg error">
+            <div className="stores-state error">
               <h3>⚠️ Allerede registrert denne uka</h3>
               <p>
                 Denne e-posten er allerede registrert for valgt uke. Du kan
@@ -303,25 +300,24 @@ export default function RegistrationForm() {
           )}
 
           {status === "ok" && (
-            <div className="msg thanks">
+            <div className="stores-state">
               <h3>🎉 Takk – innsatsen din er registrert!</h3>
               <p>Du får en bekreftelse på e-post med antall lodd du har.</p>
             </div>
           )}
 
           {status === "error" && (
-            <div className="msg error">
+            <div className="stores-state error">
               <h3>⚠️ Noe gikk galt</h3>
               <p>Prøv igjen senere eller kontakt oss.</p>
             </div>
           )}
 
-          {/* Skjult iframe: mottar Apps Script-responsen */}
           <iframe
             name="hidden_iframe"
             title="hidden_iframe"
             ref={iframeRef}
-            style={{ display: "none", width: 0, height: 0, border: 0 }}
+            className="hidden-iframe"
           />
 
           {GAS_URL ? (
@@ -330,7 +326,7 @@ export default function RegistrationForm() {
               method="POST"
               target="hidden_iframe"
               onSubmit={handleFormSubmit}
-              style={{ display: status ? "none" : "block" }}
+              className={status ? "form-hidden" : ""}
             >
               {/* Navn / etternavn / e-post */}
               <div className="form-group-row">
@@ -436,54 +432,11 @@ export default function RegistrationForm() {
               </div>
             </form>
           ) : (
-            <div className="msg error">
+            <div className="stores-state error">
               <h3>⚠️ Skjema ikke konfigurert</h3>
               <p>Google Apps Script URL (GAS_URL) mangler i koden.</p>
             </div>
           )}
-        </div>
-
-        <div className="map-container" aria-label="Aktive byer kart">
-          <iframe
-            title="NOAH fyrverkerikart"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=4.3%2C58%2C31.5%2C71.5&layer=mapnik"
-            loading="lazy"
-          />
-        </div>
-
-        <section className="faq-section" aria-label="Ofte stilte spørsmål">
-          <details open>
-            <summary>
-              Hvem kan registrere innsats?
-              <span className="icon" aria-hidden="true"></span>
-            </summary>
-            <div className="faq-body">
-              Alle frivillige som kontakter Europris på vegne av NOAH kan logge
-              handlingene sine. Vi bruker innsendingene til å vise hvor trykket
-              er størst og hvor vi trenger flere.
-            </div>
-          </details>
-          <details>
-            <summary>
-              Hvordan teller lodd?
-              <span className="icon" aria-hidden="true"></span>
-            </summary>
-            <div className="faq-body">
-              Hver handling gir mellom ett og tre lodd. Vi trekker ukentlig og
-              kontakter vinnerne på e-post. Du kan levere skjema én gang per uke
-              per frivillig.
-            </div>
-          </details>
-          <details>
-            <summary>
-              Hvor sendes dataen?
-              <span className="icon" aria-hidden="true"></span>
-            </summary>
-            <div className="faq-body">
-              Skjemaet går til Google Sheets via Apps Script. Data deles kun med
-              kampanjeteamet og brukes til statistikk og premiering.
-            </div>
-          </details>
         </section>
       </div>
     </div>

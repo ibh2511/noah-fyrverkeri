@@ -464,7 +464,149 @@ h1.brand {
   color: rgba(255, 255, 255, 0.75);
 }
 
-/* Registration page (scoped) */
+/* Register page - new simple layout */
+.register-page-new {
+  width: 100%;
+  background: var(--bg);
+}
+
+.register-wrap {
+  max-width: 800px;
+}
+
+.register-hero {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: clamp(18px, 4vw, 32px);
+  margin-bottom: 24px;
+}
+
+.register-hero h1 {
+  text-align: left;
+  margin-top: 0;
+}
+
+.register-form-section {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: clamp(18px, 4vw, 32px);
+}
+
+.hidden-iframe {
+  display: none;
+  width: 0;
+  height: 0;
+  border: 0;
+}
+
+.form-hidden {
+  display: none;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #123123;
+  font-size: 16px;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.4s;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group input.has-content,
+.form-group textarea.has-content {
+  border-color: var(--accent);
+}
+
+.form-label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  color: #666;
+  font-size: 16px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: 0.3s ease;
+}
+
+.form-group input:focus + .form-label,
+.form-group input.has-content + .form-label,
+.form-group textarea:focus + .form-label,
+.form-group textarea.has-content + .form-label {
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0 5px;
+  color: var(--accent);
+  font-size: 13px;
+}
+
+.form-group-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-group-row .form-group {
+  flex: 1;
+}
+
+.form-label-static {
+  text-align: left;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.lottery-summary {
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.form-submit button {
+  width: 100%;
+  padding: 12px 0;
+  background: var(--accent);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.form-submit button:hover {
+  background: rgba(213, 17, 48, 0.85);
+}
+
+.form-submit button[disabled] {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+@media (max-width: 640px) {
+  .form-group-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+/* OLD register-page styles (keep for backwards compatibility) */
 .register-page {
   min-height: 100vh;
   display: flex;
