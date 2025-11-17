@@ -969,10 +969,11 @@ h1.brand {
 .register-page .form-group textarea:focus + .form-label,
 .register-page .form-group textarea.has-content + .form-label {
   top: 0;
-  background: var(--panel);
+  background: var(--accent);
   padding: 0 5px;
-  color: var(--accent);
+  color: var(--panel);
   font-size: 13px;
+  border-radius: 4px;
 }
 
 .register-page .form-group-row {
