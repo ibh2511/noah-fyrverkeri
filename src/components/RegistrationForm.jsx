@@ -447,7 +447,7 @@ export default function RegistrationForm() {
               {/* Lodd-handlinger (checkbokser) */}
               <div className="form-group">
                 <div className="form-label-static">
-                  Hva har du gjort mot Europris? <br />
+                  Hva har du gjort? <br />
                   <small>(kryss av alt som gjelder)</small>
                 </div>
                 <div className="checkbox-group">
