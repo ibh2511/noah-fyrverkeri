@@ -509,7 +509,7 @@ export default function StoresPage() {
                             )
                           }
                         >
-                          Insta DM
+                          Instagram DM
                         </a>
                       </div>
                       <button

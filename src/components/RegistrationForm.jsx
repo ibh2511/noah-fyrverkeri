@@ -326,7 +326,7 @@ export default function RegistrationForm() {
 
         <section className="register-hero">
           <p className="eyebrow">Loddtrekning</p>
-          <h1>🚫 Registrer innsatsen din</h1>
+          <h1>✒️ Registrer innsatsen din</h1>
           <p className="stores-lead">
             Registrer innsatsen din mot Europris denne uka og få lodd i
             trekningen.
@@ -338,7 +338,7 @@ export default function RegistrationForm() {
             <div
               className={`stores-state ${showStatus ? "visible" : "hidden"}`}
             >
-              <h3>🎉 Takk – innsatsen din er registrert!</h3>
+              <h3>⚠️ Innsatsen din er alt registrert!</h3>
               <p>
                 Vi ser at denne e-posten allerede er registrert for valgt uke.
                 Takk for innsatsen!
