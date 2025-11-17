@@ -395,24 +395,45 @@ h1.brand {
 
 /* Landing page: keep the summary on a green background with light text
    while leaving the stores page summary styling unchanged. */
+.landing-page .lottery-details {
+  /* make the details container transparent so the green summary sits above a white content card */
+  background: transparent;
+  box-shadow: none;
+}
+
 .landing-page .lottery-details summary {
   /* Green, button-like appearance but sized like store buttons */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 8px 10px; /* match `.store-btn` dimensions */
-  border-radius: 10px;
+  padding: 8px 12px; /* match `.store-btn` dimensions */
+  border-radius: 10px 10px 10px 10px;
   background: var(--bg); /* primary green */
-  border: 2px solid rgba(255, 255, 255, 0.18); /* slightly lighter edge */
+  border: 2px solid var(--btn-border); /* match button edge */
   color: #fff;
   font-weight: 800;
   font-size: 14px;
   line-height: 1;
   min-width: 200px; /* align with store button min width */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 .landing-page .lottery-details summary:hover {
-  background: rgba(0, 105, 65, 0.92);
+  background: color-mix(in srgb, var(--bg) 85%, black 15%);
+}
+
+/* When the dropdown is open, make the summary's bottom corners square so it visually connects to the white content card */
+.landing-page .lottery-details[open] summary {
+  border-radius: 10px 10px 0 0;
+}
+
+/* Move the white card background to the inner content so the summary sits on green */
+.landing-page .lottery-details .lottery-content {
+  background: rgba(255, 255, 255, 0.95);
+  color: #123123;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  margin-top: 0;
 }
 
 /* Ensure the register form's submit uses the same accent button styling */
