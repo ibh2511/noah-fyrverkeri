@@ -67,6 +67,7 @@ async function fetchStoresByCodes(codes, chunkSize = 80) {
       )
       .in("source_code", chunk)
     if (error) {
+      console.error("fetchStoresByCodes chunk error", { error, chunk })
       return { data: null, error }
     }
     if (data && data.length > 0) {
