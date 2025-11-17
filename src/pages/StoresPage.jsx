@@ -16,6 +16,7 @@ const HQ_CONTACT = {
   messenger: "https://m.me/Europris",
   facebook: "https://www.facebook.com/Europris",
   instagram: "https://www.instagram.com/europris/",
+  instagramDm: "https://www.instagram.com/direct/t/europris",
 }
 
 const POINTS_LIST = [
@@ -27,7 +28,7 @@ const POINTS_LIST = [
 
 const HERO_PARAGRAPHS = [
   "Send korte, vennlige meldinger til butikkene og min dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
-  "Vi foreslår å starte med Europris-butikkene som fortsatt selger fyrverkeri. Listen under blir tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
+  "Listen under blir generert tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
 ]
 
 const SUBJECT_LINE = "🚫 Slutt å selge fyrverkeri"
@@ -376,7 +377,7 @@ export default function StoresPage() {
                 trackEvent("click_facebook", HQ_STORE_CODE, "hq_facebook")
               }
             >
-              Besøk Europris på Facebook
+              Europris på Facebook
             </a>
             <a
               className="button"
@@ -387,7 +388,7 @@ export default function StoresPage() {
                 trackEvent("click_instagram", HQ_STORE_CODE, "hq_instagram")
               }
             >
-              Følg Europris på Instagram
+              Europris på Instagram
             </a>
           </div>
         </section>
