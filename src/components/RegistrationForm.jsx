@@ -114,6 +114,11 @@ export default function RegistrationForm() {
   )
   const [frontendLodd, setFrontendLodd] = useState(0)
 
+  // Control whether the server-side script should actually send emails.
+  // Set `VITE_SEND_EMAILS=true` in your environment to enable (defaults to "false").
+  const SEND_EMAILS =
+    import.meta.env.VITE_SEND_EMAILS === "true" ? "true" : "false"
+
   const iframeRef = useRef(null)
   const resolvedRef = useRef(false)
   const [showStatus, setShowStatus] = useState(false)
@@ -371,6 +376,8 @@ export default function RegistrationForm() {
               onSubmit={handleFormSubmit}
               className={status ? "form-hidden" : ""}
             >
+              {/* send runtime flag to Apps Script; GAS can read e.parameter.SEND_EMAILS */}
+              <input type="hidden" name="SEND_EMAILS" value={SEND_EMAILS} />
               {/* Navn / etternavn / e-post */}
               <div className="form-group-row">
                 <div className="form-group">

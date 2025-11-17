@@ -471,7 +471,7 @@ export default function StoresPage() {
                 placeholder="Søk butikker..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                aria-label="Søk butikker"
+                aria-label="Søk i butikker"
               />
             </div>
           </header>
