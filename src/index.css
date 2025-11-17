@@ -212,6 +212,21 @@ button.button.btn-accent:hover {
   background: rgba(255, 255, 255, 0.14);
 }
 
+/* Small inline search input used on stores header */
+.mini-search {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 13px;
+  min-width: 200px;
+}
+
+.mini-search::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .footer-inner {
   max-width: 960px;
   margin: 0 auto;

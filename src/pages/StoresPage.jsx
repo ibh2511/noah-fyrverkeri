@@ -139,6 +139,7 @@ function formatAddress(store) {
 
 export default function StoresPage() {
   const [stores, setStores] = useState([])
+  const [searchTerm, setSearchTerm] = useState("")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [visitorId, setVisitorId] = useState("")
@@ -338,9 +339,26 @@ export default function StoresPage() {
     [trackEvent]
   )
 
-  const storesCount = stores.length
-  const visibleStores = stores.slice(0, visibleCount)
+  const filteredStores = useMemo(() => {
+    const q = (searchTerm || "").trim().toLowerCase()
+    if (!q) return stores
+    return stores.filter((s) => {
+      const hay = [s.frontend_name, s.name, s.city, s.street, s.source_code]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+      return hay.includes(q)
+    })
+  }, [stores, searchTerm])
+
+  const storesCount = filteredStores.length
+  const visibleStores = filteredStores.slice(0, visibleCount)
   const hasMore = visibleCount < storesCount
+
+  useEffect(() => {
+    // When the user starts a new search, reset visible count so results start from the top
+    setVisibleCount(15)
+  }, [searchTerm])
 
   return (
     <div className="stores-page">
@@ -436,16 +454,26 @@ export default function StoresPage() {
                 innlasting for å spre oppmerksomheten.
               </p>
             </div>
-            <button
-              className="mini-btn"
-              type="button"
-              onClick={() => {
-                setRefreshKey((v) => v + 1)
-                setVisibleCount(15)
-              }}
-            >
-              Last en ny rekkefølge
-            </button>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <input
+                type="search"
+                className="mini-search"
+                placeholder="Søk butikker..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                aria-label="Søk butikker"
+              />
+              <button
+                className="mini-btn"
+                type="button"
+                onClick={() => {
+                  setRefreshKey((v) => v + 1)
+                  setVisibleCount(15)
+                }}
+              >
+                Last en ny rekkefølge
+              </button>
+            </div>
           </header>
 
           {loading && <p className="stores-state">Laster butikker ...</p>}
