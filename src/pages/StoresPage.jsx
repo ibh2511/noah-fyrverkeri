@@ -8,9 +8,9 @@ const MESSAGE_TEMPLATE = `Hei Europris [[BUTIKKNAVN]]! 🐾\n\nJeg håper dere v
 const HQ_CONTACT = {
   title: "Ta kontakt med hovedkontoret",
   body: [
-    "Send dem gjerne en ekstra melding når du har skrevet til noen butikker.",
+    "Kommenter på fyrverkeri-postene deres på Facebook eller Instagram for 1 ekstra lodd.",
     "Jo flere ganger de hører fra oss, jo vanskeligere blir det å ignorere kampanjen.",
-    "Kommenter også på fyrverkeri-postene deres for 1 ekstra lodd hver gang.",
+    "Send dem gjerne en ekstra mail når du har lagt igjen noen kommentarer.",
   ],
   email: "kundeservice@europris.no",
   messenger: "https://m.me/Europris",
@@ -27,7 +27,7 @@ const POINTS_LIST = [
 ]
 
 const HERO_PARAGRAPHS = [
-  "Send korte, vennlige meldinger til butikkene og min dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
+  "Send korte, vennlige meldinger til Europris-butikkene og min dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
   "Listen under blir generert tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
 ]
 
@@ -399,8 +399,7 @@ export default function StoresPage() {
               <p className="eyebrow">{storesCount} butikker</p>
               <h2>Butikker som fortsatt selger fyrverkeri</h2>
               <p className="stores-lead">
-                Rekkefølgen endres for hver innlasting slik at flere butikker
-                får meldinger først.
+                Rekkefølgen endres for hver innlasting.
               </p>
             </div>
             <button
@@ -465,7 +464,7 @@ export default function StoresPage() {
                           )
                         }
                       >
-                        Send på Messenger
+                        Messenger
                       </a>
                       <a
                         className="store-btn store-btn--instagram"
@@ -481,7 +480,7 @@ export default function StoresPage() {
                           )
                         }
                       >
-                        Send Insta-DM
+                        Insta DM
                       </a>
                     </div>
                     <button
