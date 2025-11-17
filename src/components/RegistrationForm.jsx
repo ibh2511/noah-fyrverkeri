@@ -63,8 +63,7 @@ function setupVisitorTracking() {
 
 // TODO: sett inn din ekte Apps Script URL her
 const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbzi9PovdqmMmo_t2gLGmko2uB4RE0t0jLgb-vAOQ4uggmfLp7LNyRlRsUoe6XDQgC75bA/exec"
-// Removed hero images: registration page no longer displays slideshow
+  "https://script.google.com/macros/s/AKfycbyUYDa9q6XFM9Jm-ka8dHf_DxHzq6f9KAmiaDWpaLkSRKD6k-5m6OxN0mw9N-6prBtQdw/exec"
 
 // Lokale konstanter for lodd
 const LOTTERY_ACTIONS = [
