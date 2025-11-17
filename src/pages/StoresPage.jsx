@@ -32,7 +32,7 @@ const HERO_PARAGRAPHS = [
     italic: false,
   },
   {
-    text: "Butikklisten under blir generert tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
+    text: "",
     italic: true,
   },
 ]
@@ -369,11 +369,14 @@ export default function StoresPage() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <div style={{ marginTop: "12px" }}>
+              <div className="lottery-register" style={{ marginTop: "12px" }}>
                 <p>Husk å registrere din innsats for å få lodd i trekningen!</p>
-                <a href="/registrer" className="button btn-sm btn-outline">
+                <Link
+                  to="/registrer"
+                  className="btn-sm btn-outline register-link"
+                >
                   Registrer din innsats
-                </a>
+                </Link>
               </div>
             </div>
           </details>

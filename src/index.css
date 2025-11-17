@@ -381,6 +381,35 @@ h1.brand {
   color: #123123;
 }
 
+/* Center the small register reminder inside the lottery-content on the stores page
+   and make the register link visible (green) instead of the generic white button used site-wide. */
+.lottery-content .lottery-register {
+  text-align: center;
+  margin-top: 8px;
+}
+.lottery-content .lottery-register p {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: #123123;
+}
+.lottery-content .lottery-register .btn-sm.btn-outline,
+.lottery-content .lottery-register .register-link {
+  display: inline-block;
+  padding: 0;
+  margin-top: 6px;
+  border: none;
+  background: transparent;
+  color: #134b2a;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.lottery-content .lottery-register .btn-sm.btn-outline:hover,
+.lottery-content .lottery-register .register-link:hover {
+  color: #0f3e24;
+  filter: none;
+}
+
 .lottery-content ul {
   margin: 0;
   padding-left: 20px;
