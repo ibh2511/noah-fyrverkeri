@@ -1458,6 +1458,30 @@ input.mini-search::-ms-clear {
   height: 16px;
 }
 
+/* Small screens: stack search and refresh button vertically and show search first */
+@media (max-width: 859px) {
+  .stores-grid-section > header > div:last-child {
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .stores-grid-section > header > div:last-child .mini-search {
+    order: -1; /* place search above the button */
+    width: 100%;
+    min-width: 0;
+    margin-top: 0;
+  }
+
+  .stores-grid-section > header > div:last-child .mini-btn {
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+}
+
 .store-card {
   background: rgba(255, 255, 255, 0.9);
   color: #123123;
