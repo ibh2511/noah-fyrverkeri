@@ -543,7 +543,7 @@ export default function StoresPage() {
                     Vis flere butikker ({storesCount - visibleCount} gjenstår)
                   </button>
                 )}
-                {visibleCount > 15 && (
+                {storesCount > 15 && (
                   <button
                     className="button"
                     type="button"
