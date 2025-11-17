@@ -411,7 +411,7 @@ Med vennlig hilsen
             <p className="lead-italic">
               Kampanjen varer ut november. Hver uke trekker vi én vinner som får
               velge en valgfri premie i NOAH-nettbutikken (unntatt hvalgenseren
-              og ulvegenseren). Jo mer du gjør, jo flere lodd får du – og jo
+              og ulvegenseren). Jo mer du gjør, jo flere lodd får du, og jo
               større sjanse har du til å vinne.
             </p>
             <details className="lottery-details">

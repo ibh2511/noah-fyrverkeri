@@ -381,6 +381,10 @@ h1.brand {
   color: #123123;
 }
 
+.lottery-content p {
+  text-align: center;
+}
+
 /* Center the small register reminder inside the lottery-content on the stores page
    and make the register link visible (green) instead of the generic white button used site-wide. */
 .lottery-content .lottery-register {
@@ -525,6 +529,7 @@ h1.brand {
 .landing-page .lottery-content .lottery-register {
   text-align: center;
 }
+
 .landing-page .lottery-content .lottery-register p {
   margin: 0 0 6px;
   font-weight: 700;
