@@ -28,7 +28,7 @@ const POINTS_LIST = [
 
 const HERO_PARAGRAPHS = [
   "Send korte, vennlige meldinger til Europris-butikkene og min dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
-  "Listen under blir generert tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
+  "Butikklisten under blir generert tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
 ]
 
 const SUBJECT_LINE = "🚫 Slutt å selge fyrverkeri"
@@ -150,6 +150,10 @@ export default function StoresPage() {
       if (hash.get("debug") === "sb") return true
     } catch {}
     return false
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
   }, [])
 
   useEffect(() => {
@@ -408,7 +412,10 @@ export default function StoresPage() {
             <button
               className="mini-btn"
               type="button"
-              onClick={() => setRefreshKey((v) => v + 1)}
+              onClick={() => {
+                setRefreshKey((v) => v + 1)
+                setVisibleCount(15)
+              }}
             >
               Last en ny rekkefølge
             </button>
@@ -510,6 +517,19 @@ export default function StoresPage() {
                     onClick={() => setVisibleCount((c) => c + 15)}
                   >
                     Vis flere butikker ({storesCount - visibleCount} gjenstår)
+                  </button>
+                </div>
+              )}
+              {visibleCount > 15 && (
+                <div style={{ textAlign: "center", marginTop: "2rem" }}>
+                  <button
+                    className="button"
+                    type="button"
+                    onClick={() =>
+                      window.scrollTo({ top: 0, behavior: "smooth" })
+                    }
+                  >
+                    ↑ Til toppen
                   </button>
                 </div>
               )}

@@ -461,6 +461,7 @@ h1.brand {
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Registration page (scoped) */
