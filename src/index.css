@@ -320,7 +320,7 @@ h1.brand {
   color: var(--accent);
   font-weight: 800;
   letter-spacing: 0.4px;
-  -webkit-text-stroke: 3px rgba(128, 128, 128, 0.2);
+  -webkit-text-stroke: 4px rgba(128, 128, 128, 0.2);
 }
 
 .lead-italic {
