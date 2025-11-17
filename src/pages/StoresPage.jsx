@@ -28,7 +28,7 @@ const POINTS_LIST = [
 
 const HERO_PARAGRAPHS = [
   {
-    text: "Send korte, vennlige meldinger til Europris-butikkene og minn dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
+    text: "Send korte, vennlige meldinger til Europris-butikkene på Facebook eller Instagram, og minn dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
     italic: false,
   },
   {
@@ -422,7 +422,9 @@ export default function StoresPage() {
               <p className="eyebrow">{storesCount} butikker</p>
               <h2>Butikker som fortsatt selger fyrverkeri</h2>
               <p className="stores-lead">
-                Rekkefølgen endres for hver innlasting.
+                Trykk kopier og send meldinger til Europris-butikkene på
+                Facebook eller Instagram. Butikkrekkefølgen endres for hver
+                innlasting for å spre oppmerksomheten.
               </p>
             </div>
             <button

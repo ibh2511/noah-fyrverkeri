@@ -504,9 +504,9 @@ Med vennlig hilsen
             >
               Send e-post til 100 butikker
             </a>
-            <p className="hint" id="emailHintOrig">
+            {/* <p className="hint" id="emailHintOrig">
               Trykk på knappen for å sende e-post til butikkene
-            </p>
+            </p> */}
             <p className="hint inline-email" id="emailHintIAB" hidden>
               <span
                 id="copyFullEmail"
@@ -529,9 +529,9 @@ Med vennlig hilsen
             >
               Send melding på Facebook/Instagram
             </Link>
-            <p className="hint">
+            {/* <p className="hint">
               Vi gir deg liste over butikker og en ferdig melding å dele
-            </p>
+            </p> */}
           </div>
 
           <div className="btn-group">
@@ -542,9 +542,9 @@ Med vennlig hilsen
             >
               Registrer din innsats
             </Link>
-            <p className="hint">
+            {/* <p className="hint">
               Fortell oss hva du har gjort så får du lodd i trekningen
-            </p>
+            </p> */}
           </div>
 
           <div className="btn-group">
@@ -562,9 +562,9 @@ Med vennlig hilsen
             >
               Last ned låseskjermbilde med QR-kode
             </a>
-            <p className="hint">
+            {/* <p className="hint">
               Sett som bakgrunnsbilde og spre kampanjen videre
-            </p>
+            </p> */}
           </div>
         </div>
       </main>
