@@ -396,14 +396,21 @@ h1.brand {
 /* Landing page: keep the summary on a green background with light text
    while leaving the stores page summary styling unchanged. */
 .landing-page .lottery-details summary {
-  /* Landing page: green background with light text (like before) */
-  background: var(--bg);
+  /* Match the site's `.button` appearance on the Landing page */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(12px, 3.6vw, 16px);
+  border-radius: 12px;
+  background: var(--btn-bg);
+  border: 2px solid var(--btn-border);
   color: #fff;
-  padding: 12px 14px;
-  font-weight: 700;
-  border-radius: 10px;
-  border: none;
+  font-weight: 800;
+  font-size: clamp(13px, 3.4vw, 18px);
 }
+
+.landing-page .lottery-details summary:hover {
+  background: var(--btn-bg-hover);
 
 @media (min-width: 860px) {
   .hero {
