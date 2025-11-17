@@ -666,8 +666,10 @@ h1.brand {
 .register-form-section {
   background: rgba(255, 255, 255, 0.95);
   color: #123123;
-  border-radius: 18px;
+  /* square top so it visually attaches to .register-hero, rounded bottom corners */
+  border-radius: 0 0 18px 18px;
   padding: clamp(14px, 3.6vw, 24px);
+  margin-top: 0;
   margin-bottom: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   border: none;
@@ -688,6 +690,24 @@ h1.brand {
   padding: 0 5px;
   color: var(--accent);
   font-size: 13px;
+}
+
+/* Make the lottery summary inside the register panel match the green branding */
+.register-form-section .lottery-summary {
+  color: #123123;
+  font-weight: 800;
+}
+
+/* So labels sit nicely on the pale panel: slightly muted green and small padding */
+.register-form-section .form-label {
+  color: rgba(19, 75, 42, 0.85);
+  background: transparent;
+  padding: 0 4px;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.register-form-section .form-label-static {
+  color: #134b2a;
 }
 
 .hidden-iframe {
