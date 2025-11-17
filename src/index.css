@@ -632,6 +632,17 @@ h1.brand {
   cursor: wait;
 }
 
+/* Ensure `.button.btn-accent` inside the registration form matches site accent buttons
+   and override the generic `.form-submit button` rules when a `.button` class is present. */
+.form-submit .button.btn-accent,
+.form-submit button.button.btn-accent {
+  background: rgba(213, 17, 48, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  border-radius: 12px;
+  padding: clamp(12px, 3.6vw, 16px);
+}
+
 @media (max-width: 640px) {
   .form-group-row {
     flex-direction: column;
