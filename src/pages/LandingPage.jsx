@@ -9,12 +9,11 @@ const SENT_CODES_PREFIX = "bccSentStoreCodes:"
 
 const HERO_IMAGES = [
   {
-    src: "/images/dog.jpg",
+    src: `${import.meta.env.BASE_URL}images/dog.jpg`,
     alt: "Søt hund som ser skeptisk ut",
   },
   {
-    // file in public/images is named `firework.jpg` (singular)
-    src: "/images/firework.jpg",
+    src: `${import.meta.env.BASE_URL}images/firework.jpg`,
     alt: "Frivillige som deler ut kampanjemateriell",
   },
 ]

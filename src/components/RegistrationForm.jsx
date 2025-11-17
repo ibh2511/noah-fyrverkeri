@@ -331,6 +331,13 @@ export default function RegistrationForm() {
             Registrer innsatsen din mot Europris denne uka og få lodd i
             trekningen.
           </p>
+          {/* Hero image slideshow (was driving state but not rendered) */}
+          <img
+            src={IMAGES[currentImageIndex]}
+            alt="Registreringsbilde"
+            className="hero-img"
+            loading="lazy"
+          />
         </section>
 
         <section className="register-form-section">
