@@ -509,8 +509,16 @@ export default function StoresPage() {
                   )
                 })}
               </div>
-              {hasMore && (
-                <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <div
+                style={{
+                  textAlign: "center",
+                  marginTop: "2rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                }}
+              >
+                {hasMore && (
                   <button
                     className="button btn-accent"
                     type="button"
@@ -518,10 +526,8 @@ export default function StoresPage() {
                   >
                     Vis flere butikker ({storesCount - visibleCount} gjenstår)
                   </button>
-                </div>
-              )}
-              {visibleCount > 15 && (
-                <div style={{ textAlign: "center", marginTop: "2rem" }}>
+                )}
+                {visibleCount > 15 && (
                   <button
                     className="button"
                     type="button"
@@ -531,8 +537,8 @@ export default function StoresPage() {
                   >
                     ↑ Til toppen
                   </button>
-                </div>
-              )}
+                )}
+              </div>
             </>
           )}
         </section>

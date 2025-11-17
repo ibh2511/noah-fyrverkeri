@@ -530,7 +530,7 @@ Med vennlig hilsen
               Send melding på Facebook/Instagram
             </Link>
             <p className="hint">
-              Vi gir deg liste over butikker og ferdig melding å dele
+              Vi gir deg liste over butikker og en ferdig melding å dele
             </p>
           </div>
 

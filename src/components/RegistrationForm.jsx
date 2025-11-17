@@ -277,7 +277,7 @@ export default function RegistrationForm() {
         <a href="/" className="stores-back-link">
           ← Tilbake til forsiden
         </a>
-        
+
         <section className="register-hero">
           <p className="eyebrow">Loddtrekning</p>
           <h1>🚫 Registrer innsatsen din</h1>
@@ -288,7 +288,6 @@ export default function RegistrationForm() {
         </section>
 
         <section className="register-form-section">
-
           {status === "duplicate" && (
             <div className="stores-state error">
               <h3>⚠️ Allerede registrert denne uka</h3>
