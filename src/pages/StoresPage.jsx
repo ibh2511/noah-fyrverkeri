@@ -27,8 +27,14 @@ const POINTS_LIST = [
 ]
 
 const HERO_PARAGRAPHS = [
-  "Send korte, vennlige meldinger til Europris-butikkene og min dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
-  "Butikklisten under blir generert tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
+  {
+    text: "Send korte, vennlige meldinger til Europris-butikkene og min dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
+    italic: false,
+  },
+  {
+    text: "Butikklisten under blir generert tilfeldig hver gang slik at alle butikker får oppmerksomhet.",
+    italic: true,
+  },
 ]
 
 const SUBJECT_LINE = "🚫 Slutt å selge fyrverkeri"
@@ -345,16 +351,26 @@ export default function StoresPage() {
         <section className="stores-hero">
           <p className="eyebrow">Slik bruker du sosiale medier</p>
           <h1>Send melding til Europris-butikkene</h1>
-          {HERO_PARAGRAPHS.map((text) => (
-            <p key={text} className="stores-lead">
-              {text}
+          {HERO_PARAGRAPHS.map((para) => (
+            <p
+              key={para.text}
+              className={
+                para.italic ? "stores-lead lead-italic" : "stores-lead"
+              }
+            >
+              {para.text}
             </p>
           ))}
-          <ul className="impact-list">
-            {POINTS_LIST.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+          <details className="lottery-details">
+            <summary>Slik får du lodd:</summary>
+            <div className="lottery-content">
+              <ul>
+                {POINTS_LIST.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </details>
         </section>
 
         <section className="hq-card">
