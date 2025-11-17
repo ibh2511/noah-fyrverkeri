@@ -28,7 +28,7 @@ const POINTS_LIST = [
 
 const HERO_PARAGRAPHS = [
   {
-    text: "Send korte, vennlige meldinger til Europris-butikkene og min dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
+    text: "Send korte, vennlige meldinger til Europris-butikkene og minn dem på hvor store konsekvenser fyrverkeri har for dyr og mennesker.",
     italic: false,
   },
   {
