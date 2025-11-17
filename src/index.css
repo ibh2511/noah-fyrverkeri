@@ -396,20 +396,23 @@ h1.brand {
 /* Landing page: keep the summary on a green background with light text
    while leaving the stores page summary styling unchanged. */
 .landing-page .lottery-details summary {
-  /* Make the landing page summary visually match the `.button` control */
+  /* Green, button-like appearance but sized like store buttons */
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: clamp(12px, 3.6vw, 16px);
-  border-radius: 12px;
-  background: var(--btn-bg);
-  border: 2px solid var(--btn-border);
+  padding: 8px 10px; /* match `.store-btn` dimensions */
+  border-radius: 10px;
+  background: var(--bg); /* primary green */
+  border: 2px solid rgba(255, 255, 255, 0.18); /* slightly lighter edge */
   color: #fff;
   font-weight: 800;
-  font-size: clamp(13px, 3.4vw, 18px);
+  font-size: 14px;
+  line-height: 1;
+  min-width: 200px; /* align with store button min width */
 }
 .landing-page .lottery-details summary:hover {
-  background: var(--btn-bg-hover);
+  background: rgba(0, 105, 65, 0.92);
 }
 
 /* Ensure the register form's submit uses the same accent button styling */
