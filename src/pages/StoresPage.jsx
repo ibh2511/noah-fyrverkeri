@@ -455,14 +455,6 @@ export default function StoresPage() {
               </p>
             </div>
             <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-              <input
-                type="search"
-                className="mini-search"
-                placeholder="Søk butikker..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                aria-label="Søk butikker"
-              />
               <button
                 className="mini-btn"
                 type="button"
@@ -473,6 +465,14 @@ export default function StoresPage() {
               >
                 Last en ny rekkefølge
               </button>
+              <input
+                type="search"
+                className="mini-search"
+                placeholder="Søk butikker..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                aria-label="Søk butikker"
+              />
             </div>
           </header>
 

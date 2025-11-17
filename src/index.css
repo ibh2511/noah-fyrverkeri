@@ -227,6 +227,23 @@ button.button.btn-accent:hover {
   color: rgba(255, 255, 255, 0.6);
 }
 
+.mini-search {
+  transition: box-shadow 160ms ease, border-color 160ms ease,
+    transform 80ms ease;
+}
+
+.mini-search:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(213, 17, 48, 0.12);
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mini-search:active {
+  transform: translateY(0);
+}
+
 .footer-inner {
   max-width: 960px;
   margin: 0 auto;
@@ -784,11 +801,11 @@ h1.brand {
 .form-group textarea:focus + .form-label,
 .form-group textarea.has-content + .form-label {
   top: 0;
-  /* keep label background identical to the panel for a seamless look */
-  background: var(--panel-bg, rgba(255, 255, 255, 0.95));
+  background: var(--accent);
   padding: 0 5px;
-  color: var(--accent);
+  color: var(--panel-bg, rgba(255, 255, 255, 0.95));
   font-size: 13px;
+  border-radius: 8px;
 }
 
 .form-group-row {
@@ -1392,8 +1409,10 @@ h1.brand {
 
 .stores-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  /* Keep cards from expanding to full width on wide screens by capping column size */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
   gap: 16px;
+  justify-content: center;
 }
 
 .store-card {
