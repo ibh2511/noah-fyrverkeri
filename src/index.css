@@ -331,20 +331,25 @@ h1.brand {
 
 .lottery-details {
   margin-top: 12px;
-  margin-bottom: 18px;
-  border-radius: 8px;
+  margin-bottom: 24px;
+  border-radius: 18px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
+  /* match store-card look: pale/white card with green text */
+  background: rgba(255, 255, 255, 0.95);
+  color: #123123;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .lottery-details summary {
   cursor: pointer;
-  padding: 10px 14px;
+  padding: 12px 14px;
   font-weight: 700;
   font-size: clamp(14px, 3.8vw, 16px);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
+  /* summary sits on top of the card, keep it visually aligned */
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px 18px 0 0;
+  color: #134b2a;
   list-style: none;
   user-select: none;
 }
@@ -366,9 +371,10 @@ h1.brand {
 .lottery-content {
   padding: 12px 14px;
   font-size: clamp(13px, 3.6vw, 15px);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.5;
   text-align: left;
+  color: #123123;
 }
 
 .lottery-content ul {
@@ -385,6 +391,33 @@ h1.brand {
 .lottery-content ul ul {
   margin-top: 4px;
   padding-left: 18px;
+}
+
+/* Landing page: keep the summary on a green background with light text
+   while leaving the stores page summary styling unchanged. */
+.landing-page .lottery-details summary {
+  /* Make the landing page summary visually match the `.button` control */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(12px, 3.6vw, 16px);
+  border-radius: 12px;
+  background: var(--btn-bg);
+  border: 2px solid var(--btn-border);
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(13px, 3.4vw, 18px);
+}
+.landing-page .lottery-details summary:hover {
+  background: var(--btn-bg-hover);
+}
+
+/* Ensure the register form's submit uses the same accent button styling */
+.form-submit .button.btn-accent,
+.form-submit button.button.btn-accent {
+  background: rgba(213, 17, 48, 0.85);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
 }
 
 @media (min-width: 860px) {
@@ -477,9 +510,9 @@ h1.brand {
 .register-hero {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
+  border-radius: 16px 16px 0 0;
   padding: clamp(18px, 4vw, 32px);
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .register-hero h1 {
@@ -490,8 +523,8 @@ h1.brand {
 .register-form-section {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: clamp(18px, 4vw, 32px);
+  border-radius: 0 0 16px 16px;
+  padding: clamp(14px, 3.6vw, 24px);
 }
 
 .hidden-iframe {
@@ -762,17 +795,34 @@ h1.brand {
 .checkbox-option {
   display: flex;
   gap: 10px;
-  align-items: flex-start;
-  padding: 10px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
 }
 
 .radio-option span,
 .checkbox-option span {
   font-size: 14px;
   line-height: 1.4;
+}
+
+/* Make the native controls smaller and more delicate; use accent color where supported */
+.radio-option input[type="radio"],
+.checkbox-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0 8px 0 0;
+  accent-color: #134b2a;
+}
+
+/* Compact separators for options to reduce 'air' */
+.radio-group .radio-option + .radio-option,
+.checkbox-group .checkbox-option + .checkbox-option {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .lottery-summary {
@@ -1226,5 +1276,29 @@ h1.brand {
 
   .store-btn {
     flex: 1 1 100%;
+  }
+}
+
+/* Stores page: do not add extra bottom spacing for lottery details */
+.stores-hero .lottery-details,
+.stores-wrap .lottery-details {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .stores-hero .lottery-details,
+  .stores-wrap .lottery-details {
+    margin-bottom: 0;
+  }
+}
+
+/* Stronger override: ensure stores page never gets bottom margin for lottery details */
+.stores-page .lottery-details {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .stores-page .lottery-details {
+    margin-bottom: 0 !important;
   }
 }
