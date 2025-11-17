@@ -746,8 +746,9 @@ h1.brand {
 .form-group textarea {
   width: 100%;
   padding: 12px;
-  background-color: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  /* match the register panel background so inputs sit on the same surface */
+  background: var(--panel-bg, rgba(255, 255, 255, 0.95));
+  border: 1px solid rgba(0, 0, 0, 0.12);
   color: #123123;
   font-size: 16px;
   border-radius: 8px;
@@ -768,7 +769,8 @@ h1.brand {
 .form-group textarea:focus + .form-label,
 .form-group textarea.has-content + .form-label {
   top: 0;
-  background: rgba(255, 255, 255, 0.95);
+  /* keep label background identical to the panel for a seamless look */
+  background: var(--panel-bg, rgba(255, 255, 255, 0.95));
   padding: 0 5px;
   color: var(--accent);
   font-size: 13px;

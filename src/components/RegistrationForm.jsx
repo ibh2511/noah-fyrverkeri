@@ -65,10 +65,7 @@ function setupVisitorTracking() {
 const GAS_URL =
   "https://script.google.com/macros/s/AKfycbz_iaoLpREXQjDHt4r0CJnyrzm-i15xU6hfKb1NM8u-v4Gd5tFdWB74rCGl1KuhfzVY/exec"
 
-const IMAGES = [
-  "https://images.unsplash.com/photo-1549068106-b024baf5062d?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80",
-]
+// Removed hero images: registration page no longer displays slideshow
 
 // Lokale konstanter for lodd
 const LOTTERY_ACTIONS = [
@@ -106,7 +103,7 @@ const LOTTERY_ACTIONS = [
 export default function RegistrationForm() {
   const [status, setStatus] = useState(null) // null | "ok" | "duplicate" | "error"
   const [sending, setSending] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  // slideshow removed: no image state required
   const [visitorInfo, setVisitorInfo] = useState(null)
   const [ukevalg, setUkevalg] = useState("")
   const [actions, setActions] = useState(() =>
@@ -127,14 +124,7 @@ export default function RegistrationForm() {
     window.scrollTo(0, 0)
   }, [])
 
-  // Bilde-slideshow
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % IMAGES.length)
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [])
+  // image slideshow removed for registration page
 
   // Floating labels + visitor tracking (FAQ kan du bruke senere hvis du vil)
   useEffect(() => {
@@ -331,13 +321,6 @@ export default function RegistrationForm() {
             Registrer innsatsen din mot Europris denne uka og få lodd i
             trekningen.
           </p>
-          {/* Hero image slideshow (was driving state but not rendered) */}
-          <img
-            src={IMAGES[currentImageIndex]}
-            alt="Registreringsbilde"
-            className="hero-img"
-            loading="lazy"
-          />
         </section>
 
         <section className="register-form-section">
