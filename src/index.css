@@ -672,7 +672,9 @@ h1.brand {
 
 /* Make the register form visually match the store cards: pale/white panel with green text */
 .register-form-section {
-  background: rgba(255, 255, 255, 0.95);
+  /* panel background used for inputs and floating labels to harmonize */
+  --panel-bg: rgba(255, 255, 255, 0.95);
+  background: var(--panel-bg);
   color: #123123;
   /* square top so it visually attaches to .register-hero, rounded bottom corners */
   border-radius: 0 0 18px 18px;
@@ -700,8 +702,9 @@ h1.brand {
 /* So labels sit nicely on the pale panel: slightly muted green and small padding */
 .register-form-section .form-label {
   color: rgba(19, 75, 42, 0.85);
-  background: transparent;
-  padding: 0 4px;
+  /* make the floating label background match the panel so it visually sits on the same surface */
+  background: var(--panel-bg);
+  padding: 0 6px;
   transition: color 160ms ease, background 160ms ease;
 }
 .form-label {
