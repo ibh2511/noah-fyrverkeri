@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 
 // Lokale utility funksjoner (som du hadde)
 function setupFloatingLabels() {
@@ -73,7 +74,7 @@ const IMAGES = [
 const LOTTERY_ACTIONS = [
   {
     id: "MailAlle",
-    label: "Sendt mail til alle Europris-butikkene",
+    label: "Sendt mail til 100 Europris-butikker",
     tickets: 1,
   },
   {
@@ -274,9 +275,9 @@ export default function RegistrationForm() {
   return (
     <div className="register-page-new">
       <div className="wrap register-wrap">
-        <a href="/" className="stores-back-link">
+        <Link to="/" className="stores-back-link">
           ← Tilbake til forsiden
-        </a>
+        </Link>
 
         <section className="register-hero">
           <p className="eyebrow">Loddtrekning</p>
@@ -394,9 +395,7 @@ export default function RegistrationForm() {
               <div className="form-group">
                 <div className="form-label-static">
                   Hva har du gjort mot Europris? <br />
-                  <small>
-                    (kryss av alt som gjelder, lodd per handling står til høyre)
-                  </small>
+                  <small>(kryss av alt som gjelder)</small>
                 </div>
                 <div className="checkbox-group">
                   {LOTTERY_ACTIONS.map((action) => (
