@@ -290,11 +290,11 @@ export default function RegistrationForm() {
 
         <section className="register-form-section">
           {status === "duplicate" && (
-            <div className="stores-state error">
-              <h3>⚠️ Allerede registrert denne uka</h3>
+            <div className="stores-state">
+              <h3>🎉 Takk – innsatsen din er registrert!</h3>
               <p>
-                Denne e-posten er allerede registrert for valgt uke. Du kan
-                delta på flere uker, men bare én gang per uke.
+                Vi ser at denne e-posten allerede er registrert for valgt uke.
+                Takk for innsatsen!
               </p>
             </div>
           )}
