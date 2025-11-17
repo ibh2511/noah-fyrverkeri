@@ -668,7 +668,7 @@ h1.brand {
   color: #123123;
   /* square top so it visually attaches to .register-hero, rounded bottom corners */
   border-radius: 0 0 18px 18px;
-  padding: clamp(14px, 3.6vw, 24px);
+  padding: clamp(20px, 4vw, 32px);
   margin-top: 0;
   margin-bottom: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
@@ -681,17 +681,7 @@ h1.brand {
   color: #134b2a;
 }
 
-.register-form-section .form-group input:focus + .form-label,
-.register-form-section .form-group input.has-content + .form-label,
-.register-form-section .form-group textarea:focus + .form-label,
-.register-form-section .form-group textarea.has-content + .form-label {
-  top: 6px;
-  transform: translateY(0);
-  background: rgba(255, 255, 255, 0.95);
-  padding: 0 5px;
-  color: var(--accent);
-  font-size: 13px;
-}
+/* keep register section labels inheriting global behaviour (no special override) */
 
 /* Make the lottery summary inside the register panel match the green branding */
 .register-form-section .lottery-summary {
@@ -714,11 +704,7 @@ h1.brand {
   font-size: 16px;
   pointer-events: none;
   transform: translateY(-50%);
-  /* smoother, slightly bouncy easing for position + transform, faster color/bg fades */
-  transition: top 280ms cubic-bezier(0.2, 0.9, 0.2, 1),
-              transform 280ms cubic-bezier(0.2, 0.9, 0.2, 1),
-              color 160ms ease,
-              background 160ms ease;
+  transition: 0.3s ease;
 }
 
 .register-form-section .form-label-static {
@@ -763,38 +749,11 @@ h1.brand {
   border-color: var(--accent);
 }
 
-.form-label {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  color: #666;
-  font-size: 16px;
-  pointer-events: none;
-  transform: translateY(-50%);
-  /* smoother, slightly bouncy easing for position + transform, faster color/bg fades */
-  transition: top 280ms cubic-bezier(0.2, 0.9, 0.2, 1),
-              transform 280ms cubic-bezier(0.2, 0.9, 0.2, 1),
-              color 160ms ease,
-              background 160ms ease;
-}
-
 .form-group input:focus + .form-label,
 .form-group input.has-content + .form-label,
 .form-group textarea:focus + .form-label,
 .form-group textarea.has-content + .form-label {
-  top: 6px;
-  transform: translateY(0);
-  background: rgba(255, 255, 255, 0.95);
-  padding: 0 5px;
-  color: var(--accent);
-  font-size: 13px;
-}
-.register-form-section .form-group input:focus + .form-label,
-.register-form-section .form-group input.has-content + .form-label,
-.register-form-section .form-group textarea:focus + .form-label,
-.register-form-section .form-group textarea.has-content + .form-label {
-  top: 6px;
-  transform: translateY(0);
+  top: 0;
   background: rgba(255, 255, 255, 0.95);
   padding: 0 5px;
   color: var(--accent);
