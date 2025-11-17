@@ -396,28 +396,13 @@ h1.brand {
 /* Landing page: keep the summary on a green background with light text
    while leaving the stores page summary styling unchanged. */
 .landing-page .lottery-details summary {
-  /* Make the landing page summary visually match the `.button` control */
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: clamp(12px, 3.6vw, 16px);
-  border-radius: 12px;
-  background: var(--btn-bg);
-  border: 2px solid var(--btn-border);
+  /* Landing page: green background with light text (like before) */
+  background: var(--bg);
   color: #fff;
-  font-weight: 800;
-  font-size: clamp(13px, 3.4vw, 18px);
-}
-.landing-page .lottery-details summary:hover {
-  background: var(--btn-bg-hover);
-}
-
-/* Ensure the register form's submit uses the same accent button styling */
-.form-submit .button.btn-accent,
-.form-submit button.button.btn-accent {
-  background: rgba(213, 17, 48, 0.85);
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #fff;
+  padding: 12px 14px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
 }
 
 @media (min-width: 860px) {
@@ -835,22 +820,32 @@ h1.brand {
   width: 100%;
   padding: 12px 0;
   background: var(--accent);
-  color: #111;
+  color: #fff;
   font-size: 16px;
   font-weight: 700;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .form-submit button:hover {
-  background: #dcb514;
+  background: rgba(213, 17, 48, 0.85);
 }
 
 .form-submit button[disabled] {
   opacity: 0.7;
   cursor: wait;
+}
+
+/* Ensure `.button.btn-accent` in forms matches site accent buttons */
+.form-submit .button.btn-accent,
+.form-submit button.button.btn-accent {
+  background: rgba(213, 17, 48, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  border-radius: 12px;
+  padding: clamp(12px, 3.6vw, 16px);
 }
 
 .msg {
