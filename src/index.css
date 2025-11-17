@@ -402,29 +402,30 @@ h1.brand {
 }
 
 .landing-page .lottery-details summary {
-  /* Green, button-like appearance but sized like store buttons */
-  display: inline-flex;
+  /* Full-width summary like the dropdown header; background matches btn-border */
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
   gap: 10px;
-  padding: 8px 12px; /* match `.store-btn` dimensions */
-  border-radius: 10px 10px 10px 10px;
-  background: var(--bg); /* primary green */
-  border: 2px solid var(--btn-border); /* match button edge */
-  color: #fff;
+  padding: 12px 14px;
+  border-radius: 12px 12px 12px 12px;
+  background: var(--btn-border);
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  color: #134b2a; /* green text on pale background (matches store card) */
   font-weight: 800;
-  font-size: 14px;
-  line-height: 1;
-  min-width: 200px; /* align with store button min width */
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  font-size: clamp(13px, 3.4vw, 16px);
+  line-height: 1.1;
+  box-shadow: none;
 }
 .landing-page .lottery-details summary:hover {
-  background: color-mix(in srgb, var(--bg) 85%, black 15%);
+  filter: brightness(0.98);
 }
 
 /* When the dropdown is open, make the summary's bottom corners square so it visually connects to the white content card */
 .landing-page .lottery-details[open] summary {
-  border-radius: 10px 10px 0 0;
+  border-radius: 12px 12px 0 0; /* square bottom when open to connect with white card */
 }
 
 /* Move the white card background to the inner content so the summary sits on green */
