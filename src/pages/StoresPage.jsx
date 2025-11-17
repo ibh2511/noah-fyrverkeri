@@ -138,6 +138,7 @@ export default function StoresPage() {
   const [visitorId, setVisitorId] = useState("")
   const [copiedStoreCode, setCopiedStoreCode] = useState("")
   const [refreshKey, setRefreshKey] = useState(0)
+  const [visibleCount, setVisibleCount] = useState(15)
 
   const isDebugSb = useMemo(() => {
     try {
@@ -328,6 +329,8 @@ export default function StoresPage() {
   )
 
   const storesCount = stores.length
+  const visibleStores = stores.slice(0, visibleCount)
+  const hasMore = visibleCount < storesCount
 
   return (
     <div className="stores-page">
@@ -430,72 +433,87 @@ export default function StoresPage() {
           )}
 
           {!loading && !error && stores.length > 0 && (
-            <div className="stores-grid">
-              {stores.map((store) => {
-                const stats = store.stats || {}
-                const storeId = store.id ?? stats.store_id ?? null
-                const messengerUrl = getMessengerLink(store, stats)
-                const instagramDmUrl = getInstagramDmLink(store, stats)
-                const address = formatAddress(store)
+            <>
+              <div className="stores-grid">
+                {visibleStores.map((store) => {
+                  const stats = store.stats || {}
+                  const storeId = store.id ?? stats.store_id ?? null
+                  const messengerUrl = getMessengerLink(store, stats)
+                  const instagramDmUrl = getInstagramDmLink(store, stats)
+                  const address = formatAddress(store)
 
-                return (
-                  <article key={store.source_code} className="store-card">
-                    <header>
-                      {store.city && <p className="store-tag">{store.city}</p>}
-                      <h3>{store.frontend_name || store.name}</h3>
-                    </header>
-                    <div className="store-address">
-                      {address.line1 && <div>{address.line1}</div>}
-                      {address.line2 && <div>{address.line2}</div>}
-                    </div>
+                  return (
+                    <article key={store.source_code} className="store-card">
+                      <header>
+                        {store.city && (
+                          <p className="store-tag">{store.city}</p>
+                        )}
+                        <h3>{store.frontend_name || store.name}</h3>
+                      </header>
+                      <div className="store-address">
+                        {address.line1 && <div>{address.line1}</div>}
+                        {address.line2 && <div>{address.line2}</div>}
+                      </div>
 
-                    <div className="store-actions">
-                      <a
-                        className="store-btn store-btn--messenger"
-                        href={messengerUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={() =>
-                          trackEvent(
-                            "messenger_click",
-                            store.source_code,
-                            messengerUrl,
-                            storeId
-                          )
-                        }
+                      <div className="store-actions">
+                        <a
+                          className="store-btn store-btn--messenger"
+                          href={messengerUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={() =>
+                            trackEvent(
+                              "messenger_click",
+                              store.source_code,
+                              messengerUrl,
+                              storeId
+                            )
+                          }
+                        >
+                          Messenger
+                        </a>
+                        <a
+                          className="store-btn store-btn--instagram"
+                          href={instagramDmUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={() =>
+                            trackEvent(
+                              "instagram_dm_click",
+                              store.source_code,
+                              instagramDmUrl,
+                              storeId
+                            )
+                          }
+                        >
+                          Insta DM
+                        </a>
+                      </div>
+                      <button
+                        type="button"
+                        className="store-copy"
+                        onClick={() => handleCopyForStore(store)}
                       >
-                        Messenger
-                      </a>
-                      <a
-                        className="store-btn store-btn--instagram"
-                        href={instagramDmUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={() =>
-                          trackEvent(
-                            "instagram_dm_click",
-                            store.source_code,
-                            instagramDmUrl,
-                            storeId
-                          )
-                        }
-                      >
-                        Insta DM
-                      </a>
-                    </div>
-                    <button
-                      type="button"
-                      className="store-copy"
-                      onClick={() => handleCopyForStore(store)}
-                    >
-                      {copiedStoreCode === store.source_code
-                        ? "Kopiert!"
-                        : "Kopier melding til butikken"}
-                    </button>
-                  </article>
-                )
-              })}
-            </div>
+                        {copiedStoreCode === store.source_code
+                          ? "Kopiert!"
+                          : "Kopier melding til butikken"}
+                      </button>
+                    </article>
+                  )
+                })}
+              </div>
+              {hasMore && (
+                <div style={{ textAlign: "center", marginTop: "2rem" }}>
+                  <button
+                    className="button btn-accent"
+                    type="button"
+                    onClick={() => setVisibleCount((c) => c + 15)}
+                  >
+                    Vis flere butikker ({storesCount - visibleCount} gjenstår)
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </section>
       </div>
