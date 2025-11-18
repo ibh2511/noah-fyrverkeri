@@ -554,12 +554,12 @@ Med vennlig hilsen
           <div className="btn-group">
             <a
               className="button"
-              href="/noah-fyrverkeri/images/qr-lockscreen.png"
+              href="/noah-fyrverkeri/images/noah-fyrverkeri-qr.png"
               onClick={() =>
                 trackEvent(
                   "click_qr_download",
                   null,
-                  "/images/qr-lockscreen.png"
+                  "/images/noah-fyrverkeri-qr.png"
                 )
               }
               download
