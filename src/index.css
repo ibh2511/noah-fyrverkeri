@@ -25,6 +25,9 @@
   --accent-orange-85: rgba(252, 140, 37, 0.85);
   --accent-orange-45: rgba(252, 140, 37, 0.45);
   --accent-orange-12: rgba(252, 140, 37, 0.12);
+  /* Header / footer backgrounds (defaults) */
+  --header-bg: rgba(0, 0, 0, 0.18);
+  --footer-bg: rgba(0, 0, 0, 0.12);
 }
 
 * {
