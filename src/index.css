@@ -3,12 +3,13 @@
 :root {
   --bg: #2e6b87;
   --fg: #fff;
-  background-color: #fff;
-  color: #444;
-  font-family: "Open Sans", sans-serif;
-  font-size: 1rem;
-  font-weight: lighter;
-  line-height: 1.7;
+  --accent: #fc8c25;
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-bg-hover: rgba(255, 255, 255, 0.14);
+  --btn-border: rgba(255, 255, 255, 0.35);
+  --btn-border-strong: rgba(255, 255, 255, 0.85);
+  --footer-bg: rgba(255, 255, 255, 0.25);
+  --header-bg: rgba(255, 255, 255, 0.1);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -120,13 +121,13 @@ button.button:active {
 
 a.button.btn-accent,
 button.button.btn-accent {
-  background: var(--accent-85);
+  background: rgba(213, 17, 48, 0.85);
   border-color: rgba(255, 255, 255, 0.35);
 }
 
 a.button.btn-accent:hover,
 button.button.btn-accent:hover {
-  background: var(--accent-95);
+  background: rgba(213, 17, 48, 0.95);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -235,7 +236,7 @@ button.button.btn-accent:hover {
   outline: none;
   /* requested focus/active border and color */
   border: 2px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 24px var(--accent-12);
+  box-shadow: 0 8px 24px rgba(213, 17, 48, 0.12);
   transform: translateY(-1px);
   background: rgba(255, 255, 255, 0.06);
 }
@@ -578,7 +579,7 @@ h1.brand {
 /* Ensure the register form's submit uses the same accent button styling */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
-  background: var(--accent-85);
+  background: rgba(213, 17, 48, 0.85);
   border-color: rgba(255, 255, 255, 0.35);
   color: #fff;
 }
@@ -845,7 +846,7 @@ h1.brand {
 }
 
 .form-submit button:hover {
-  background: var(--accent-85);
+  background: rgba(213, 17, 48, 0.85);
 }
 
 .form-submit button[disabled] {
@@ -1404,7 +1405,7 @@ h1.brand {
 }
 
 .stores-state.error {
-  border: 1px solid var(--accent-45);
+  border: 1px solid rgba(213, 17, 48, 0.45);
 }
 
 .stores-grid {
