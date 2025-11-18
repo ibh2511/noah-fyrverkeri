@@ -7,7 +7,7 @@
   --text: #444444; /* body text color per request */
   --heading: #252525; /* strong heading color */
   --accent: #2e6b87; /* primary teal accent */
-  --accent-orange: #fc8c25; /* detail / emphasis */
+  --accent-orange: var(--accent); /* map orange alias to teal accent */
   --btn-bg: rgba(46, 107, 135, 0.06);
   --btn-bg-hover: rgba(46, 107, 135, 0.12);
   --btn-border: rgba(46, 107, 135, 0.18);
@@ -19,7 +19,7 @@
   --panel-bg: var(--panel);
   --panel-bg-strong: rgba(36, 75, 90, 0.06);
   --white-95: rgba(255, 255, 255, 0.92);
-  --accent-orange-dark: rgba(252, 140, 37, 0.92);
+  --accent-orange-dark: var(--accent-95);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -82,10 +82,10 @@
   --brand-pink: #d43f8d;
   --surface-very-light: #f7fff5;
 
-  --accent-85: rgba(213, 17, 48, 0.85);
-  --accent-95: rgba(213, 17, 48, 0.95);
-  --accent-12: rgba(213, 17, 48, 0.12);
-  --accent-45: rgba(213, 17, 48, 0.45);
+  --accent-85: rgba(46, 107, 135, 0.85);
+  --accent-95: rgba(46, 107, 135, 0.95);
+  --accent-12: rgba(46, 107, 135, 0.12);
+  --accent-45: rgba(46, 107, 135, 0.45);
 }
 
 * {
@@ -194,14 +194,14 @@ button.button:active {
 
 a.button.btn-accent,
 button.button.btn-accent {
-  background: var(--accent-orange);
+  background: var(--accent);
   border-color: rgba(255, 255, 255, 0.18);
   color: var(--white);
 }
 
 a.button.btn-accent:hover,
 button.button.btn-accent:hover {
-  background: var(--accent-orange-dark);
+  background: var(--accent-95);
   border-color: rgba(255, 255, 255, 0.28);
   filter: brightness(0.98);
 }
@@ -922,7 +922,7 @@ h1.brand {
 }
 
 .form-submit button:hover {
-  background: rgba(213, 17, 48, 0.85);
+  background: var(--accent-85);
 }
 
 .form-submit button[disabled] {
@@ -934,7 +934,7 @@ h1.brand {
    and override the generic `.form-submit button` rules when a `.button` class is present. */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
-  background: rgba(213, 17, 48, 0.85);
+  background: var(--accent-85);
   border: 2px solid rgba(255, 255, 255, 0.35);
   color: #fff;
   border-radius: 12px;
