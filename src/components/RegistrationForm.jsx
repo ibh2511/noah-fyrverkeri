@@ -62,9 +62,7 @@ function setupVisitorTracking() {
 }
 
 // TODO: sett inn din ekte Apps Script URL her
-const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbwqT0TXKzkWO8wLYg5QCL77ji8qCDRCSQ7l3tkr7NJoOjskkOOo3-pWgUHrGvGovyf6MA/exec"
-const LOTTERY_ACTIONS = [
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyu29yRjwMP-BWGXwykdD0-EABxQrjZyRI3R8k59MKajCP9yiZkDqoqg0-e_EiV639wuQ/exec" const LOTTERY_ACTIONS = [
   {
     id: "MailAlle",
     label: "Sendt mail til 100 Europris-butikker",
