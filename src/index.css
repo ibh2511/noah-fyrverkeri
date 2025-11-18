@@ -20,7 +20,7 @@
   --btn-bg: rgba(255, 255, 255, 0.06);
   --btn-bg-hover: rgba(255, 255, 255, 0.12);
   /* Orange accent for action buttons */
-  --accent-orange-orange: #fc8c25;
+  --accent-orange: #fc8c25;
   --accent-orange-orange-95: rgba(252, 140, 37, 0.95);
   --accent-orange-orange-85: rgba(252, 140, 37, 0.85);
   --accent-orange-orange-45: rgba(252, 140, 37, 0.45);
@@ -326,7 +326,6 @@ h1.brand {
 .hero .brand {
   color: var(--accent-orange);
   display: inline-block;
-  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
   letter-spacing: 0.4px;
 }
 
@@ -366,7 +365,6 @@ h1.brand {
   color: var(--accent-orange);
   font-weight: 700;
   letter-spacing: 0.4px;
-  -webkit-text-stroke: 4px rgba(128, 128, 128, 0.2);
 }
 
 .lead-italic {
@@ -1543,7 +1541,7 @@ input.mini-search::-ms-clear {
   color: rgba(0, 0, 0, 0.75);
   .manual-hint {
     font-size: 13px;
-    color: var(--muted);
+    color: red;
     margin-top: 6px;
     font-weight: 600;
   }

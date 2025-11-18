@@ -498,7 +498,7 @@ export default function StoresPage() {
             <>
               {filteredStores.length === 0 ? (
                 <p className="stores-state">
-                  0 treff — ingen butikker matcher søket.
+                  0 treff - ingen butikker matcher søket.
                 </p>
               ) : (
                 <>
