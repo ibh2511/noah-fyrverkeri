@@ -804,7 +804,7 @@ h1.brand {
 .form-group textarea:focus,
 .form-group input.has-content,
 .form-group textarea.has-content {
-  border-color: var(--accent-orange);
+  border-color: var(--bg);
 }
 
 .form-group input:focus + .form-label,
