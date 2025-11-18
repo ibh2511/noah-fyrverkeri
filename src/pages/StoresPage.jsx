@@ -555,6 +555,9 @@ export default function StoresPage() {
                           Instagram DM
                         </a>
                       </div>
+                      <div className="manual-hint">
+                        Disse må legges til manuelt
+                      </div>
                       <button
                         type="button"
                         className="store-copy"

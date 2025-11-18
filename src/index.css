@@ -1529,6 +1529,12 @@ input.mini-search::-ms-clear {
   margin: 2px 0 0;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.75);
+  .manual-hint {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 600;
+  }
 }
 
 .store-contact-link {
