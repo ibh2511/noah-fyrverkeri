@@ -120,13 +120,13 @@ button.button:active {
 
 a.button.btn-accent,
 button.button.btn-accent {
-  background: #fc8c25;
+  background: rgba(213, 17, 48, 0.85);
   border-color: rgba(255, 255, 255, 0.35);
 }
 
 a.button.btn-accent:hover,
 button.button.btn-accent:hover {
-  background: rgba(252, 140, 37, 0.95);
+  background: rgba(213, 17, 48, 0.95);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -235,7 +235,7 @@ button.button.btn-accent:hover {
   outline: none;
   /* requested focus/active border and color */
   border: 2px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 24px var(--accent-12);
+  box-shadow: 0 8px 24px rgba(213, 17, 48, 0.12);
   transform: translateY(-1px);
   background: rgba(255, 255, 255, 0.06);
 }
@@ -436,7 +436,7 @@ h1.brand {
   margin-top: 6px;
   border: none;
   background: transparent;
-  color: #134b2a;
+  color: #2e6b87;
   font-weight: 800;
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -544,7 +544,7 @@ h1.brand {
   margin-top: 6px;
   border: none;
   background: transparent;
-  color: #134b2a;
+  color: #2e6b87;
   font-weight: 800;
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -578,7 +578,7 @@ h1.brand {
 /* Ensure the register form's submit uses the same accent button styling */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
-  background: var(--accent-85);
+  background: rgba(213, 17, 48, 0.85);
   border-color: rgba(255, 255, 255, 0.35);
   color: #fff;
 }
@@ -720,7 +720,7 @@ h1.brand {
 /* Harmonize form labels inside the register panel to use the brand green and keep existing float/focus behaviour */
 .register-form-section .form-label,
 .register-form-section .form-label-static {
-  color: #134b2a;
+  color: #2e6b87;
 }
 
 /* keep register section labels inheriting global behaviour (no special override) */
@@ -754,7 +754,7 @@ h1.brand {
 }
 
 .register-form-section .form-label-static {
-  color: #134b2a;
+  color: #2e6b87;
 }
 
 .hidden-iframe {
@@ -845,7 +845,7 @@ h1.brand {
 }
 
 .form-submit button:hover {
-  background: var(--accent-85);
+  background: rgba(213, 17, 48, 0.85);
 }
 
 .form-submit button[disabled] {
@@ -857,7 +857,7 @@ h1.brand {
    and override the generic `.form-submit button` rules when a `.button` class is present. */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
-  background: #fc8c25;
+  background: rgba(213, 17, 48, 0.85);
   border: 2px solid rgba(255, 255, 255, 0.35);
   color: #fff;
   border-radius: 12px;
@@ -867,7 +867,7 @@ h1.brand {
 /* Make the register form's accent button hover match landing hover behavior */
 .form-submit .button.btn-accent:hover,
 .form-submit button.button.btn-accent:hover {
-  background: rgba(252, 140, 37, 0.95);
+  background: rgba(213, 17, 48, 0.95);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -1054,7 +1054,7 @@ h1.brand {
   width: 18px;
   height: 18px;
   margin: 0 8px 0 0;
-  accent-color: #134b2a;
+  accent-color: #2e6b87;
 }
 
 /* Compact separators for options to reduce 'air' */
@@ -1404,7 +1404,7 @@ h1.brand {
 }
 
 .stores-state.error {
-  border: 1px solid var(--accent-45);
+  border: 1px solid rgba(213, 17, 48, 0.45);
 }
 
 .stores-grid {
@@ -1494,7 +1494,7 @@ input.mini-search::-ms-clear {
 
 .store-card h3 {
   margin: 4px 0 0;
-  color: #134b2a;
+  color: #2e6b87;
 }
 
 .store-tag {
@@ -1543,7 +1543,7 @@ input.mini-search::-ms-clear {
   text-decoration-thickness: 1px;
 }
 .store-contact-link:hover {
-  color: #134b2a;
+  color: #2e6b87;
 }
 
 .store-actions {
@@ -1559,7 +1559,7 @@ input.mini-search::-ms-clear {
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   background: #f7fff5;
-  color: #134b2a;
+  color: #2e6b87;
   font-weight: 700;
   text-decoration: none;
   font-size: 14px;
@@ -1583,7 +1583,7 @@ input.mini-search::-ms-clear {
 
 .store-copy {
   border: 0;
-  background: #134b2a;
+  background: #2e6b87;
   color: #fff;
   padding: 10px 12px;
   border-radius: 10px;
