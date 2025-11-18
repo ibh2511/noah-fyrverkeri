@@ -113,7 +113,7 @@ button.button {
   color: #fff;
   text-decoration: none;
   font-size: clamp(13px, 3.4vw, 18px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.25;
   cursor: pointer;
   text-align: center;
@@ -166,7 +166,7 @@ button.button.btn-accent:hover {
 
 .inline-email a {
   color: #fff;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: underline;
 }
 
@@ -175,7 +175,7 @@ button.button.btn-accent:hover {
   border: 0;
   font: inherit;
   color: #fff;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: underline;
   cursor: pointer;
   padding: 0;
@@ -216,7 +216,7 @@ button.button.btn-accent:hover {
   border: 2px solid rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
   font-size: 13px;
 }
@@ -313,7 +313,7 @@ button.button.btn-accent:hover {
 
 h1 {
   text-align: center;
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(26px, 6vw, 40px);
   margin: 0 0 12px;
   letter-spacing: 0.2px;
@@ -364,7 +364,7 @@ h1.brand {
 
 .lead .brand {
   color: var(--accent-orange);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.4px;
   -webkit-text-stroke: 4px rgba(128, 128, 128, 0.2);
 }
@@ -451,7 +451,7 @@ h1.brand {
   border: none;
   background: transparent;
   color: #2e6b87;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-thickness: 1px;
@@ -526,7 +526,7 @@ h1.brand {
   background: var(--btn-bg);
   border: 2px solid var(--btn-border);
   color: #fff; /* green text on pale background (matches store card) */
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(13px, 3.4vw, 16px);
   line-height: 1.1;
   box-shadow: none;
@@ -559,7 +559,7 @@ h1.brand {
   border: none;
   background: transparent;
   color: #2e6b87;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-thickness: 1px;
@@ -742,7 +742,7 @@ h1.brand {
 /* Make the lottery summary inside the register panel match the green branding */
 .register-form-section .lottery-summary {
   color: #2e6b87;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* So labels sit nicely on the pale panel: slightly muted green and small padding */
