@@ -3,13 +3,12 @@
 :root {
   --bg: #2e6b87;
   --fg: #fff;
-  --accent: #fc8c25;
-  --btn-bg: rgba(255, 255, 255, 0.08);
-  --btn-bg-hover: rgba(255, 255, 255, 0.14);
-  --btn-border: rgba(255, 255, 255, 0.35);
-  --btn-border-strong: rgba(255, 255, 255, 0.85);
-  --footer-bg: rgba(255, 255, 255, 0.25);
-  --header-bg: rgba(255, 255, 255, 0.1);
+  background-color: #fff;
+  color: #444;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: lighter;
+  line-height: 1.7;
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
