@@ -14,6 +14,12 @@
   --btn-border-strong: rgba(46, 107, 135, 0.9);
   --footer-bg: rgba(0, 0, 0, 0.04);
   --header-bg: rgba(255, 255, 255, 0.1);
+  --brand-dark: #244b5a; /* #244b5a as requested */
+  --panel: rgba(36, 75, 90, 0.03);
+  --panel-bg: var(--panel);
+  --panel-bg-strong: rgba(36, 75, 90, 0.06);
+  --white-95: rgba(255, 255, 255, 0.92);
+  --accent-orange-dark: rgba(252, 140, 37, 0.92);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
@@ -188,14 +194,16 @@ button.button:active {
 
 a.button.btn-accent,
 button.button.btn-accent {
-  background: rgba(213, 17, 48, 0.85);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: var(--accent-orange);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--white);
 }
 
 a.button.btn-accent:hover,
 button.button.btn-accent:hover {
-  background: rgba(213, 17, 48, 0.95);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: var(--accent-orange-dark);
+  border-color: rgba(255, 255, 255, 0.28);
+  filter: brightness(0.98);
 }
 
 .btn-icon {
@@ -435,9 +443,9 @@ h1.brand {
   margin-bottom: 24px;
   border-radius: 18px;
   overflow: hidden;
-  /* match store-card look: pale/white card with green text */
-  background: var(--white-95);
-  color: var(--brand-green);
+  /* use a gentle green-tinted panel rather than pure white */
+  background: var(--panel-bg);
+  color: var(--brand-dark);
   box-shadow: 0 6px 20px var(--black-20);
 }
 
@@ -774,9 +782,9 @@ h1.brand {
 /* Make the register form visually match the store cards: pale/white panel with green text */
 .register-form-section {
   /* panel background used for inputs and floating labels to harmonize */
-  --panel-bg: var(--white-95);
+  --panel-bg: var(--panel-bg);
   background: var(--panel-bg);
-  color: var(--brand-green);
+  color: var(--brand-dark);
   /* square top so it visually attaches to .register-hero, rounded bottom corners */
   border-radius: 0 0 18px 18px;
   padding: clamp(20px, 4vw, 32px);
@@ -850,7 +858,7 @@ h1.brand {
   /* match the register panel background so inputs sit on the same surface */
   background: var(--panel-bg, var(--white-95));
   border: 1px solid var(--black-12);
-  color: var(--brand-green);
+  color: var(--brand-dark);
   font-size: 16px;
   border-radius: 8px;
   outline: none;
@@ -1551,8 +1559,8 @@ input.mini-search::-ms-clear {
 }
 
 .store-card {
-  background: var(--white-90);
-  color: var(--brand-green);
+  background: var(--panel-bg-strong);
+  color: var(--brand-dark);
   border-radius: 18px;
   padding: 18px;
   box-shadow: 0 6px 20px var(--black-20);
@@ -1563,7 +1571,7 @@ input.mini-search::-ms-clear {
 
 .store-card h3 {
   margin: 4px 0 0;
-  color: var(--brand-green-strong);
+  color: var(--brand-dark);
 }
 
 .store-tag {
