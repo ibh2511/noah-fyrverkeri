@@ -468,7 +468,7 @@ export default function StoresPage() {
               <input
                 type="search"
                 className="mini-search"
-                placeholder="Søk butikker..."
+                placeholder="Søk i butikker..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 aria-label="Søk i butikker"
@@ -496,111 +496,120 @@ export default function StoresPage() {
 
           {!loading && !error && stores.length > 0 && (
             <>
-              <div
-                className={`stores-grid ${
-                  filteredStores.length <= 3 ? "stores-grid--compact" : ""
-                }`}
-              >
-                {visibleStores.map((store) => {
-                  const stats = store.stats || {}
-                  const storeId = store.id ?? stats.store_id ?? null
-                  const messengerUrl = getMessengerLink(store, stats)
-                  const instagramDmUrl = getInstagramDmLink(store, stats)
-                  const address = formatAddress(store)
+              {filteredStores.length === 0 ? (
+                <p className="stores-state">
+                  0 treff — ingen butikker matcher søket.
+                </p>
+              ) : (
+                <>
+                  <div
+                    className={`stores-grid ${
+                      filteredStores.length <= 3 ? "stores-grid--compact" : ""
+                    }`}
+                  >
+                    {visibleStores.map((store) => {
+                      const stats = store.stats || {}
+                      const storeId = store.id ?? stats.store_id ?? null
+                      const messengerUrl = getMessengerLink(store, stats)
+                      const instagramDmUrl = getInstagramDmLink(store, stats)
+                      const address = formatAddress(store)
 
-                  return (
-                    <article key={store.source_code} className="store-card">
-                      <header>
-                        {store.city && (
-                          <p className="store-tag">{store.city}</p>
-                        )}
-                        <h3>{store.frontend_name || store.name}</h3>
-                      </header>
-                      <div className="store-address">
-                        {address.line1 && <div>{address.line1}</div>}
-                        {address.line2 && <div>{address.line2}</div>}
-                      </div>
+                      return (
+                        <article key={store.source_code} className="store-card">
+                          <header>
+                            {store.city && (
+                              <p className="store-tag">{store.city}</p>
+                            )}
+                            <h3>{store.frontend_name || store.name}</h3>
+                          </header>
+                          <div className="store-address">
+                            {address.line1 && <div>{address.line1}</div>}
+                            {address.line2 && <div>{address.line2}</div>}
+                          </div>
 
-                      <div className="store-actions">
-                        <a
-                          className="store-btn store-btn--messenger"
-                          href={messengerUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={() =>
-                            trackEvent(
-                              "messenger_click",
-                              store.source_code,
-                              messengerUrl,
-                              storeId
-                            )
-                          }
-                        >
-                          Messenger
-                        </a>
-                        <a
-                          className="store-btn store-btn--instagram"
-                          href={instagramDmUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={() =>
-                            trackEvent(
-                              "instagram_dm_click",
-                              store.source_code,
-                              instagramDmUrl,
-                              storeId
-                            )
-                          }
-                        >
-                          Instagram DM
-                        </a>
-                      </div>
-                      <div className="manual-hint">
-                        !!! Msg og inst dm linker må legges til manuelt !!!
-                      </div>
+                          <div className="store-actions">
+                            <a
+                              className="store-btn store-btn--messenger"
+                              href={messengerUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={() =>
+                                trackEvent(
+                                  "messenger_click",
+                                  store.source_code,
+                                  messengerUrl,
+                                  storeId
+                                )
+                              }
+                            >
+                              Messenger
+                            </a>
+                            <a
+                              className="store-btn store-btn--instagram"
+                              href={instagramDmUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={() =>
+                                trackEvent(
+                                  "instagram_dm_click",
+                                  store.source_code,
+                                  instagramDmUrl,
+                                  storeId
+                                )
+                              }
+                            >
+                              Instagram DM
+                            </a>
+                          </div>
+                          <div className="manual-hint">
+                            !!! Msg og inst dm linker må legges til manuelt !!!
+                          </div>
+                          <button
+                            type="button"
+                            className="store-copy"
+                            onClick={() => handleCopyForStore(store)}
+                          >
+                            {copiedStoreCode === store.source_code
+                              ? "Kopiert!"
+                              : "Kopier melding til butikken"}
+                          </button>
+                        </article>
+                      )
+                    })}
+                  </div>
+                  <div
+                    style={{
+                      textAlign: "center",
+                      marginTop: "2rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "1rem",
+                    }}
+                  >
+                    {hasMore && (
                       <button
+                        className="button btn-accent"
                         type="button"
-                        className="store-copy"
-                        onClick={() => handleCopyForStore(store)}
+                        onClick={() => setVisibleCount((c) => c + 15)}
                       >
-                        {copiedStoreCode === store.source_code
-                          ? "Kopiert!"
-                          : "Kopier melding til butikken"}
+                        Vis flere butikker ({storesCount - visibleCount}{" "}
+                        gjenstår)
                       </button>
-                    </article>
-                  )
-                })}
-              </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "2rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
-                }}
-              >
-                {hasMore && (
-                  <button
-                    className="button btn-accent"
-                    type="button"
-                    onClick={() => setVisibleCount((c) => c + 15)}
-                  >
-                    Vis flere butikker ({storesCount - visibleCount} gjenstår)
-                  </button>
-                )}
-                {storesCount > 15 && (
-                  <button
-                    className="button"
-                    type="button"
-                    onClick={() =>
-                      window.scrollTo({ top: 0, behavior: "smooth" })
-                    }
-                  >
-                    ↑ Til toppen
-                  </button>
-                )}
-              </div>
+                    )}
+                    {storesCount > 15 && (
+                      <button
+                        className="button"
+                        type="button"
+                        onClick={() =>
+                          window.scrollTo({ top: 0, behavior: "smooth" })
+                        }
+                      >
+                        ↑ Til toppen
+                      </button>
+                    )}
+                  </div>
+                </>
+              )}
             </>
           )}
         </section>
