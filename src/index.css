@@ -120,13 +120,13 @@ button.button:active {
 
 a.button.btn-accent,
 button.button.btn-accent {
-  background: rgba(213, 17, 48, 0.85);
+  background: var(--accent-85);
   border-color: rgba(255, 255, 255, 0.35);
 }
 
 a.button.btn-accent:hover,
 button.button.btn-accent:hover {
-  background: rgba(213, 17, 48, 0.95);
+  background: var(--accent-95);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -235,7 +235,7 @@ button.button.btn-accent:hover {
   outline: none;
   /* requested focus/active border and color */
   border: 2px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 24px rgba(213, 17, 48, 0.12);
+  box-shadow: 0 8px 24px var(--accent-12);
   transform: translateY(-1px);
   background: rgba(255, 255, 255, 0.06);
 }
@@ -578,7 +578,7 @@ h1.brand {
 /* Ensure the register form's submit uses the same accent button styling */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
-  background: rgba(213, 17, 48, 0.85);
+  background: var(--accent-85);
   border-color: rgba(255, 255, 255, 0.35);
   color: #fff;
 }
@@ -845,7 +845,7 @@ h1.brand {
 }
 
 .form-submit button:hover {
-  background: rgba(213, 17, 48, 0.85);
+  background: var(--accent-85);
 }
 
 .form-submit button[disabled] {
@@ -1404,7 +1404,7 @@ h1.brand {
 }
 
 .stores-state.error {
-  border: 1px solid rgba(213, 17, 48, 0.45);
+  border: 1px solid var(--accent-45);
 }
 
 .stores-grid {
