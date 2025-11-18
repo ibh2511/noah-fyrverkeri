@@ -1,91 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap");
 
 :root {
-  /* New theme palette (light background, teal primary, orange accents, dark headings) */
-  --bg: #ffffff; /* page background */
-  --fg: #252525; /* primary foreground (used subtly) */
-  --text: #444444; /* body text color per request */
-  --heading: #252525; /* strong heading color */
-  --accent: #2e6b87; /* primary teal accent */
-  --accent-orange: var(--accent); /* map orange alias to teal accent */
-  --btn-bg: rgba(46, 107, 135, 0.06);
-  --btn-bg-hover: rgba(46, 107, 135, 0.12);
-  --btn-border: rgba(46, 107, 135, 0.18);
-  --btn-border-strong: rgba(46, 107, 135, 0.9);
-  --footer-bg: rgba(0, 0, 0, 0.04);
+  --bg: #2e6b87;
+  --fg: #fff;
+  --accent: #fc8c25;
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-bg-hover: rgba(255, 255, 255, 0.14);
+  --btn-border: rgba(255, 255, 255, 0.35);
+  --btn-border-strong: rgba(255, 255, 255, 0.85);
+  --footer-bg: rgba(255, 255, 255, 0.25);
   --header-bg: rgba(255, 255, 255, 0.1);
-  --brand-dark: #244b5a; /* #244b5a as requested */
-  --panel: rgba(36, 75, 90, 0.03);
-  --panel-bg: var(--panel);
-  --panel-bg-strong: rgba(36, 75, 90, 0.06);
-  --white-95: rgba(255, 255, 255, 0.92);
-  --accent-orange-dark: var(--accent-95);
   --pad: clamp(12px, 4vw, 28px);
   --footer-h: 60px;
   --content-max: 740px;
-  --panel: rgba(255, 255, 255, 0.98);
-  --muted: #777777;
-  --ink: var(--text);
-
-  /* Additional descriptive color variables (adjusted for new theme) */
-  --white: #ffffff;
-  --white-95: rgba(255, 255, 255, 0.95);
-  --white-90: rgba(255, 255, 255, 0.9);
-  --white-85: rgba(255, 255, 255, 0.85);
-  --white-75: rgba(255, 255, 255, 0.75);
-  --white-50: rgba(255, 255, 255, 0.5);
-  --white-25: rgba(255, 255, 255, 0.25);
-  --white-14: rgba(255, 255, 255, 0.14);
-  --white-15: rgba(255, 255, 255, 0.15);
-  --white-12: rgba(255, 255, 255, 0.12);
-  --white-08: rgba(255, 255, 255, 0.08);
-  --white-06: rgba(255, 255, 255, 0.06);
-  --white-04: rgba(255, 255, 255, 0.04);
-  --white-60: rgba(255, 255, 255, 0.6);
-
-  --black-75: rgba(0, 0, 0, 0.75);
-  --black-55: rgba(0, 0, 0, 0.55);
-  --black-45: rgba(0, 0, 0, 0.45);
-  --black-30: rgba(0, 0, 0, 0.3);
-  --black-25: rgba(0, 0, 0, 0.25);
-  --black-20: rgba(0, 0, 0, 0.2);
-  --black-15: rgba(0, 0, 0, 0.15);
-  --black-12: rgba(0, 0, 0, 0.12);
-  --black-04: rgba(0, 0, 0, 0.04);
-
-  /* Old brand greens replaced by teal family */
-  --brand-teal: #2e6b87;
-  --brand-teal-strong: rgba(46, 107, 135, 0.95);
-  --brand-teal-85: rgba(46, 107, 135, 0.85);
-  --brand-teal-12: rgba(46, 107, 135, 0.12);
-  --brand-green-85: rgba(19, 75, 42, 0.85);
-
-  /* Backwards-compatible green aliases mapped to the new teal palette */
-  --brand-green: var(--brand-teal);
-  --brand-green-strong: var(--brand-teal-strong);
-  --brand-green-darker: #244b5a;
-
-  --muted-gray: #666666;
-  --placeholder-gray: #bebebe;
-
-  --ink-dark: #111111;
-  --accent-yellow: #dcb514;
-  --accent-orange: #fc8c25;
-
-  --shade-333: #333333;
-  --cream: #f4eadf;
-  --shade-444: #444444;
-
-  --pale-blue: #e6f1ff;
-  --brand-blue: #0b63d1;
-  --pale-pink: #ffeef6;
-  --brand-pink: #d43f8d;
-  --surface-very-light: #f7fff5;
-
-  --accent-85: rgba(46, 107, 135, 0.85);
-  --accent-95: rgba(46, 107, 135, 0.95);
-  --accent-12: rgba(46, 107, 135, 0.12);
-  --accent-45: rgba(46, 107, 135, 0.45);
+  --panel: rgba(255, 255, 255, 0.5);
+  --muted: rgba(255, 255, 255, 0.75);
+  --ink: var(--fg);
 }
 
 * {
@@ -116,12 +46,9 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--bg);
-  color: var(--text);
-  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, sans-serif;
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.7;
+  color: var(--fg);
+  font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto,
+    sans-serif;
   overflow-x: clip;
   overflow-y: auto;
   padding-bottom: 0;
@@ -170,7 +97,7 @@ button.button {
   border-radius: 12px;
   border: 2px solid var(--btn-border);
   background: var(--btn-bg);
-  color: var(--white);
+  color: #fff;
   text-decoration: none;
   font-size: clamp(13px, 3.4vw, 18px);
   font-weight: 800;
@@ -194,16 +121,14 @@ button.button:active {
 
 a.button.btn-accent,
 button.button.btn-accent {
-  background: var(--accent);
-  border-color: rgba(255, 255, 255, 0.18);
-  color: var(--white);
+  background: rgba(213, 17, 48, 0.85);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 a.button.btn-accent:hover,
 button.button.btn-accent:hover {
-  background: var(--accent-95);
-  border-color: rgba(255, 255, 255, 0.28);
-  filter: brightness(0.98);
+  background: rgba(213, 17, 48, 0.95);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-icon {
@@ -227,7 +152,7 @@ button.button.btn-accent:hover {
 }
 
 .inline-email a {
-  color: var(--white);
+  color: #fff;
   font-weight: 800;
   text-decoration: underline;
 }
@@ -236,7 +161,7 @@ button.button.btn-accent:hover {
   background: transparent;
   border: 0;
   font: inherit;
-  color: var(--white);
+  color: #fff;
   font-weight: 800;
   text-decoration: underline;
   cursor: pointer;
@@ -250,21 +175,21 @@ button.button.btn-accent:hover {
 
 .copy-badge {
   display: inline-block;
-  background: var(--black-15);
-  border: 1px solid var(--btn-border);
-  border-radius: 8px;
-  border: 1px solid var(--white-12);
-  background: var(--white-04);
-  color: var(--white);
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-weight: 700;
+  font-size: clamp(12px, 3.6vw, 14px);
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
   user-select: none;
-  color: var(--white);
+  color: #fff;
 }
 
 .copy-badge:hover {
-  background: var(--black-25);
-  border-color: var(--btn-border-strong);
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .copy-badge:active {
@@ -275,16 +200,16 @@ button.button.btn-accent:hover {
   margin-top: 8px;
   padding: 8px 10px;
   border-radius: 8px;
-  border: 2px solid var(--btn-border);
-  background: var(--white-08);
-  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
   font-weight: 800;
   cursor: pointer;
   font-size: 13px;
 }
 
 .mini-btn:hover {
-  background: var(--white-14);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 /* Small inline search input used on stores header */
@@ -293,13 +218,13 @@ button.button.btn-accent:hover {
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
-  color: var(--white);
+  color: #fff;
   font-size: 13px;
   min-width: 200px;
 }
 
 .mini-search::placeholder {
-  color: var(--white-60);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .mini-search {
@@ -310,10 +235,10 @@ button.button.btn-accent:hover {
 .mini-search:focus {
   outline: none;
   /* requested focus/active border and color */
-  border: 2px solid var(--btn-border);
-  box-shadow: 0 8px 24px var(--accent-12);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(213, 17, 48, 0.12);
   transform: translateY(-1px);
-  background: var(--white-06);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .mini-search:active {
@@ -354,7 +279,7 @@ button.button.btn-accent:hover {
   padding: 6px 10px;
   border-radius: 8px;
   font-size: 12px;
-  color: var(--white);
+  color: #fff;
   z-index: 100000;
 }
 
@@ -375,11 +300,10 @@ button.button.btn-accent:hover {
 
 h1 {
   text-align: center;
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(26px, 6vw, 40px);
   margin: 0 0 12px;
   letter-spacing: 0.2px;
-  color: var(--heading);
 }
 
 h1.brand {
@@ -443,10 +367,10 @@ h1.brand {
   margin-bottom: 24px;
   border-radius: 18px;
   overflow: hidden;
-  /* use a gentle green-tinted panel rather than pure white */
-  background: var(--panel-bg);
-  color: var(--brand-dark);
-  box-shadow: 0 6px 20px var(--black-20);
+  /* match store-card look: pale/white card with green text */
+  background: rgba(255, 255, 255, 0.95);
+  color: #123123;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .lottery-details summary {
@@ -459,10 +383,10 @@ h1.brand {
   justify-content: space-between;
   gap: 10px;
   /* summary sits on top of the card, keep it visually aligned */
-  background: var(--white-95);
-  border-bottom: 1px solid var(--black-04);
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 18px 18px 0 0;
-  color: var(--brand-green-strong);
+  color: #134b2a;
   list-style: none;
   user-select: none;
 }
@@ -487,7 +411,7 @@ h1.brand {
   font-weight: 700;
   line-height: 1.5;
   text-align: left;
-  color: var(--brand-green);
+  color: #123123;
 }
 
 .lottery-content p {
@@ -503,7 +427,7 @@ h1.brand {
 .lottery-content .lottery-register p {
   margin: 0 0 6px;
   font-weight: 700;
-  color: var(--brand-green);
+  color: #123123;
 }
 .lottery-content .lottery-register .btn-sm.btn-outline,
 .lottery-content .lottery-register .register-link,
@@ -513,7 +437,7 @@ h1.brand {
   margin-top: 6px;
   border: none;
   background: transparent;
-  color: var(--brand-green-strong);
+  color: #134b2a;
   font-weight: 800;
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -523,7 +447,7 @@ h1.brand {
 }
 .lottery-content .lottery-register .btn-sm.btn-outline:hover,
 .lottery-content .lottery-register .register-link:hover {
-  color: var(--brand-green-darker);
+  color: #0f3e24;
   filter: none;
 }
 
@@ -563,7 +487,7 @@ h1.brand {
   margin-top: 6px;
   border: none;
   background: transparent;
-  color: var(--white-90);
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 700;
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -572,7 +496,7 @@ h1.brand {
   text-underline-offset: 2px;
 }
 .button.btn-sm.btn-outline:hover {
-  color: var(--white);
+  color: #fff;
   filter: brightness(0.98);
 }
 
@@ -588,7 +512,7 @@ h1.brand {
   border-radius: 30px 30px 30px 30px;
   background: var(--btn-bg);
   border: 2px solid var(--btn-border);
-  color: var(--white); /* green text on pale background (matches store card) */
+  color: #fff; /* green text on pale background (matches store card) */
   font-weight: 800;
   font-size: clamp(13px, 3.4vw, 16px);
   line-height: 1.1;
@@ -605,10 +529,10 @@ h1.brand {
 
 /* Move the white card background to the inner content so the summary sits on green */
 .landing-page .lottery-details .lottery-content {
-  background: var(--white-95);
-  color: var(--brand-green);
+  background: rgba(255, 255, 255, 0.95);
+  color: #123123;
   border-radius: 0 0 18px 18px;
-  box-shadow: 0 6px 20px var(--black-12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   margin-top: 0;
 }
 
@@ -621,7 +545,7 @@ h1.brand {
   margin-top: 6px;
   border: none;
   background: transparent;
-  color: var(--brand-green-strong);
+  color: #134b2a;
   font-weight: 800;
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -631,7 +555,7 @@ h1.brand {
 }
 .landing-page .lottery-content .register-link:hover,
 .landing-page .lottery-content .btn-sm.btn-outline:hover {
-  color: var(--brand-green-darker);
+  color: #0f3e24;
 }
 
 /* Center the paragraph inside the landing page lottery register area too */
@@ -642,7 +566,7 @@ h1.brand {
 .landing-page .lottery-content .lottery-register p {
   margin: 0 0 6px;
   font-weight: 700;
-  color: var(--brand-green);
+  color: #123123;
   text-align: center;
 }
 
@@ -655,9 +579,9 @@ h1.brand {
 /* Ensure the register form's submit uses the same accent button styling */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
-  background: var(--accent-85);
-  border-color: var(--btn-border);
-  color: var(--white);
+  background: rgba(213, 17, 48, 0.85);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
 }
 
 @media (min-width: 860px) {
@@ -729,7 +653,7 @@ h1.brand {
   align-items: center;
   justify-content: center;
   background: transparent;
-  border-bottom: 1px solid var(--white-15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   padding: 8px 10px;
 }
 
@@ -742,7 +666,7 @@ h1.brand {
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: var(--white-75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Register page - new simple layout */
@@ -756,8 +680,8 @@ h1.brand {
 }
 
 .register-hero {
-  background: var(--white-08);
-  border: 1px solid var(--white-15);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px 16px 0 0;
   padding: clamp(18px, 4vw, 32px);
   margin-bottom: 0;
@@ -782,35 +706,35 @@ h1.brand {
 /* Make the register form visually match the store cards: pale/white panel with green text */
 .register-form-section {
   /* panel background used for inputs and floating labels to harmonize */
-  --panel-bg: var(--panel-bg);
+  --panel-bg: rgba(255, 255, 255, 0.95);
   background: var(--panel-bg);
-  color: var(--brand-dark);
+  color: #123123;
   /* square top so it visually attaches to .register-hero, rounded bottom corners */
   border-radius: 0 0 18px 18px;
   padding: clamp(20px, 4vw, 32px);
   margin-top: 0;
   margin-bottom: 16px;
-  box-shadow: 0 6px 20px var(--black-12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   border: none;
 }
 
 /* Harmonize form labels inside the register panel to use the brand green and keep existing float/focus behaviour */
 .register-form-section .form-label,
 .register-form-section .form-label-static {
-  color: var(--brand-green-strong);
+  color: #134b2a;
 }
 
 /* keep register section labels inheriting global behaviour (no special override) */
 
 /* Make the lottery summary inside the register panel match the green branding */
 .register-form-section .lottery-summary {
-  color: var(--brand-green);
+  color: #123123;
   font-weight: 800;
 }
 
 /* So labels sit nicely on the pale panel: slightly muted green and small padding */
 .register-form-section .form-label {
-  color: var(--brand-green-85);
+  color: rgba(19, 75, 42, 0.85);
   /* make the floating label background match the panel so it visually sits on the same surface */
   background: var(--panel-bg);
   padding: 0 6px;
@@ -820,7 +744,7 @@ h1.brand {
   position: absolute;
   top: 50%;
   left: 10px;
-  color: var(--muted-gray);
+  color: #666;
   font-size: 16px;
   pointer-events: none;
   transform: translateY(-50%);
@@ -831,7 +755,7 @@ h1.brand {
 }
 
 .register-form-section .form-label-static {
-  color: var(--brand-green-strong);
+  color: #134b2a;
 }
 
 .hidden-iframe {
@@ -856,9 +780,9 @@ h1.brand {
   width: 100%;
   padding: 12px;
   /* match the register panel background so inputs sit on the same surface */
-  background: var(--panel-bg, var(--white-95));
-  border: 1px solid var(--black-12);
-  color: var(--brand-dark);
+  background: var(--panel-bg, rgba(255, 255, 255, 0.95));
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #123123;
   font-size: 16px;
   border-radius: 8px;
   outline: none;
@@ -880,7 +804,7 @@ h1.brand {
   top: 0;
   background: var(--accent);
   padding: 0 5px;
-  color: var(--panel-bg, var(--white-95));
+  color: var(--panel-bg, rgba(255, 255, 255, 0.95));
   font-size: 13px;
   border-radius: 8px;
 }
@@ -898,14 +822,14 @@ h1.brand {
   text-align: left;
   font-weight: 700;
   margin-bottom: 10px;
-  color: var(--white);
+  color: #fff;
 }
 
 .lottery-summary {
   text-align: center;
   margin-bottom: 16px;
   font-weight: 700;
-  color: var(--white);
+  color: #fff;
 }
 
 .form-submit button {
@@ -922,7 +846,7 @@ h1.brand {
 }
 
 .form-submit button:hover {
-  background: var(--accent-85);
+  background: rgba(213, 17, 48, 0.85);
 }
 
 .form-submit button[disabled] {
@@ -934,7 +858,7 @@ h1.brand {
    and override the generic `.form-submit button` rules when a `.button` class is present. */
 .form-submit .button.btn-accent,
 .form-submit button.button.btn-accent {
-  background: var(--accent-85);
+  background: rgba(213, 17, 48, 0.85);
   border: 2px solid rgba(255, 255, 255, 0.35);
   color: #fff;
   border-radius: 12px;
@@ -944,8 +868,8 @@ h1.brand {
 /* Make the register form's accent button hover match landing hover behavior */
 .form-submit .button.btn-accent:hover,
 .form-submit button.button.btn-accent:hover {
-  background: var(--accent-95);
-  border-color: var(--btn-border-strong);
+  background: rgba(213, 17, 48, 0.95);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 @media (max-width: 640px) {
@@ -975,7 +899,7 @@ h1.brand {
   background: var(--panel);
   border-radius: 15px;
   overflow: visible;
-  box-shadow: 0 4px 10px var(--black-30);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   margin: 0 auto;
 }
 
@@ -1066,7 +990,7 @@ h1.brand {
   position: absolute;
   top: 50%;
   left: 10px;
-  color: var(--placeholder-gray);
+  color: #bebebe;
   font-size: 16px;
   pointer-events: none;
   transform: translateY(-50%);
@@ -1131,7 +1055,7 @@ h1.brand {
   width: 18px;
   height: 18px;
   margin: 0 8px 0 0;
-  accent-color: var(--brand-green-strong);
+  accent-color: #134b2a;
 }
 
 /* Compact separators for options to reduce 'air' */
@@ -1152,7 +1076,7 @@ h1.brand {
   width: 100%;
   padding: 12px 0;
   background: var(--accent);
-  color: var(--ink-dark);
+  color: #111;
   font-size: 16px;
   font-weight: 700;
   border: none;
@@ -1162,7 +1086,7 @@ h1.brand {
 }
 
 .form-submit button:hover {
-  background: var(--accent-yellow);
+  background: #dcb514;
 }
 
 .form-submit button[disabled] {
@@ -1174,9 +1098,9 @@ h1.brand {
   text-align: center;
   padding: 20px;
   border-radius: 10px;
-  background: var(--shade-333);
+  background: #333;
   color: var(--muted);
-  box-shadow: 0 4px 8px var(--black-20);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   animation: fadeIn 1.25s ease-in-out;
 }
 
@@ -1238,11 +1162,11 @@ h1.brand {
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  background: var(--shade-333);
+  background: #333;
   color: var(--muted);
   font-weight: 700;
   list-style: none;
-  border-bottom: 1px solid var(--white-04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .register-page .faq-section details[open] > summary {
@@ -1250,7 +1174,7 @@ h1.brand {
 }
 
 .register-page .faq-section .icon {
-  background: var(--shade-444);
+  background: #444;
   color: var(--muted);
   border-radius: 50%;
   width: 30px;
@@ -1273,8 +1197,8 @@ h1.brand {
 }
 
 .register-page .faq-body {
-  background: var(--shade-444);
-  color: var(--cream);
+  background: #444;
+  color: #f4eadf;
   padding: 0 15px;
   font-size: 14px;
   line-height: 1.6;
@@ -1367,13 +1291,13 @@ h1.brand {
   gap: 6px;
   font-weight: 700;
   margin-bottom: 16px;
-  color: var(--white-85);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .stores-back-link:hover {
-  color: var(--white);
+  color: #fff;
 }
 
 .stores-hero {
@@ -1415,9 +1339,9 @@ h1.brand {
 }
 
 .hq-card {
-  background: var(--white-12);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  border: 1px solid var(--white-15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: clamp(18px, 4vw, 28px);
   margin-bottom: 24px;
   display: flex;
@@ -1444,10 +1368,10 @@ h1.brand {
 }
 
 .stores-grid-section {
-  background: var(--white-08);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 18px;
   padding: clamp(18px, 4vw, 30px);
-  border: 1px solid var(--white-12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .stores-grid-section > header {
@@ -1460,7 +1384,7 @@ h1.brand {
 }
 
 .stores-state {
-  background: var(--black-25);
+  background: rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   padding: 14px;
   text-align: center;
@@ -1481,7 +1405,7 @@ h1.brand {
 }
 
 .stores-state.error {
-  border: 1px solid var(--accent-45);
+  border: 1px solid rgba(213, 17, 48, 0.45);
 }
 
 .stores-grid {
@@ -1523,7 +1447,7 @@ input.mini-search::-webkit-search-cancel-button {
   height: 18px;
   margin-right: 6px;
   background: transparent center/12px no-repeat
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-opacity='0.9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='0.9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>");
   opacity: 0.9;
 }
 
@@ -1559,11 +1483,11 @@ input.mini-search::-ms-clear {
 }
 
 .store-card {
-  background: var(--panel-bg-strong);
-  color: var(--brand-dark);
+  background: rgba(255, 255, 255, 0.9);
+  color: #123123;
   border-radius: 18px;
   padding: 18px;
-  box-shadow: 0 6px 20px var(--black-20);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1571,7 +1495,7 @@ input.mini-search::-ms-clear {
 
 .store-card h3 {
   margin: 4px 0 0;
-  color: var(--brand-dark);
+  color: #134b2a;
 }
 
 .store-tag {
@@ -1579,12 +1503,12 @@ input.mini-search::-ms-clear {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--black-55);
+  color: rgba(0, 0, 0, 0.55);
 }
 
 .store-address {
   margin: 0;
-  color: var(--black-75);
+  color: rgba(0, 0, 0, 0.75);
 }
 
 .store-contact {
@@ -1598,13 +1522,13 @@ input.mini-search::-ms-clear {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--black-45);
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .store-contact dd {
   margin: 2px 0 0;
   font-weight: 700;
-  color: var(--black-75);
+  color: rgba(0, 0, 0, 0.75);
 }
 
 .store-contact-link {
@@ -1614,7 +1538,7 @@ input.mini-search::-ms-clear {
   text-decoration-thickness: 1px;
 }
 .store-contact-link:hover {
-  color: var(--brand-green-strong);
+  color: #134b2a;
 }
 
 .store-actions {
@@ -1628,9 +1552,9 @@ input.mini-search::-ms-clear {
   text-align: center;
   padding: 8px 10px;
   border-radius: 10px;
-  border: 1px solid var(--black-15);
-  background: var(--surface-very-light);
-  color: var(--brand-green-strong);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #f7fff5;
+  color: #134b2a;
   font-weight: 700;
   text-decoration: none;
   font-size: 14px;
@@ -1639,23 +1563,23 @@ input.mini-search::-ms-clear {
 
 .store-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px var(--black-15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .store-btn--messenger {
-  background: var(--pale-blue);
-  color: var(--brand-blue);
+  background: #e6f1ff;
+  color: #0b63d1;
 }
 
 .store-btn--instagram {
-  background: var(--pale-pink);
-  color: var(--brand-pink);
+  background: #ffeef6;
+  color: #d43f8d;
 }
 
 .store-copy {
   border: 0;
-  background: var(--brand-green-strong);
-  color: var(--white);
+  background: #134b2a;
+  color: #fff;
   padding: 10px 12px;
   border-radius: 10px;
   font-weight: 700;
