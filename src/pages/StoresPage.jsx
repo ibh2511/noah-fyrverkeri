@@ -556,7 +556,7 @@ export default function StoresPage() {
                         </a>
                       </div>
                       <div className="manual-hint">
-                        !!! Disse må legges til manuelt !!!
+                        !!! Msg og inst dm linker må legges til manuelt !!!
                       </div>
                       <button
                         type="button"

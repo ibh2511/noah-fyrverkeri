@@ -61,7 +61,7 @@ body {
   color: var(--fg);
   font-family: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto,
     sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   overflow-x: clip;
   overflow-y: auto;
   padding-bottom: 0;
@@ -814,7 +814,7 @@ h1.brand {
 .form-group textarea:focus + .form-label,
 .form-group textarea.has-content + .form-label {
   top: 0;
-  background: var(--accent-orange);
+  background: var(--bg);
   padding: 0 5px;
   color: var(--panel-bg, rgba(255, 255, 255, 0.95));
   font-size: 13px;
