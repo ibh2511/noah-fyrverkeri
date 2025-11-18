@@ -993,7 +993,7 @@ h1.brand {
 .register-page .form-group textarea:focus,
 .register-page .form-group input.has-content,
 .register-page .form-group textarea.has-content {
-  border-color: var(--accent-orange);
+  border-color: var(--bg);
 }
 
 .register-page .form-label {
@@ -1012,7 +1012,7 @@ h1.brand {
 .register-page .form-group textarea:focus + .form-label,
 .register-page .form-group textarea.has-content + .form-label {
   top: 0;
-  background: var(--accent-orange);
+  background: var(--bg);
   padding: 0 5px;
   color: var(--panel);
   font-size: 13px;
