@@ -13,7 +13,7 @@ const HERO_IMAGES = [
     alt: "Søt hund som ser skeptisk ut",
   },
   {
-    src: `${import.meta.env.BASE_URL}images/firework.jpg`,
+    src: `${import.meta.env.BASE_URL}images/no-firework.png`,
     alt: "Frivillige som deler ut kampanjemateriell",
   },
 ]
